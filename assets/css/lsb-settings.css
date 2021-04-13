@@ -1,0 +1,62 @@
+.laposta-show-list {
+    list-style: inherit;
+    padding-left: 1em;
+}
+
+.laposta-code {
+    padding: .5em;
+    margin: .5em 0;
+    display: block;
+}
+
+.lsb-settings {
+    max-width: 768px;
+}
+
+.lsb-settings section {
+    margin-top: 3em;
+}
+
+.lsb-settings__reset-cache-result {
+    margin-left: 1em;
+}
+
+.lsb-settings__error-title {
+    color: darkred;
+}
+
+.lsb-settings__list {
+    display: inline-block;
+    background: gray;
+    color: white;
+    padding: 6px;
+    margin-right: 1.4em;
+    margin-bottom: 1.4em;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.lsb-settings__list:hover {
+    opacity: .8;
+    color: white;
+}
+
+.lsb-settings__lists-shortcode-example {
+    margin-top: 0;
+}
+
+.lsb-settings__class-type-custom {
+    padding-left: 2em;
+}
+
+.lsb-settings__inline-css-label {
+    display: block;
+    font-weight: bold;
+}
+
+.lsb-settings__inline-css-input {
+    width: 100%;
+    min-height: 200px;
+}
