@@ -72,6 +72,7 @@ abstract class BaseController
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $data[$key] = $this->sanitizeData($value);
+                continue;
             }
             $data[$key] = sanitize_text_field($value);
         }

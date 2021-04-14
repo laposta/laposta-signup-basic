@@ -124,7 +124,7 @@ EOL;
         $nonceAction = crc32($listId);
         $hasErrors = false;
         $globalError = null;
-        $submittedListId = isset($_GET['lsb_form_submit']) ? sanitize_text_field($_GET['lsb_form_submit']) : null;
+        $submittedListId = isset($_POST['lsb_form_submit']) ? sanitize_text_field($_POST['lsb_form_submit']) : null;
         $formPosted = $submittedListId === $listId; // multiple forms can be included on the same page
         if ($formPosted) {
             // sanitize form fields
