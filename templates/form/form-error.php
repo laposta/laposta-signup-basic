@@ -8,11 +8,11 @@
 
 <?php if ($inlineCss): ?>
     <style>
-        <?= $inlineCss ?>
+        <?php echo $inlineCss ?>
     </style>
 <?php endif ?>
 
-<div class="lsb-form-global-error <?= $globalErrorClass ?>">
+<div class="lsb-form-global-error <?php echo $globalErrorClass ?>">
     Laposta Signup Basic foutmelding:<br>
-    <?= esc_html($errorMessage) ?>
+    <?php echo esc_html($errorMessage) ?>
 </div>
