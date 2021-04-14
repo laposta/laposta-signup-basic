@@ -244,9 +244,9 @@ EOL;
         }
 
         if ($addDatepickerAssets) {
-            wp_enqueue_style('flatpickr_4.6.9', 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css');
-            wp_enqueue_script('flatpickr_4.6.9', 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js');
-            wp_enqueue_script('flatpickr_l10n.nl', 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/nl.js');
+            wp_enqueue_style('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/flatpickr.min.css', [], '4.6.9');
+            wp_enqueue_script('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/flatpickr.min.js', [], '4.6.9');
+            wp_enqueue_script('flatpickr_l10n_nl', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/l10n/nl.js', [], '4.6.9');
         }
     }
 
