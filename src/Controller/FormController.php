@@ -40,7 +40,7 @@ class FormController extends BaseController
             ]);
         }
 
-        $listId = $atts['list_id'];
+        $listId = sanitize_text_field($atts['list_id']);
         $listFields = $dataService->getListFields($listId);
         if (isset($listFields['error'])) {
             $this->addAssets($addDefaultStyling, false);
@@ -124,14 +124,11 @@ EOL;
         $nonceAction = crc32($listId);
         $hasErrors = false;
         $globalError = null;
-        $formPosted = false;
-        if (isset($_POST['lsb_form_submit']) && $_POST['lsb_form_submit'] === $listId) {
-            // multiple forms can be included on the same page
-            $formPosted = true;
-        }
-
+        $submittedListId = isset($_GET['lsb_form_submit']) ? sanitize_text_field($_GET['lsb_form_submit']) : null;
+        $formPosted = $submittedListId === $listId; // multiple forms can be included on the same page
         if ($formPosted) {
-            $submittedFieldValues = $_POST['lsb'][$listId];
+            // sanitize form fields
+            $submittedFieldValues = $this->sanitizeData(sanitize_post($_POST['lsb'][$listId]));
 
             // check validity for nonce and honeypot
             $validNonce = false !== wp_verify_nonce($submittedFieldValues[self::FIELD_NAME_NONCE], $nonceAction);
@@ -143,14 +140,6 @@ EOL;
 
             // keep the actual api form field values
             $submittedFieldValues = array_intersect_key($submittedFieldValues, $fieldValues);
-
-            // sanitize
-            array_walk($submittedFieldValues, function(&$val) {
-                if (!is_array($val)) {
-                    // there's no need to sanitize array values since the Laposta api will check for string matches
-                    $val = strip_tags($val);
-                }
-            });
 
             // set field values to match the submitted values
             foreach ($fieldValues as $key => $fieldValue) {

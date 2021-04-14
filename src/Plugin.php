@@ -116,7 +116,7 @@ class Plugin
 
     public function handleAjaxRequest()
     {
-        $route = $_GET['route'] ?? null;
+        $route = isset($_GET['route']) ? sanitize_key($_GET['route']) : null;
         if (!$route) {
             die();
         }
