@@ -13,11 +13,11 @@
  * @var string $checkLabelClass (sanitized)
  * @var string $submitButtonClass (sanitized)
  * @var string $inlineCss (sanitized)
- * @var array $fieldValues
+ * @var array $fieldValues (sanitized)
  * @var bool $hasErrors
  * @var string $globalError (sanitized)
  * @var bool $hasDateFields
- * @var string $globalErrorClass
+ * @var string $globalErrorClass (sanitized)
  * @var string $fieldNameHoneypot
  * @var string $fieldNameNonce
  * @var string $nonce
@@ -27,14 +27,14 @@
 
 <?php if ($inlineCss): ?>
     <style>
-        <?= $inlineCss ?>
+        <?php echo $inlineCss ?>
     </style>
 <?php endif ?>
-<form class="<?= $formClass ?> lsb-list-id-<?= $listId ?>" method="post">
+<form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?>" method="post">
 
     <?php if ($globalError): ?>
-        <div class="lsb-form-global-error <?= $globalErrorClass ?>">
-            <?= $globalError ?>
+        <div class="lsb-form-global-error <?php echo $globalErrorClass ?>">
+            <?php echo $globalError ?>
         </div>
     <?php endif ?>
 
@@ -66,48 +66,48 @@
                 $label.='*';
             }
         ?>
-        <div class="<?= $fieldWrapperClass ?> lsb-field-tag-<?= $field['key'] ?> lsb-field-type-<?= $fieldType ?>">
+        <div class="<?php echo $fieldWrapperClass ?> lsb-field-tag-<?php echo esc_attr($field['key']) ?> lsb-field-type-<?php echo $fieldType ?>">
 
             <?php if ($fieldType === 'select'): ?>
-                <label for="<?= $uniqueFieldKey ?>" class="<?= $labelClass ?>"><?= $label ?></label>
+                <label for="<?php echo $uniqueFieldKey ?>" class="<?php echo $labelClass ?>"><?php echo $label ?></label>
                 <select
-                    class="<?= $selectClass ?>"
-                    id="<?= $uniqueFieldKey ?>"
-                    name="<?= $fieldName ?>"
+                    class="<?php echo $selectClass ?>"
+                    id="<?php echo $uniqueFieldKey ?>"
+                    name="<?php echo $fieldName ?>"
                     <?php if ($field['required']): ?>required="required"<?php endif ?>
                 >
                     <option value="">Maak een keuze</option>
                     <?php foreach ($field['options_full'] as $option): ?>
                         <option
-                            value="<?= esc_html($option['value']) ?>"
+                            value="<?php echo esc_html($option['value']) ?>"
                             <?php if ($fieldValue === $option['value']): ?>selected="selected"<?php endif ?>>
-                            <?= esc_html($option['value']) ?>
+                            <?php echo esc_html($option['value']) ?>
                         </option>
                     <?php endforeach ?>
                 </select>
 
             <?php elseif ($fieldType === 'radio' || $fieldType === 'checkbox'): ?>
-                <p class="<?= $labelClass ?>"><?= $label ?></p>
-                <div class="<?= $checksWrapperClass ?>">
+                <p class="<?php echo $labelClass ?>"><?php echo $label ?></p>
+                <div class="<?php echo $checksWrapperClass ?>">
                     <?php foreach ($field['options_full'] as $check): ?>
                         <?php
                             $checked =
                                 ($fieldValue === $check['value']) ||
                                 (is_array($fieldValue) && in_array($check['value'], $fieldValue));
                         ?>
-                        <div class="<?= $checkWrapperClass ?> id-<?= esc_attr($check['id']) ?>">
+                        <div class="<?php echo $checkWrapperClass ?> id-<?php echo esc_attr($check['id']) ?>">
                             <input
-                                class="<?= $checkInputClass ?>"
-                                id="<?= esc_attr($uniqueFieldKey.$check['id']) ?>"
-                                type="<?= $fieldType ?>"
-                                value="<?= esc_attr($check['value']) ?>"
-                                name="<?= $fieldName ?>"
+                                class="<?php echo $checkInputClass ?>"
+                                id="<?php echo esc_attr($uniqueFieldKey.$check['id']) ?>"
+                                type="<?php echo $fieldType ?>"
+                                value="<?php echo esc_attr($check['value']) ?>"
+                                name="<?php echo $fieldName ?>"
                                 <?php if ($checked): ?>checked="checked"<?php endif ?>
                             >
                             <label
-                                for="<?= esc_attr($uniqueFieldKey.$check['id']) ?>"
-                                class="<?= $checkLabelClass ?>">
-                                <?= esc_html($check['value']) ?>
+                                for="<?php echo esc_attr($uniqueFieldKey.$check['id']) ?>"
+                                class="<?php echo $checkLabelClass ?>">
+                                <?php echo esc_html($check['value']) ?>
                             </label>
                         </div>
                     <?php endforeach ?>
@@ -120,13 +120,13 @@
                         $fieldType = 'text';
                     }
                 ?>
-                <label for="<?= $uniqueFieldKey ?>" class="<?= $labelClass ?>"><?= $label ?></label>
+                <label for="<?php echo $uniqueFieldKey ?>" class="<?php echo $labelClass ?>"><?php echo $label ?></label>
                 <input
-                    id="<?= $uniqueFieldKey ?>"
-                    type="<?= $fieldType === 'date' ? 'text' : $fieldType // avoid browser specific behavior ?>"
-                    class="<?= $inputClass ?> <?php if ($fieldType === 'date'): ?>js-lsb-datepicker<?php endif ?>"
-                    value="<?= $fieldValue ?>"
-                    name="<?= $fieldName ?>"
+                    id="<?php echo $uniqueFieldKey ?>"
+                    type="<?php echo $fieldType === 'date' ? 'text' : $fieldType // avoid browser specific behavior ?>"
+                    class="<?php echo $inputClass ?> <?php if ($fieldType === 'date'): ?>js-lsb-datepicker<?php endif ?>"
+                    value="<?php echo $fieldValue ?>"
+                    name="<?php echo $fieldName ?>"
                     <?php if ($field['required']): ?>required="required"<?php endif ?>
                     <?php if ($fieldType === 'number'): ?>step="any"<?php endif ?>
                     <?php if ($fieldType === 'date'): ?>placeholder="dd-mm-jjjj"<?php endif ?>
@@ -136,12 +136,12 @@
     <?php endforeach; ?>
 
     <?php $fieldName = "lsb[$listId][$fieldNameHoneypot]"; ?>
-    <input autocomplete="new-password" type="email" id="<?= $fieldName ?>" name="<?= $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;">
+    <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;">
 
     <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
-    <input type="hidden" name="<?= $fieldName ?>" value="<?= $nonce ?>">
+    <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>">
 
-    <button class="<?= $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?= $listId ?>">Aanmelden</button>
+    <button class="<?php echo $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?php echo $listId ?>">Aanmelden</button>
 
     <?php if ($hasDateFields): ?>
         <script>

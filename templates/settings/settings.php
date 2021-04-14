@@ -17,7 +17,7 @@ use Laposta\SignupBasic\Service\DataService;
 
 ?>
 
-<div class="lsb-settings wrap" data-reset-cache-url="<?= esc_url($refreshCacheUrl) ?>">
+<div class="lsb-settings wrap" data-reset-cache-url="<?php echo esc_url($refreshCacheUrl) ?>">
 
     <h1>Laposta Signup Basic Instellingen</h1>
 
@@ -27,8 +27,8 @@ use Laposta\SignupBasic\Service\DataService;
         <section>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><label for="<?= Plugin::OPTION_API_KEY ?>">API key</label></th>
-                    <td><input type="text" name="<?= Plugin::OPTION_API_KEY ?>" id="<?= Plugin::OPTION_API_KEY ?>" value="<?= esc_html($apiKey) ?>"></td>
+                    <th scope="row"><label for="<?php echo Plugin::OPTION_API_KEY ?>">API key</label></th>
+                    <td><input type="text" name="<?php echo Plugin::OPTION_API_KEY ?>" id="<?php echo Plugin::OPTION_API_KEY ?>" value="<?php echo esc_html($apiKey) ?>"></td>
                 </tr>
                 <tr>
                     <th scope="row">Zijn er velden aangepast of gaat er iets mis?</th>
@@ -42,7 +42,7 @@ use Laposta\SignupBasic\Service\DataService;
                 <h2 class="lsb-settings__error-title">Foutmelding</h2>
                 <p class="lsb-settings__error-text">
                     Helaas is er iets misgegaan. Bekijk deze foutmelding: <br>
-                    <?= esc_html($statusMessage) ?>
+                    <?php echo esc_html($statusMessage) ?>
                 </p>
             </section>
         <?php endif; ?>
@@ -58,12 +58,12 @@ use Laposta\SignupBasic\Service\DataService;
                 </p>
                 <h4>Klik op een lijst om de shortcode van die lijst te zien.</h4>
                 <?php foreach ($lists as $list): ?>
-                    <a class="lsb-settings__list js-list" href="#" data-list-id="<?= esc_attr($list['list_id']) ?>">
-                        <?= esc_html($list['name']) ?>
+                    <a class="lsb-settings__list js-list" href="#" data-list-id="<?php echo esc_attr($list['list_id']) ?>">
+                        <?php echo esc_html($list['name']) ?>
                     </a>
                 <?php endforeach ?>
                 <code class="laposta-code lsb-settings__lists-shortcode-example js-shortcode-example" style="display: none">
-                    [<?= Plugin::SHORTCODE_RENDER_FORM ?> list_id="<span class="js-shortcode-example-list-id"></span>"]
+                    [<?php echo Plugin::SHORTCODE_RENDER_FORM ?> list_id="<span class="js-shortcode-example-list-id"></span>"]
                 </code>
             </section>
 
@@ -75,12 +75,12 @@ use Laposta\SignupBasic\Service\DataService;
                         <div class="lsb-settings__class-type-item">
                             <input class="lsb-settings__class-type-input js-class-type-input"
                                    type="radio"
-                                   name="<?= Plugin::OPTION_CLASS_TYPE ?>"
-                                   id="class_type_<?= $key ?>"
-                                   value="<?= $key ?>"
+                                   name="<?php echo Plugin::OPTION_CLASS_TYPE ?>"
+                                   id="class_type_<?php echo $key ?>"
+                                   value="<?php echo $key ?>"
                                    <?php if (get_option(Plugin::OPTION_CLASS_TYPE) === $key): ?>checked="checked"<?php endif ?>
                             >
-                            <label for="class_type_<?= $key ?>"><?= esc_html($val) ?></label>
+                            <label for="class_type_<?php echo $key ?>"><?php echo esc_html($val) ?></label>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -103,101 +103,101 @@ use Laposta\SignupBasic\Service\DataService;
                     </p>
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_FORM ?>">Form class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FORM ?>">Form class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_FORM ?>"
-                                       id="<?= Plugin::OPTION_CLASS_FORM ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_FORM)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_FORM ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_FORM ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FORM)) ?>"
                                        placeholder="form-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_FIELD_WRAPPER ?>">Field wrapper class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>">Field wrapper class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
-                                       id="<?= Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER)) ?>"
                                        placeholder="field-wrapper-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_INPUT ?>">Input class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_INPUT ?>">Input class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_INPUT ?>"
-                                       id="<?= Plugin::OPTION_CLASS_INPUT ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_INPUT)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_INPUT ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_INPUT ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_INPUT)) ?>"
                                        placeholder="input-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_LABEL ?>">Label class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LABEL ?>">Label class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_LABEL ?>"
-                                       id="<?= Plugin::OPTION_CLASS_LABEL ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_LABEL)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_LABEL ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_LABEL ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_LABEL)) ?>"
                                        placeholder="label-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_SELECT ?>">Select class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SELECT ?>">Select class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_SELECT ?>"
-                                       id="<?= Plugin::OPTION_CLASS_SELECT ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SELECT)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_SELECT ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_SELECT ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SELECT)) ?>"
                                        placeholder="select-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>">Wrapper class for collection of radio/checkboxes fields</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>">Wrapper class for collection of radio/checkboxes fields</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
-                                       id="<?= Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER)) ?>"
                                        placeholder="checks-wrapper-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_CHECK_WRAPPER ?>">Wrapper class for single radio/checkbox field</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>">Wrapper class for single radio/checkbox field</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
-                                       id="<?= Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER)) ?>"
                                        placeholder="check-wrapper-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_CHECK_INPUT ?>">Radio/checkbox input class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>">Radio/checkbox input class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_CHECK_INPUT ?>"
-                                       id="<?= Plugin::OPTION_CLASS_CHECK_INPUT ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_INPUT)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_INPUT)) ?>"
                                        placeholder="check-input-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_CHECK_LABEL ?>">Radio/checkbox label class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>">Radio/checkbox label class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_CHECK_LABEL ?>"
-                                       id="<?= Plugin::OPTION_CLASS_CHECK_LABEL ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_LABEL)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_LABEL)) ?>"
                                        placeholder="check-label-class"
                                 >
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?= Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>">Button class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>">Button class</label></th>
                             <td><input type="text"
-                                       name="<?= Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
-                                       id="<?= Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
-                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON)) ?>"
+                                       name="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON)) ?>"
                                        placeholder="button-class"
                                 >
                             </td>
@@ -248,11 +248,11 @@ use Laposta\SignupBasic\Service\DataService;
             <section class="lsb-settings__inline-css">
                 <h2>Inline CSS</h2>
                 <p>In dit veld kunt u eigen CSS invoeren. De CSS zal uitsluitend inline worden toegevoegd op pagina's waar de shortcode wordt toegevoegd.</p>
-                <label class="lsb-settings__inline-css-label" for="<?= Plugin::OPTION_INLINE_CSS ?>">Inline css invoerveld</label>
+                <label class="lsb-settings__inline-css-label" for="<?php echo Plugin::OPTION_INLINE_CSS ?>">Inline css invoerveld</label>
                 <textarea
                     class="lsb-settings__inline-css-input"
-                    name="<?= Plugin::OPTION_INLINE_CSS ?>"
-                    id="<?= Plugin::OPTION_INLINE_CSS ?>"
+                    name="<?php echo Plugin::OPTION_INLINE_CSS ?>"
+                    id="<?php echo Plugin::OPTION_INLINE_CSS ?>"
                     placeholder=".lsb-list-id-12345 .eigen-label-class {
     font-weight: bold;
 }
@@ -261,75 +261,75 @@ use Laposta\SignupBasic\Service\DataService;
     font-color: red;
 }
 "
-                ><?= esc_html(get_option(Plugin::OPTION_INLINE_CSS, '')) ?></textarea>
+                ><?php echo esc_html(get_option(Plugin::OPTION_INLINE_CSS, '')) ?></textarea>
             </section>
 
             <section class="lsb-settings__misc">
                 <h2>Overige instellingen</h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
                         <td><input
                                 type="text"
-                                name="<?= Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                id="<?= Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
+                                name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
                                 placeholder="global-error-class"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>">Successfully subscribed wrapper class</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>">Successfully subscribed wrapper class</label></th>
                         <td><input
                                     type="text"
-                                    name="<?= Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
-                                    id="<?= Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
-                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER)) ?>"
+                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
+                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER)) ?>"
                                     placeholder="success-wrapper-class"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_CLASS_SUCCESS_TITLE ?>">Successfully subscribed title class</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>">Successfully subscribed title class</label></th>
                         <td><input
                                     type="text"
-                                    name="<?= Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
-                                    id="<?= Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
-                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE)) ?>"
+                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
+                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE)) ?>"
                                     placeholder="success-title-class"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_CLASS_SUCCESS_TEXT ?>">Successfully subscribed text class</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>">Successfully subscribed text class</label></th>
                         <td><input
                                     type="text"
-                                    name="<?= Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
-                                    id="<?= Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
-                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT)) ?>"
+                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
+                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT)) ?>"
                                     placeholder="success-text-class"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_SUCCESS_TITLE ?>">Successfully subscribed title</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>">Successfully subscribed title</label></th>
                         <td><input
                                     type="text"
-                                    name="<?= Plugin::OPTION_SUCCESS_TITLE ?>"
-                                    id="<?= Plugin::OPTION_SUCCESS_TITLE ?>"
-                                    value="<?= esc_attr(get_option(Plugin::OPTION_SUCCESS_TITLE)) ?>"
+                                    name="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>"
+                                    id="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_SUCCESS_TITLE)) ?>"
                                     placeholder="Succesvol aangemeld"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?= Plugin::OPTION_SUCCESS_TEXT ?>">Successfully subscribed text</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>">Successfully subscribed text</label></th>
                         <td><textarea
-                                    name="<?= Plugin::OPTION_SUCCESS_TEXT ?>"
-                                    id="<?= Plugin::OPTION_SUCCESS_TEXT ?>"
+                                    name="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
+                                    id="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
                                     placeholder="Het aanmelden is gelukt."
                                     rows="=3"
-                            ><?= esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
+                            ><?php echo esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
                         </td>
                     </tr>
 

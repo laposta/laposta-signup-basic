@@ -11,11 +11,11 @@
 
 <?php if ($inlineCss): ?>
     <style>
-        <?= $inlineCss ?>
+        <?php echo $inlineCss ?>
     </style>
 <?php endif ?>
 
-<div class="lsb-success <?= $successWrapperClass ?>">
-    <h2 class="lsb-success-title <?= $successTitleClass ?>"><?= $successTitle ?></h2>
-    <p class="lsb-success-text <?= $successTitleClass ?>"><?= $successText ?></p>
+<div class="lsb-success <?php echo $successWrapperClass ?>">
+    <h2 class="lsb-success-title <?php echo $successTitleClass ?>"><?php echo $successTitle ?></h2>
+    <p class="lsb-success-text <?php echo $successTitleClass ?>"><?php echo $successText ?></p>
 </div>
