@@ -17,7 +17,7 @@ use Laposta\SignupBasic\Service\DataService;
 
 ?>
 
-<div class="lsb-settings wrap" data-reset-cache-url="<?= $refreshCacheUrl ?>">
+<div class="lsb-settings wrap" data-reset-cache-url="<?= esc_url($refreshCacheUrl) ?>">
 
     <h1>Laposta Signup Basic Instellingen</h1>
 
@@ -28,7 +28,7 @@ use Laposta\SignupBasic\Service\DataService;
             <table class="form-table">
                 <tr>
                     <th scope="row"><label for="<?= Plugin::OPTION_API_KEY ?>">API key</label></th>
-                    <td><input type="text" name="<?= Plugin::OPTION_API_KEY ?>" id="<?= Plugin::OPTION_API_KEY ?>" value="<?= $apiKey ?>"></td>
+                    <td><input type="text" name="<?= Plugin::OPTION_API_KEY ?>" id="<?= Plugin::OPTION_API_KEY ?>" value="<?= esc_html($apiKey) ?>"></td>
                 </tr>
                 <tr>
                     <th scope="row">Zijn er velden aangepast of gaat er iets mis?</th>
@@ -42,7 +42,7 @@ use Laposta\SignupBasic\Service\DataService;
                 <h2 class="lsb-settings__error-title">Foutmelding</h2>
                 <p class="lsb-settings__error-text">
                     Helaas is er iets misgegaan. Bekijk deze foutmelding: <br>
-                    <?= $statusMessage ?>
+                    <?= esc_html($statusMessage) ?>
                 </p>
             </section>
         <?php endif; ?>
@@ -58,8 +58,8 @@ use Laposta\SignupBasic\Service\DataService;
                 </p>
                 <h4>Klik op een lijst om de shortcode van die lijst te zien.</h4>
                 <?php foreach ($lists as $list): ?>
-                    <a class="lsb-settings__list js-list" href="#" data-list-id="<?= $list['list_id'] ?>">
-                        <?= $list['name'] ?>
+                    <a class="lsb-settings__list js-list" href="#" data-list-id="<?= esc_attr($list['list_id']) ?>">
+                        <?= esc_html($list['name']) ?>
                     </a>
                 <?php endforeach ?>
                 <code class="laposta-code lsb-settings__lists-shortcode-example js-shortcode-example" style="display: none">
@@ -71,6 +71,7 @@ use Laposta\SignupBasic\Service\DataService;
                 <h2 class="lsb-settings__class-types-title">Wat voor styles wilt u hanteren voor de formuliervelden?</h2>
                 <div class="lsb-settings__class-type-items">
                     <?php foreach ($classTypes as $key => $val): ?>
+                    <?php $key = esc_attr($key) ?>
                         <div class="lsb-settings__class-type-item">
                             <input class="lsb-settings__class-type-input js-class-type-input"
                                    type="radio"
@@ -79,7 +80,7 @@ use Laposta\SignupBasic\Service\DataService;
                                    value="<?= $key ?>"
                                    <?php if (get_option(Plugin::OPTION_CLASS_TYPE) === $key): ?>checked="checked"<?php endif ?>
                             >
-                            <label for="class_type_<?= $key ?>"><?= $val ?></label>
+                            <label for="class_type_<?= $key ?>"><?= esc_html($val) ?></label>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -106,7 +107,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_FORM ?>"
                                        id="<?= Plugin::OPTION_CLASS_FORM ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_FORM) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_FORM)) ?>"
                                        placeholder="form-class"
                                 >
                             </td>
@@ -116,7 +117,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
                                        id="<?= Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER)) ?>"
                                        placeholder="field-wrapper-class"
                                 >
                             </td>
@@ -126,7 +127,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_INPUT ?>"
                                        id="<?= Plugin::OPTION_CLASS_INPUT ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_INPUT) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_INPUT)) ?>"
                                        placeholder="input-class"
                                 >
                             </td>
@@ -136,7 +137,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_LABEL ?>"
                                        id="<?= Plugin::OPTION_CLASS_LABEL ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_LABEL) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_LABEL)) ?>"
                                        placeholder="label-class"
                                 >
                             </td>
@@ -146,7 +147,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_SELECT ?>"
                                        id="<?= Plugin::OPTION_CLASS_SELECT ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_SELECT) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SELECT)) ?>"
                                        placeholder="select-class"
                                 >
                             </td>
@@ -156,7 +157,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
                                        id="<?= Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER)) ?>"
                                        placeholder="checks-wrapper-class"
                                 >
                             </td>
@@ -166,7 +167,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
                                        id="<?= Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER)) ?>"
                                        placeholder="check-wrapper-class"
                                 >
                             </td>
@@ -176,7 +177,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_CHECK_INPUT ?>"
                                        id="<?= Plugin::OPTION_CLASS_CHECK_INPUT ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_CHECK_INPUT) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_INPUT)) ?>"
                                        placeholder="check-input-class"
                                 >
                             </td>
@@ -186,7 +187,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_CHECK_LABEL ?>"
                                        id="<?= Plugin::OPTION_CLASS_CHECK_LABEL ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_CHECK_LABEL) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_CHECK_LABEL)) ?>"
                                        placeholder="check-label-class"
                                 >
                             </td>
@@ -196,7 +197,7 @@ use Laposta\SignupBasic\Service\DataService;
                             <td><input type="text"
                                        name="<?= Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
                                        id="<?= Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
-                                       value="<?= get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON) ?>"
+                                       value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON)) ?>"
                                        placeholder="button-class"
                                 >
                             </td>
@@ -260,7 +261,7 @@ use Laposta\SignupBasic\Service\DataService;
     font-color: red;
 }
 "
-                ><?= get_option(Plugin::OPTION_INLINE_CSS, '') ?></textarea>
+                ><?= esc_html(get_option(Plugin::OPTION_INLINE_CSS, '')) ?></textarea>
             </section>
 
             <section class="lsb-settings__misc">
@@ -272,7 +273,7 @@ use Laposta\SignupBasic\Service\DataService;
                                 type="text"
                                 name="<?= Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
                                 id="<?= Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                value="<?= get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR) ?>"
+                                value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
                                 placeholder="global-error-class"
                             >
                         </td>
@@ -283,7 +284,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     type="text"
                                     name="<?= Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
                                     id="<?= Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
-                                    value="<?= get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER) ?>"
+                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER)) ?>"
                                     placeholder="success-wrapper-class"
                             >
                         </td>
@@ -294,7 +295,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     type="text"
                                     name="<?= Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
                                     id="<?= Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
-                                    value="<?= get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE) ?>"
+                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE)) ?>"
                                     placeholder="success-title-class"
                             >
                         </td>
@@ -305,7 +306,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     type="text"
                                     name="<?= Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
                                     id="<?= Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
-                                    value="<?= get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT) ?>"
+                                    value="<?= esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT)) ?>"
                                     placeholder="success-text-class"
                             >
                         </td>
@@ -316,7 +317,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     type="text"
                                     name="<?= Plugin::OPTION_SUCCESS_TITLE ?>"
                                     id="<?= Plugin::OPTION_SUCCESS_TITLE ?>"
-                                    value="<?= get_option(Plugin::OPTION_SUCCESS_TITLE) ?>"
+                                    value="<?= esc_attr(get_option(Plugin::OPTION_SUCCESS_TITLE)) ?>"
                                     placeholder="Succesvol aangemeld"
                             >
                         </td>
@@ -328,7 +329,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     id="<?= Plugin::OPTION_SUCCESS_TEXT ?>"
                                     placeholder="Het aanmelden is gelukt."
                                     rows="=3"
-                            ><?= get_option(Plugin::OPTION_SUCCESS_TEXT) ?></textarea>
+                            ><?= esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
                         </td>
                     </tr>
 
