@@ -54,6 +54,11 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Changelog ==
 
+= 1.0.1 =
+
+* Minor text fixes in plugin settings
+
+
 = 1.0.0 =
 
 * Plugin initialised
