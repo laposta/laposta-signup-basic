@@ -217,8 +217,6 @@ use Laposta\SignupBasic\Service\DataService;
                     .lsb-form-field-wrapper<br>
                     .lsb-form-label<br>
                     .lsb-form-input<br>
-                    .lsb-form-input<br>
-                    .lsb-form-checks<br>
                     .lsb-form-checks<br>
                     .lsb-form-check<br>
                     .lsb-form-check-input<br>
@@ -253,12 +251,12 @@ use Laposta\SignupBasic\Service\DataService;
                     class="lsb-settings__inline-css-input"
                     name="<?php echo Plugin::OPTION_INLINE_CSS ?>"
                     id="<?php echo Plugin::OPTION_INLINE_CSS ?>"
-                    placeholder=".lsb-list-id-12345 .eigen-label-class {
+                    placeholder=".lsb-list-id-a1uwtjapfg .lsb-form-label {
     font-weight: bold;
 }
 
-.gekozen-field-wrapper-class.field-type-email .gekozen-label-class {
-    font-color: red;
+.lsb-form-field-wrapper.lsb-field-type-email .lsb-form-label {
+    font-size: 1.2em;
 }
 "
                 ><?php echo esc_html(get_option(Plugin::OPTION_INLINE_CSS, '')) ?></textarea>
@@ -328,7 +326,7 @@ use Laposta\SignupBasic\Service\DataService;
                                     name="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
                                     id="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
                                     placeholder="Het aanmelden is gelukt."
-                                    rows="=3"
+                                    rows="3"
                             ><?php echo esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
                         </td>
                     </tr>
