@@ -7,8 +7,8 @@ Plugin Name: Laposta Signup Basic
 Plugin URI: http://laposta.nl/documentatie/wordpress.524.html
 Description: Laposta is programma waarmee je gemakkelijk en snel nieuwsbrieven kunt maken en versturen. Met deze plugin kun je je aanmeldformulieren eenvoudig aan je website toevoegen en aanpassen met behulp van CSS.
 Version: 1.0.1
-Author: Websiteopmaat.nl - Roel Bousardt
-Author URI: https://websiteopmaat.nl/contact
+Author: Laposta - Roel Bousardt
+Author URI: https://laposta.nl/contact
 License: BSD 2-Clause License
 */
 
