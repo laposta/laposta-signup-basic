@@ -37,7 +37,7 @@ use Laposta\SignupBasic\Service\DataService;
             </table>
         </section>
 
-        <?php if ($status !== DataService::STATUS_OK): ?>
+        <?php if ($status && $status !== DataService::STATUS_OK): ?>
             <section class="lsb-settings__error">
                 <h2 class="lsb-settings__error-title">Foutmelding</h2>
                 <p class="lsb-settings__error-text">

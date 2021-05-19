@@ -38,12 +38,16 @@ class SettingsController extends BaseController
     {
         $dataService = $this->c->getDataService();
 
+        $apiKey = $dataService->getApiKey();
+        $lists = $apiKey ? $dataService->getLists() : null;
+        $status = $apiKey ? $dataService->getStatus() : null;
+
         $this->addAssets();
         $this->showTemplate('/settings/settings.php', [
             'optionGroup' => Plugin::OPTION_GROUP,
-            'apiKey' => $dataService->getApiKey(),
-            'lists' => $dataService->getLists(),
-            'status' => $dataService->getStatus(),
+            'apiKey' => $apiKey,
+            'lists' => $lists,
+            'status' => $status,
             'statusMessage' => $dataService->getStatusMessage(),
             'refreshCacheUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=settings_reset_cache',
             'classTypes' => $dataService->getClassTypesKeyValuePairs(),
