@@ -266,13 +266,24 @@ use Laposta\SignupBasic\Service\DataService;
                 <h2>Overige instellingen</h2>
                 <table class="form-table">
                     <tr>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>">Submit button text</label></th>
+                        <td><input
+                                    type="text"
+                                    name="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"
+                                    id="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)) ?>"
+                                    placeholder="Aanmelden"
+                            >
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
                         <td><input
-                                type="text"
-                                name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
-                                placeholder="global-error-class"
+                                    type="text"
+                                    name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                    id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
+                                    placeholder="global-error-class"
                             >
                         </td>
                     </tr>
@@ -330,7 +341,6 @@ use Laposta\SignupBasic\Service\DataService;
                             ><?php echo esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
                         </td>
                     </tr>
-
                 </table>
             </section>
         </div>

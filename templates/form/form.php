@@ -12,6 +12,7 @@
  * @var string $checkInputClass (sanitized)
  * @var string $checkLabelClass (sanitized)
  * @var string $submitButtonClass (sanitized)
+ * @var string $submitButtonText (sanitized)
  * @var string $inlineCss (sanitized)
  * @var array $fieldValues (sanitized)
  * @var bool $hasErrors
@@ -141,7 +142,7 @@
     <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
     <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>">
 
-    <button class="<?php echo $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?php echo $listId ?>">Aanmelden</button>
+    <button class="<?php echo $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?php echo $listId ?>"><?php echo $submitButtonText ?></button>
 
     <?php if ($hasDateFields): ?>
         <script>

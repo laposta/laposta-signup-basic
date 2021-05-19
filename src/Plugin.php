@@ -31,6 +31,7 @@ class Plugin
     const OPTION_CLASS_CHECK_INPUT = 'laposta_signup_basic_class_check_input';
     const OPTION_CLASS_CHECK_LABEL = 'laposta_signup_basic_class_check_label';
     const OPTION_CLASS_SUBMIT_BUTTON = 'laposta_signup_basic_class_submit_button';
+    const OPTION_SUBMIT_BUTTON_TEXT = 'laposta_signup_basic_submit_button_text';
     const OPTION_CLASS_GLOBAL_ERROR = 'laposta_signup_basic_class_global_error';
     const OPTION_CLASS_SUCCESS_WRAPPER = 'laposta_signup_basic_class_success_wrapper';
     const OPTION_CLASS_SUCCESS_TITLE = 'laposta_signup_basic_class_success_title';
@@ -38,8 +39,6 @@ class Plugin
     const OPTION_SUCCESS_TITLE = 'laposta_signup_basic_success_title';
     const OPTION_SUCCESS_TEXT = 'laposta_signup_basic_success_text';
     const OPTION_INLINE_CSS = 'laposta_signup_basic_inline_css';
-
-
 
     public function __construct(Container $container)
     {
@@ -88,6 +87,7 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_INPUT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_LABEL);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUBMIT_BUTTON);
+        register_setting(self::OPTION_GROUP, self::OPTION_SUBMIT_BUTTON_TEXT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_GLOBAL_ERROR);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_TITLE);

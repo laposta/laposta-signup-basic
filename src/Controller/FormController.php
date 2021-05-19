@@ -201,6 +201,9 @@ EOL;
             }
         }
 
+        $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
+        $submitButtonText = $submitButtonText ?: 'Aanmelden';
+
         $this->addAssets($addDefaultStyling, $hasDateFields);
         return $this->getRenderedTemplate('/form/form.php', [
             'listId' => $listId,
@@ -220,6 +223,7 @@ EOL;
             'hasDateFields' => $hasDateFields,
             'hasErrors' => $hasErrors,
             'globalError' => $globalError,
+            'submitButtonText' => $submitButtonText,
             'fieldNameHoneypot' => self::FIELD_NAME_HONEYPOT,
             'fieldNameNonce' => self::FIELD_NAME_NONCE,
             'nonce' => wp_create_nonce($nonceAction),

@@ -4,7 +4,7 @@ Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe,
 Requires at least: 4.7
 Tested up to: 5.7
 Requires PHP: 7.1
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -47,12 +47,17 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Upgrade Notice ==
 
-= 1.0.1 =
+= 1.1.0 =
 
-* Minor text fixes in plugin settings
+* The submit button text can be provided in the plugin settings
 
 
 == Changelog ==
+
+= 1.1.0 =
+
+* The submit button text can be provided in the plugin settings
+
 
 = 1.0.1 =
 
