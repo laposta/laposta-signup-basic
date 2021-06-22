@@ -15,9 +15,11 @@ class Plugin
 
     const SHORTCODE_RENDER_FORM = 'laposta_signup_basic_form';
     const SLUG_SETTINGS = 'laposta_signup_basic_settings';
+
     const TRANSIENT_LISTS = 'laposta_lists';
     const TRANSIENT_STATUS = 'laposta_status';
     const TRANSIENT_LIST_FIELDS_PREFIX = 'laposta_list_fields_';
+
     const OPTION_GROUP = 'laposta_signup_basic';
     const OPTION_API_KEY = 'laposta-api_key';
     const OPTION_CLASS_TYPE = 'laposta_signup_basic_class_type'; // bootstrap v4, v5 or custom
@@ -39,6 +41,8 @@ class Plugin
     const OPTION_SUCCESS_TITLE = 'laposta_signup_basic_success_title';
     const OPTION_SUCCESS_TEXT = 'laposta_signup_basic_success_text';
     const OPTION_INLINE_CSS = 'laposta_signup_basic_inline_css';
+
+    const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
 
     public function __construct(Container $container)
     {
@@ -99,10 +103,14 @@ class Plugin
 
     public function addMenu()
     {
+        $defaultCapability = 'manage_options';
+        $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, $defaultCapability);
+        $actualCapability = is_string($actualCapability) ? $actualCapability : $defaultCapability;
+
         add_options_page(
             'Laposta Signup Basic',
             'Laposta Signup Basic',
-            'manage_options',
+            $actualCapability,
             self::SLUG_SETTINGS,
             [$this->c->getSettingsController(), 'renderSettings']
         );
