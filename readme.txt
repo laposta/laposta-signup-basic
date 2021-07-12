@@ -47,14 +47,14 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Upgrade Notice ==
 
-= 1.2.1 =
+= 1.2.2 =
 
 * Fix for the action "reset cache" not respecting the filter "laposta_signup_basic_settings_page_capability".
 
 
 == Changelog ==
 
-= 1.2.1 =
+= 1.2.2 =
 
 * Fix for the action "reset cache" not respecting the filter "laposta_signup_basic_settings_page_capability".
 
