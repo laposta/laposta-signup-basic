@@ -42,6 +42,7 @@ class Plugin
     const OPTION_SUCCESS_TEXT = 'laposta_signup_basic_success_text';
     const OPTION_INLINE_CSS = 'laposta_signup_basic_inline_css';
 
+    const DEFAULT_CAPABILITY = 'manage_options';
     const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
 
     public function __construct(Container $container)
@@ -103,9 +104,8 @@ class Plugin
 
     public function addMenu()
     {
-        $defaultCapability = 'manage_options';
-        $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, $defaultCapability);
-        $actualCapability = is_string($actualCapability) ? $actualCapability : $defaultCapability;
+        $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, self::DEFAULT_CAPABILITY);
+        $actualCapability = is_string($actualCapability) ? $actualCapability : self::DEFAULT_CAPABILITY;
 
         add_options_page(
             'Laposta Signup Basic',
@@ -129,15 +129,11 @@ class Plugin
             die();
         }
 
-        $content = file_get_contents('php://input');
-        $data = null;
-        if ($content) {
-            $data = json_decode($content, true);
-        }
-
+        $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, self::DEFAULT_CAPABILITY);
+        $actualCapability = is_string($actualCapability) ? $actualCapability : self::DEFAULT_CAPABILITY;
         switch ($route) {
             case 'settings_reset_cache':
-                if (user_can(wp_get_current_user(), 'manage_options')) {
+                if (user_can(wp_get_current_user(), $actualCapability)) {
                     return $this->c->getSettingsController()->ajaxResetCache();
                 }
                 break;

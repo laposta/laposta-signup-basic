@@ -42,7 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 use Laposta\SignupBasic\Container\Container;
 
-define('LAPOSTA_SIGNUP_BASIC_VERSION', '1.2.0');
+define('LAPOSTA_SIGNUP_BASIC_VERSION', '1.2.1');
 
 if (!function_exists('add_action')) {
     echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
