@@ -214,7 +214,7 @@ class DataService
                     }
                 }
                 usort($listFields, function($a, $b) {
-                    return $a['pos'] > $b['pos'];
+                    return $a['pos'] <=> $b['pos'];
                 });
                 $this->setListFields($listId, $listFields);
 

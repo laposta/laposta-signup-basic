@@ -39,7 +39,7 @@ class SettingsController extends BaseController
         $dataService = $this->c->getDataService();
 
         $apiKey = $dataService->getApiKey();
-        $lists = $apiKey ? $dataService->getLists() : null;
+        $lists = $apiKey ? $dataService->getLists() : [];
         $status = $apiKey ? $dataService->getStatus() : null;
 
         $this->addAssets();
