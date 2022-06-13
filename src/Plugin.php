@@ -7,12 +7,6 @@ use Laposta\SignupBasic\Service\RequestHelper;
 
 class Plugin
 {
-
-    /**
-     * @var Container
-     */
-    protected $c;
-
     const SHORTCODE_RENDER_FORM = 'laposta_signup_basic_form';
     const SLUG_SETTINGS = 'laposta_signup_basic_settings';
 
@@ -45,9 +39,34 @@ class Plugin
     const DEFAULT_CAPABILITY = 'manage_options';
     const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
 
+    /**
+     * @var Container
+     */
+    protected $c;
+
+    /**
+     * @var string
+     */
+    protected $rootDir;
+
+    /**
+     * @var string
+     */
+    protected $rootUrl;
+
+    /**
+     * @var string
+     */
+    protected $pluginBaseName;
+
+
     public function __construct(Container $container)
     {
         $this->c = $container;
+
+        $this->rootDir = realpath(__DIR__.'/..');
+        $this->rootUrl = plugin_dir_url($this->rootDir.'/laposta-signup-basic.php');
+        $this->pluginBaseName = plugin_basename($this->rootDir.'/laposta-signup-basic.php');
 
         $this->defineConstants();
         $this->init();
@@ -55,12 +74,9 @@ class Plugin
 
     protected function defineConstants()
     {
-        $rootDir = realpath(__DIR__.'/..');
-        $rootUrl = plugin_dir_url($rootDir.'/laposta-signup-basic.php');
-
-        define('LAPOSTA_SIGNUP_BASIC_ROOT_DIR', $rootDir);
-        define('LAPOSTA_SIGNUP_BASIC_TEMPLATE_DIR', $rootDir.DIRECTORY_SEPARATOR.'templates');
-        define('LAPOSTA_SIGNUP_BASIC_ASSETS_URL', $rootUrl.'assets');
+        define('LAPOSTA_SIGNUP_BASIC_ROOT_DIR', $this->rootDir);
+        define('LAPOSTA_SIGNUP_BASIC_TEMPLATE_DIR', $this->rootDir.DIRECTORY_SEPARATOR.'templates');
+        define('LAPOSTA_SIGNUP_BASIC_ASSETS_URL', $this->rootUrl.'assets');
         define('LAPOSTA_SIGNUP_BASIC_AJAX_ACTION', 'laposta_signup_basic_ajax');
         define('LAPOSTA_SIGNUP_BASIC_AJAX_URL', admin_url('admin-ajax.php').'?action='.LAPOSTA_SIGNUP_BASIC_AJAX_ACTION);
         define('LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION', LAPOSTA_SIGNUP_BASIC_VERSION);
@@ -70,10 +86,10 @@ class Plugin
     public function init()
     {
         if (is_admin()) {
-            add_action('admin_init', array($this, 'adminInit'));
-            add_action('admin_menu', array($this, 'addMenu'));
+            add_action('admin_init', [$this, 'adminInit']);
+            add_filter("plugin_action_links_{$this->pluginBaseName}", [$this, 'setPluginActionLinks']);
+            add_action('admin_menu', [$this, 'addMenu']);
         }
-
         add_shortcode(self::SHORTCODE_RENDER_FORM, [$this->c->getFormController(), 'renderFormByShortcode']);
         $this->addAjaxRoutes();
     }
@@ -100,6 +116,12 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_SUCCESS_TITLE);
         register_setting(self::OPTION_GROUP, self::OPTION_SUCCESS_TEXT);
         register_setting(self::OPTION_GROUP, self::OPTION_INLINE_CSS);
+    }
+
+    public function setPluginActionLinks($links) {
+        $settingsLink = '<a href="options-general.php?page='.self::SLUG_SETTINGS.'">Settings</a>';
+        array_unshift($links, $settingsLink);
+        return $links;
     }
 
     public function addMenu()
@@ -142,5 +164,36 @@ class Plugin
         RequestHelper::returnJson(['status' => 'error', 'message' => 'Route error'], 400);
     }
 
+    /**
+     * @return Container
+     */
+    public function getC(): Container
+    {
+        return $this->c;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootDir(): string
+    {
+        return $this->rootDir;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootUrl(): string
+    {
+        return $this->rootUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPluginBaseName(): string
+    {
+        return $this->pluginBaseName;
+    }
 
 }
