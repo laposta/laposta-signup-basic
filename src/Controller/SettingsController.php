@@ -8,6 +8,8 @@ use Laposta\SignupBasic\Plugin;
 class SettingsController extends BaseController
 {
 
+	const NONCE_ACTION_RESET_CACHE = 'lsb-reset-cache';
+
     /**
      * @var Container
      */
@@ -42,6 +44,7 @@ class SettingsController extends BaseController
         $lists = $apiKey ? $dataService->getLists() : [];
 		$lists = $lists ?: [];
         $status = $apiKey ? $dataService->getStatus() : null;
+		$resetCacheNonce = wp_create_nonce(self::NONCE_ACTION_RESET_CACHE);
 
         $this->addAssets();
         $this->showTemplate('/settings/settings.php', [
@@ -50,17 +53,18 @@ class SettingsController extends BaseController
             'lists' => $lists,
             'status' => $status,
             'statusMessage' => $dataService->getStatusMessage(),
-            'refreshCacheUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=settings_reset_cache',
+            'refreshCacheUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=settings_reset_cache&reset_cache_none='.$resetCacheNonce,
             'classTypes' => $dataService->getClassTypesKeyValuePairs(),
         ]);
     }
 
     public function ajaxResetCache()
     {
-        $dataService = $this->c->getDataService();
-        $dataService->emptyAllCache();
-
-//        RequestHelper::returnJson(['status' => 'success']);
+		$nonce = $_GET['reset_cache_none'] ?? null;
+		if (wp_verify_nonce($nonce, self::NONCE_ACTION_RESET_CACHE)) {
+			$dataService = $this->c->getDataService();
+			$dataService->emptyAllCache();
+		}
     }
 
     public function addAssets()
