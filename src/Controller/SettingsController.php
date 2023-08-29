@@ -42,9 +42,9 @@ class SettingsController extends BaseController
 
         $apiKey = $dataService->getApiKey();
         $lists = $apiKey ? $dataService->getLists() : [];
-		$lists = $lists ?: [];
+        $lists = $lists ?: [];
         $status = $apiKey ? $dataService->getStatus() : null;
-		$resetCacheNonce = wp_create_nonce(self::NONCE_ACTION_RESET_CACHE);
+        $resetCacheNonce = wp_create_nonce(self::NONCE_ACTION_RESET_CACHE);
 
         $this->addAssets();
         $this->showTemplate('/settings/settings.php', [
