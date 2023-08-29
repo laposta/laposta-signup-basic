@@ -232,7 +232,7 @@ use Laposta\SignupBasic\Service\DataService;
                     <code class="laposta-code">&lt;form class="lsb-form lsb-list-id-[listId]"&gt;</code>
                     Waarbij [listId] vervangen wordt voor het id van de lijst.
                 </p>
-                <p>Verder krijgen de field wrappers als extra class de relatievariabele (tag) van dat specifieke veld mee, alsmede de het veld type:
+                <p>Verder krijgen de field wrappers als extra class de relatievariabele (tag) van dat specifieke veld mee, alsmede het veld type:
                     <code class="laposta-code">&lt;div class="lsb-field-tag-[tag] lsb-field-type-[fieldType] [misc-classes]"&gt;</code>
                     Waarbij [tag] vervangen wordt voor de relatievariebele (tag) van de lijst, <br>
                     [fieldType] wordt vervangen voor het type veld (text, email, number, date, select, radio, checkbox)<br>
