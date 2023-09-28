@@ -60,9 +60,9 @@ class SettingsController extends BaseController
 
     public function ajaxResetCache()
     {
+        $dataService = $this->c->getDataService();
         $nonce = $_GET['reset_cache_none'] ?? null;
         if (wp_verify_nonce($nonce, self::NONCE_ACTION_RESET_CACHE)) {
-            $dataService = $this->c->getDataService();
             $dataService->emptyAllCache();
         }
     }

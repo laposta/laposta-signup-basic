@@ -223,6 +223,7 @@ EOL;
             'hasDateFields' => $hasDateFields,
             'hasErrors' => $hasErrors,
             'globalError' => $globalError,
+            'globalErrorClass' => $globalErrorClass,
             'submitButtonText' => $submitButtonText,
             'fieldNameHoneypot' => self::FIELD_NAME_HONEYPOT,
             'fieldNameNonce' => self::FIELD_NAME_NONCE,
