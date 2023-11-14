@@ -57,9 +57,17 @@ class Container
         return $this->dataService;
     }
 
+    protected function requireRequestHelper()
+    {
+        if (!class_exists('Laposta\\SignupBasic\\Service\\RequestHelper')) {
+            require_once realpath(__DIR__.'/../Service').'/RequestHelper.php';
+        }
+    }
+
     protected function requireBaseController()
     {
         if (!class_exists('Laposta\\SignupBasic\\Controller\\BaseController')) {
+            $this->requireRequestHelper();
             require_once realpath(__DIR__.'/../Controller').'/BaseController.php';
         }
     }

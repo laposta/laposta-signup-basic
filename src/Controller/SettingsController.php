@@ -53,7 +53,7 @@ class SettingsController extends BaseController
             'lists' => $lists,
             'status' => $status,
             'statusMessage' => $dataService->getStatusMessage(),
-            'refreshCacheUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=settings_reset_cache&reset_cache_none='.$resetCacheNonce,
+            'refreshCacheUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=settings_reset_cache&reset_cache_nonce='.$resetCacheNonce,
             'classTypes' => $dataService->getClassTypesKeyValuePairs(),
         ]);
     }
@@ -61,7 +61,7 @@ class SettingsController extends BaseController
     public function ajaxResetCache()
     {
         $dataService = $this->c->getDataService();
-        $nonce = $_GET['reset_cache_none'] ?? null;
+        $nonce = $_GET['reset_cache_nonce'] ?? null;
         if (wp_verify_nonce($nonce, self::NONCE_ACTION_RESET_CACHE)) {
             $dataService->emptyAllCache();
         }

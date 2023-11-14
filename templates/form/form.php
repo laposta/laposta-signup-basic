@@ -11,17 +11,18 @@
  * @var string $checkWrapperClass (sanitized)
  * @var string $checkInputClass (sanitized)
  * @var string $checkLabelClass (sanitized)
+ * @var string $submitButtonAndLoaderWrapperClass (sanitized)
  * @var string $submitButtonClass (sanitized)
  * @var string $submitButtonText (sanitized)
+ * @var string $loaderClass (sanitized)
  * @var string $inlineCss (sanitized)
  * @var array $fieldValues (sanitized)
- * @var bool $hasErrors
- * @var string $globalError (sanitized)
  * @var bool $hasDateFields
  * @var string $globalErrorClass (sanitized)
  * @var string $fieldNameHoneypot
  * @var string $fieldNameNonce
  * @var string $nonce
+ * @var string $formPostUrl
  *
  */
 ?>
@@ -31,14 +32,11 @@
         <?php echo $inlineCss ?>
     </style>
 <?php endif ?>
-<form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?>" method="post">
 
-    <?php if ($globalError): ?>
-        <div class="lsb-form-global-error <?php echo $globalErrorClass ?>">
-            <?php echo $globalError ?>
-        </div>
-    <?php endif ?>
-
+<form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?> js-lsb-form"
+      method="post"
+      data-form-post-url="<?php echo $formPostUrl ?>"
+>
     <?php foreach ($listFields as $field): ?>
         <?php
             $fieldType = $field['datatype'];
@@ -142,7 +140,14 @@
     <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
     <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>">
 
-    <button class="<?php echo $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?php echo $listId ?>"><?php echo $submitButtonText ?></button>
+    <div class="lsb-form-global-error <?php echo $globalErrorClass ?>" style="display: none"></div>
+
+    <div class="lsb-button-and-loader-wrapper <?= $submitButtonAndLoaderWrapperClass ?>">
+        <button class="<?php echo $submitButtonClass ?>" type="submit" name="lsb_form_submit" value="<?php echo $listId ?>">
+            <?php echo $submitButtonText ?>
+        </button>
+        <span class="<?php echo $loaderClass ?>" style="display: none"></span>
+    </div>
 
     <?php if ($hasDateFields): ?>
         <script>

@@ -17,6 +17,7 @@ class Plugin
     const OPTION_GROUP = 'laposta_signup_basic';
     const OPTION_API_KEY = 'laposta-api_key';
     const OPTION_CLASS_TYPE = 'laposta_signup_basic_class_type'; // bootstrap v4, v5 or custom
+    const OPTION_ADD_CLASSES = 'laposta_signup_basic_add_classes';
     const OPTION_CLASS_FORM = 'laposta_signup_basic_class_form';
     const OPTION_CLASS_FIELD_WRAPPER = 'laposta_signup_basic_class_field_wrapper';
     const OPTION_CLASS_INPUT = 'laposta_signup_basic_class_input';
@@ -26,8 +27,10 @@ class Plugin
     const OPTION_CLASS_CHECK_WRAPPER = 'laposta_signup_basic_class_check_wrapper';
     const OPTION_CLASS_CHECK_INPUT = 'laposta_signup_basic_class_check_input';
     const OPTION_CLASS_CHECK_LABEL = 'laposta_signup_basic_class_check_label';
+    const OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER = 'laposta_signup_basic_class_submit_button_and_loader_wrapper';
     const OPTION_CLASS_SUBMIT_BUTTON = 'laposta_signup_basic_class_submit_button';
     const OPTION_SUBMIT_BUTTON_TEXT = 'laposta_signup_basic_submit_button_text';
+    const OPTION_CLASS_LOADER = 'laposta_signup_basic_class_loader';
     const OPTION_CLASS_GLOBAL_ERROR = 'laposta_signup_basic_class_global_error';
     const OPTION_CLASS_SUCCESS_WRAPPER = 'laposta_signup_basic_class_success_wrapper';
     const OPTION_CLASS_SUCCESS_TITLE = 'laposta_signup_basic_class_success_title';
@@ -98,6 +101,7 @@ class Plugin
     {
         register_setting(self::OPTION_GROUP, self::OPTION_API_KEY);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_TYPE);
+        register_setting(self::OPTION_GROUP, self::OPTION_ADD_CLASSES);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FORM);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FIELD_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_INPUT);
@@ -107,8 +111,10 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_INPUT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_LABEL);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUBMIT_BUTTON);
         register_setting(self::OPTION_GROUP, self::OPTION_SUBMIT_BUTTON_TEXT);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_LOADER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_GLOBAL_ERROR);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_TITLE);
@@ -154,6 +160,8 @@ class Plugin
         $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, self::DEFAULT_CAPABILITY);
         $actualCapability = is_string($actualCapability) ? $actualCapability : self::DEFAULT_CAPABILITY;
         switch ($route) {
+            case 'form_submit':
+                return $this->c->getFormController()->ajaxFormPost();
             case 'settings_reset_cache':
                 if (user_can(wp_get_current_user(), $actualCapability)) {
                     return $this->c->getSettingsController()->ajaxResetCache();

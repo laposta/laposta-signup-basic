@@ -68,7 +68,7 @@ use Laposta\SignupBasic\Service\DataService;
             </section>
 
             <section class="lsb-settings__class-types">
-                <h2 class="lsb-settings__class-types-title">Wat voor styles wilt u hanteren voor de formuliervelden?</h2>
+                <h2 class="lsb-settings__class-types-title">Wat voor opmaak wilt u hanteren voor de formuliervelden?</h2>
                 <div class="lsb-settings__class-type-items">
                     <?php foreach ($classTypes as $key => $val): ?>
                     <?php $key = esc_attr($key) ?>
@@ -84,21 +84,63 @@ use Laposta\SignupBasic\Service\DataService;
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="lsb-settings__class-type-custom js-external-classes-section"
+
+                <div class="lsb-settings__class-type-custom js-default-classes-info"
+                    <?php if (
+                        get_option(Plugin::OPTION_CLASS_TYPE) !== DataService::CLASS_TYPE_DEFAULT): ?>
+                        style="display: none"
+                    <?php endif ?>
+                >
+                    <h4>Uitleg bij onze default</h4>
+                    <p>Gebruik deze optie om onze default opmaak te laden.</p>
+                </div>
+
+                <div class="lsb-settings__class-type-custom js-external-classes-info"
                     <?php if (
                             get_option(Plugin::OPTION_CLASS_TYPE) !== DataService::CLASS_TYPE_BOOTSTRAP_V4 &&
                             get_option(Plugin::OPTION_CLASS_TYPE) !== DataService::CLASS_TYPE_BOOTSTRAP_V5): ?>
                         style="display: none"
-                    <?php endif ?>>
+                    <?php endif ?>
+                >
                     <h4>Uitleg bij bootstrap</h4>
-                    <p>Gebruik deze optie als bootstrap is gebruikt in uw Wordpress theme. Om mogelijke conflicten te voorkomen laden wij deze styling niet in.</p>
+                    <p>Gebruik deze optie als bootstrap is gebruikt in uw Wordpress theme, wij zullen dan de passende bootstrap classes toevoegen. Om mogelijke conflicten te voorkomen laden wij deze opmaak niet in.</p>
                 </div>
-                <div class="lsb-settings__class-type-custom js-custom-classes-section"
-                    <?php if (get_option(Plugin::OPTION_CLASS_TYPE) !== DataService::CLASS_TYPE_CUSTOM): ?>
+
+                <div class="lsb-settings__class-type-custom js-custom-classes-info"
+                    <?php if (
+                        get_option(Plugin::OPTION_CLASS_TYPE) !== DataService::CLASS_TYPE_CUSTOM): ?>
                         style="display: none"
-                    <?php endif ?>>
-                    <h4>Handmatig instellen van classes</h4>
-                    <p>Hieronder kunt u per element de css class bepalen. Het is mogelijk om meerdere classes toe te voegen door middel van een spatie. Bv:<br>
+                    <?php endif ?>
+                >
+                    <h4>Uitleg bij handmatig instellen</h4>
+                    <p>Bij deze optie worden er geen css bestanden ingeladen. Je bent dan zelf volledig verantwoordelijk voor de opmaak.</p>
+                </div>
+
+                <div class="lsb-settings__class-type-custom js-add-classes-section">
+                    <h4>Wilt u extra classes toevoegen?</h4>
+                    <p>Wij voegen al classes toe aan elk element (zie kopje 'Uitleg over de classes'). Als u kiest voor 'ja', heeft u de mogelijkheid extra classes toe te voegen.</p>
+                    <?php
+                    $addClassesOptionVal = get_option(Plugin::OPTION_ADD_CLASSES, '');
+                    $addClassesOptionVal = $addClassesOptionVal === '' ? '1' : $addClassesOptionVal; // if empty set to checked, best BC option
+                    foreach (['0' => 'nee', '1' => 'ja'] as $key => $val): $key = (string)$key; ?>
+                        <input class="lsb-settings__class-type-input js-add-classes-input"
+                               type="radio"
+                               name="<?php echo Plugin::OPTION_ADD_CLASSES ?>"
+                               id="add_class_<?php echo $key ?>"
+                               value="<?php echo $key ?>"
+                               <?php if ($addClassesOptionVal === $key): ?>checked<?php endif ?>
+                        >
+                        <label for="add_class_<?php echo $key ?>"><?php echo esc_html($val) ?></label>
+                    <?php endforeach ?>
+                </div>
+
+                <div class="lsb-settings__class-type-custom js-custom-classes-section"
+                    <?php if ($addClassesOptionVal !== '1'): ?>
+                        style="display: none"
+                    <?php endif ?>
+                >
+                    <h4>Extra classes toevoegen</h4>
+                    <p>Hieronder kunt u per element css classes toevoegen. Het is mogelijk om meerdere classes toe te voegen door middel van een spatie. Bv:<br>
                         my-class1 my-class2
                     </p>
                     <table class="form-table">
@@ -193,6 +235,17 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>">Submit button and loader wrapper class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER)) ?>"
+                                        placeholder="submit-button-and-loader-wrapper-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
                             <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>">Button class</label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
@@ -202,7 +255,61 @@ use Laposta\SignupBasic\Service\DataService;
                                 >
                             </td>
                         </tr>
-
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LOADER ?>">Loader class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_LOADER ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_LOADER ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_LOADER)) ?>"
+                                        placeholder="loader-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
+                                        placeholder="global-error-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>">Successfully subscribed wrapper class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER)) ?>"
+                                        placeholder="success-wrapper-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>">Successfully subscribed title class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE)) ?>"
+                                        placeholder="success-title-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>">Successfully subscribed text class</label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT)) ?>"
+                                        placeholder="success-text-class"
+                                >
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </section>
@@ -210,7 +317,7 @@ use Laposta\SignupBasic\Service\DataService;
             <section>
                 <h2>Uitleg over de classes</h2>
                 <p>
-                    Hieronder zit u een overzicht van de basisclasses die we gebruiken:
+                    Hieronder zit u een overzicht van de basisclasses die we gebruiken, deze worden standaard toegevoegd:
                 </p>
                 <code class="laposta-code">
                     .lsb-form<br>
@@ -221,7 +328,9 @@ use Laposta\SignupBasic\Service\DataService;
                     .lsb-form-check<br>
                     .lsb-form-check-input<br>
                     .lsb-form-check-label<br>
+                    .lsb-button-and-loader-wrapper<br>
                     .lsb-form-button<br>
+                    .lsb-loader<br>
                     .lsb-form-global-error<br>
                     .lsb-success<br>
                     .lsb-success-title<br>
@@ -236,7 +345,7 @@ use Laposta\SignupBasic\Service\DataService;
                     <code class="laposta-code">&lt;div class="lsb-field-tag-[tag] lsb-field-type-[fieldType] [misc-classes]"&gt;</code>
                     Waarbij [tag] vervangen wordt voor de relatievariebele (tag) van de lijst, <br>
                     [fieldType] wordt vervangen voor het type veld (text, email, number, date, select, radio, checkbox)<br>
-                    en [misc-classes] wordt vervangen voor class die hoort bij de gekozen styles + onze eigen class 'lsb-form-field-wrapper'.
+                    en [misc-classes] wordt vervangen voor class die hoort bij de gekozen opmaak + onze eigen class 'lsb-form-field-wrapper' + optioneel de extra toegevoegde classes zoals ingesteld onder het kopje 'Extra classes toevoegen'.
                     <br>
                     Door deze combinatie van unieke formulier- en veldeigenschappen kunt u ieder veld apart beïnvloeden met behulp van CSS.
                 </p>
@@ -273,50 +382,6 @@ use Laposta\SignupBasic\Service\DataService;
                                     id="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"
                                     value="<?php echo esc_attr(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)) ?>"
                                     placeholder="Aanmelden"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
-                        <td><input
-                                    type="text"
-                                    name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                    id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
-                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
-                                    placeholder="global-error-class"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>">Successfully subscribed wrapper class</label></th>
-                        <td><input
-                                    type="text"
-                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
-                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
-                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER)) ?>"
-                                    placeholder="success-wrapper-class"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>">Successfully subscribed title class</label></th>
-                        <td><input
-                                    type="text"
-                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
-                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
-                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE)) ?>"
-                                    placeholder="success-title-class"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>">Successfully subscribed text class</label></th>
-                        <td><input
-                                    type="text"
-                                    name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
-                                    id="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
-                                    value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT)) ?>"
-                                    placeholder="success-text-class"
                             >
                         </td>
                     </tr>

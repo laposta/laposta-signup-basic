@@ -2,9 +2,9 @@
 Contributors: roelbousardt, stijnvanderree
 Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe, form
 Requires at least: 4.7
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 1.4.3
+Stable tag: 2.0.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -47,11 +47,27 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Upgrade Notice ==
 
-= 1.4.3 =
+= 2.0.0 =
 
-* fixed issue #6 for undefined variable $globalErrorClass in templates/form/form.php
+Please note, this is a major update and may not be 100% backwards compatible with previous versions.
+
+Key changes:
+* Instant Feedback: Forms are now submitted using AJAX, providing immediate feedback on errors or success directly within the user's current view. This enhances user experience by eliminating page reloads and keeping important feedback prominently visible.
+* Error container placement: The error container is therefore placed above the submit button. This change enhances error visibility.
+* Conditional custom class loading: Before, some custom classes were always loaded and some were only loaded if the chosen styling was set to 'custom'. Now all classes are loaded based on the selection in the admin UI. This update aims to improve the consistency of the admin UI.
+
+
+Impact on Your Site:
+* If you have custom styling or scripts that depend on the old error container placement, you may need to adjust them.
+* Customizations relying on the custom classes should be reviewed to ensure compatibility.
+
 
 == Changelog ==
+
+= 2.0.0 =
+* Instant Feedback: Forms are now submitted using AJAX, providing immediate feedback on errors or success directly within the user's current view. This enhances user experience by eliminating page reloads and keeping important feedback prominently visible.
+* Error container placement: The error container is therefore placed above the submit button. This change enhances error visibility.
+* Conditional custom class loading: Before, some custom classes were always loaded and some were only loaded if the chosen styling was set to 'custom'. Now all classes are loaded based on the selection in the admin UI. This update aims to improve the consistency of the admin UI.
 
 = 1.4.3 =
 
