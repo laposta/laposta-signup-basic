@@ -25,6 +25,9 @@
  * @var string $formPostUrl
  *
  */
+
+use Laposta\SignupBasic\Plugin;
+
 ?>
 
 <?php if ($inlineCss): ?>
@@ -32,6 +35,10 @@
         <?php echo $inlineCss ?>
     </style>
 <?php endif ?>
+
+<?php
+    $requiredIndicator = apply_filters(Plugin::FILTER_REQUIRED_INDICATOR, '*', $listId);
+?>
 
 <form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?> js-lsb-form"
       method="post"
@@ -62,12 +69,15 @@
             $fieldValue = $fieldValues[$field['key']]; // already sanitized
             $label = esc_html($field['name']);
             if ($field['required']) {
-                $label.='*';
+                $label .= $requiredIndicator;
             }
+            $label = apply_filters(Plugin::FILTER_FIELD_LABEL, $label, $listId, $field);
         ?>
         <div class="<?php echo $fieldWrapperClass ?> lsb-field-tag-<?php echo esc_attr($field['key']) ?> lsb-field-type-<?php echo $fieldType ?>">
 
-            <?php if ($fieldType === 'select'): ?>
+            <?php if ($fieldType === 'select'):
+                $defaultSelectOptionText = apply_filters(Plugin::FILTER_FIELD_DEFAULT_SELECT_OPTION_TEXT, 'Maak een keuze', $listId, $field);
+            ?>
                 <label for="<?php echo $uniqueFieldKey ?>" class="<?php echo $labelClass ?>"><?php echo $label ?></label>
                 <select
                     class="<?php echo $selectClass ?>"
@@ -75,7 +85,7 @@
                     name="<?php echo $fieldName ?>"
                     <?php if ($field['required']): ?>required="required"<?php endif ?>
                 >
-                    <option value="">Maak een keuze</option>
+                    <option value=""><?php echo $defaultSelectOptionText ?></option>
                     <?php foreach ($field['options_full'] as $option): ?>
                         <option
                             value="<?php echo esc_html($option['value']) ?>"
@@ -118,6 +128,7 @@
                         // fallback to text
                         $fieldType = 'text';
                     }
+                    $placeholder = apply_filters(Plugin::FILTER_FIELD_PLACEHOLDER, '', $listId, $field);
                 ?>
                 <label for="<?php echo $uniqueFieldKey ?>" class="<?php echo $labelClass ?>"><?php echo $label ?></label>
                 <input
@@ -126,6 +137,7 @@
                     class="<?php echo $inputClass ?> <?php if ($fieldType === 'date'): ?>js-lsb-datepicker<?php endif ?>"
                     value="<?php echo $fieldValue ?>"
                     name="<?php echo $fieldName ?>"
+                    placeholder="<?php echo $placeholder ?>"
                     <?php if ($field['required']): ?>required="required"<?php endif ?>
                     <?php if ($fieldType === 'number'): ?>step="any"<?php endif ?>
                     <?php if ($fieldType === 'date'): ?>placeholder="dd-mm-jjjj"<?php endif ?>

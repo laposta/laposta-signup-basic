@@ -4,7 +4,7 @@ Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe,
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -46,19 +46,26 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 = What are the available Wordpress filters?  =
 
-* There's a filter for the submit button text: 'laposta_signup_basic_filter_submit_button_text'. The first argument is the value, the second argument is the list id and the third argument is an array of the provided arguments in the shortcode.
-* There's a filter for the success title: 'laposta_signup_basic_filter_success_title'. The first argument is the value, the second argument is the list id and the third argument is an array containing the submitted fields.
-* There's a filter for the success text: 'laposta_signup_basic_filter_success_text'. The first argument is the value, the second argument is the list id and the third argument is an array containing the submitted fields.
+* Settings page capability - 'laposta_signup_basic_settings_page_capability': Modifies the required capability for editing the plugin settings. The first and only argument is the capability.
+* Field label - 'laposta_signup_basic_filter_field_label': Modifies the field label. The first argument is the field label, the second is the list ID, and the third is an array of the field.
+* Required indicator - 'laposta_signup_basic_filter_required_indicator': Modifies the required indicator at the end of the field label. The first argument is the indicator and the second is the list ID.
+* Field placeholder - 'laposta_signup_basic_filter_field_placeholder': Modifies the field placeholder. The first argument is the field placeholder, the second is the list ID, and the third is an array of the field.
+* Field default select option text - 'laposta_signup_basic_filter_default_select_option_text': Modifies the text of the default select option. The first argument is the default text, the second is the list ID, and the third is an array of the field.
+* Submit Button Text Filter - 'laposta_signup_basic_filter_submit_button_text': Modifies the submit button text. The first argument is the button text, the second is the list ID, and the third is an array of arguments provided in the shortcode.
+* Success Title Filter - 'laposta_signup_basic_filter_success_title': Alters the success title text. The first argument is the success title, the second is the list ID, and the third is an array containing the submitted fields.
+* Success Text Filter - 'laposta_signup_basic_filter_success_text': Changes the success message text. The first argument is the success text, the second is the list ID, and the third is an array containing the submitted fields.
 
 
 == Upgrade Notice ==
 
-= 2.1.0 =
-
-* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added filters for submit button text, success title and success text. See FAQ for details.
+= 2.2.0 =
+* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added more filters. See FAQ for the details.
 
 
 == Changelog ==
+
+= 2.2.0 =
+* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added more filters. See FAQ for the details.
 
 = 2.1.0 =
 * Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added filters for submit button text, success title and success text. See FAQ for details.
