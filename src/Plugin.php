@@ -41,6 +41,9 @@ class Plugin
 
     const DEFAULT_CAPABILITY = 'manage_options';
     const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
+    const FILTER_SUBMIT_BUTTON_TEXT = 'laposta_signup_basic_filter_submit_button_text';
+    const FILTER_SUCCESS_TITLE = 'laposta_signup_basic_filter_success_title';
+    const FILTER_SUCCESS_TEXT = 'laposta_signup_basic_filter_success_text';
 
     /**
      * @var Container

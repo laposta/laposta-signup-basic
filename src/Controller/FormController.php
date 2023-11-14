@@ -132,6 +132,7 @@ EOL;
         $nonceAction = crc32($listId);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
         $submitButtonText = $submitButtonText ?: 'Aanmelden';
+        $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
 
         $this->addAssets($addDefaultStyling, $hasDateFields);
         return $this->getRenderedTemplate('/form/form.php', [
@@ -232,6 +233,10 @@ EOL;
             $successText = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)));
             $successText = $successText ?: 'Het aanmelden is gelukt.';
             $successText = nl2br($successText);
+
+            $successTitle = apply_filters(Plugin::FILTER_SUCCESS_TITLE, $successTitle, $listId, $submittedFieldValues);
+            $successText = apply_filters(Plugin::FILTER_SUCCESS_TEXT, $successText, $listId, $submittedFieldValues);
+
             $html = $this->getRenderedTemplate('/form/form-success.php', [
                 'inlineCss' => $inlineCss,
                 'successWrapperClass' => $successWrapperClass,

@@ -4,7 +4,7 @@ Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe,
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -44,25 +44,24 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" en klik op de knop met de tekst "Reset Cache"
 
+= What are the available Wordpress filters?  =
+
+* There's a filter for the submit button text: 'laposta_signup_basic_filter_submit_button_text'. The first argument is the value, the second argument is the list id and the third argument is an array of the provided arguments in the shortcode.
+* There's a filter for the success title: 'laposta_signup_basic_filter_success_title'. The first argument is the value, the second argument is the list id and the third argument is an array containing the submitted fields.
+* There's a filter for the success text: 'laposta_signup_basic_filter_success_text'. The first argument is the value, the second argument is the list id and the third argument is an array containing the submitted fields.
+
 
 == Upgrade Notice ==
 
-= 2.0.1 =
+= 2.1.0 =
 
-Please note, this is a major update and may not be 100% backwards compatible with previous versions.
-
-Key changes:
-* Instant Feedback: Forms are now submitted using AJAX, providing immediate feedback on errors or success directly within the user's current view. This enhances user experience by eliminating page reloads and keeping important feedback prominently visible.
-* Error container placement: The error container is therefore placed above the submit button. This change enhances error visibility.
-* Conditional custom class loading: Before, some custom classes were always loaded and some were only loaded if the chosen styling was set to 'custom'. Now all classes are loaded based on the selection in the admin UI. This update aims to improve the consistency of the admin UI.
-
-
-Impact on Your Site:
-* If you have custom styling or scripts that depend on the old error container placement, you may need to adjust them.
-* Customizations relying on the custom classes should be reviewed to ensure compatibility.
+* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added filters for submit button text, success title and success text. See FAQ for details.
 
 
 == Changelog ==
+
+= 2.1.0 =
+* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added filters for submit button text, success title and success text. See FAQ for details.
 
 = 2.0.1 =
 Please note, this is a major update and may not be 100% backwards compatible with previous versions.
