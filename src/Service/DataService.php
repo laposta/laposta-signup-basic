@@ -159,10 +159,12 @@ class DataService
             if ($error) {
                 if ($error['type'] === 'invalid_request') {
                     $this->setStatus(self::STATUS_INVALID_API_KEY);
+                    Logger::logError('DataService::getLists, invalid API key');
                 }
             }
             if (!$this->status) {
                 $this->setStatus('error-api: '.print_r($e, 1));
+                Logger::logError('DataService::getLists, caught Throwable', $e);
             }
         }
 
@@ -200,6 +202,7 @@ class DataService
                         'parameter' => null,
                     ],
                 ];
+                Logger::logError('DataService::getListFields, ontvangen API error', $error);
                 $this->setListFields($listId, $error);
 
                 return $error;
@@ -226,14 +229,16 @@ class DataService
                 $error = [
                     'error' => [
                         'type' => 'unknown',
-                        'message' => $e->getMessage(),
-                        'trace' => $e->getTraceAsString(),
-                        'code' => null,
                         'parameter' => null,
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                        'trace' => $e->getTrace(),
                     ],
                 ];
             }
-
+            Logger::logError('DataService::getListFields, caught Throwable', $error);
             $this->setListFields($listId, $error);
 
             return $error;

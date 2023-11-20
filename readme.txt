@@ -4,7 +4,7 @@ Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe,
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -44,31 +44,48 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" en klik op de knop met de tekst "Reset Cache"
 
+= How do I enable logging of errors for debugging?  =
+
+* By default, the logger in our plugin follows the setting of `WP_DEBUG`: if `WP_DEBUG` is enabled (true), logging is active.
+* To override this default behavior, you can use the filter 'laposta_signup_basic_enable_logging'.
+* When logging is enabled, messages are recorded using the PHP `error_log` function. To view these logs, you have three options:
+- **Server Log File**: Typically, you can find the error log in your server's PHP log file. Its location varies depending on your hosting environment.
+- **When `WP_DEBUG_LOG` is Enabled**: If `WP_DEBUG_LOG` is set to true, WordPress logs errors to a `debug.log` file inside the `wp-content` directory. You can access this file via FTP or your hosting file manager.
+- **Using a Plugin**: Plugins like 'Debug' can help you view log messages directly within the WordPress admin area.
+- **Note**: Check your hosting provider's documentation or contact their support for more details on locating and accessing log files.
+
 = What are the available Wordpress filters?  =
 
 * Settings page capability - 'laposta_signup_basic_settings_page_capability': Modifies the required capability for editing the plugin settings. The first and only argument is the capability.
+* Enable logging - 'laposta_signup_basic_enable_logging': A filter to enable or disable logging of errors within this plugin. The first and only argument is the default value, which is based on WP_DEBUG.
 * Field label - 'laposta_signup_basic_filter_field_label': Modifies the field label. The first argument is the field label, the second is the list ID, and the third is an array of the field.
 * Required indicator - 'laposta_signup_basic_filter_required_indicator': Modifies the required indicator at the end of the field label. The first argument is the indicator and the second is the list ID.
 * Field placeholder - 'laposta_signup_basic_filter_field_placeholder': Modifies the field placeholder. The first argument is the field placeholder, the second is the list ID, and the third is an array of the field.
 * Field default select option text - 'laposta_signup_basic_filter_default_select_option_text': Modifies the text of the default select option. The first argument is the default text, the second is the list ID, and the third is an array of the field.
-* Submit Button Text Filter - 'laposta_signup_basic_filter_submit_button_text': Modifies the submit button text. The first argument is the button text, the second is the list ID, and the third is an array of arguments provided in the shortcode.
-* Success Title Filter - 'laposta_signup_basic_filter_success_title': Alters the success title text. The first argument is the success title, the second is the list ID, and the third is an array containing the submitted fields.
-* Success Text Filter - 'laposta_signup_basic_filter_success_text': Changes the success message text. The first argument is the success text, the second is the list ID, and the third is an array containing the submitted fields.
+* Submit button text filter - 'laposta_signup_basic_filter_submit_button_text': Modifies the submit button text. The first argument is the button text, the second is the list ID, and the third is an array of arguments provided in the shortcode.
+* Success title filter - 'laposta_signup_basic_filter_success_title': Alters the success title text. The first argument is the success title, the second is the list ID, and the third is an array containing the submitted fields.
+* Success text filter - 'laposta_signup_basic_filter_success_text': Changes the success message text. The first argument is the success text, the second is the list ID, and the third is an array containing the submitted fields.
 
 
 == Upgrade Notice ==
 
-= 2.2.0 =
-* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added more filters. See FAQ for the details.
+= 2.3.0 =
+* Integrated custom error logger for optional error logging, enhancing debugging and troubleshooting capabilities, see FAQ for more information.
+* Resolved an issue where AJAX was not handling form submissions in dynamically added HTML forms.
 
 
 == Changelog ==
 
+= 2.3.0 =
+* Integrated custom error logger for optional error logging, enhancing debugging and troubleshooting capabilities, see FAQ for more information.
+* Resolved an issue where AJAX was not handling form submissions in dynamically added HTML forms.
+
+
 = 2.2.0 =
-* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added more filters. See FAQ for the details.
+* More filters were added. See FAQ for the details.
 
 = 2.1.0 =
-* Please note, version 2.0.1 was a major update and may not be 100% backwards compatible with the versions before it, see the changelog. In this version we've added filters for submit button text, success title and success text. See FAQ for details.
+* Filters were added for submit button text, success title and success text. See FAQ for details.
 
 = 2.0.1 =
 Please note, this is a major update and may not be 100% backwards compatible with previous versions.

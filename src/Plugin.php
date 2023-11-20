@@ -3,6 +3,7 @@
 namespace Laposta\SignupBasic;
 
 use Laposta\SignupBasic\Container\Container;
+use Laposta\SignupBasic\Service\Logger;
 use Laposta\SignupBasic\Service\RequestHelper;
 
 class Plugin
@@ -41,6 +42,7 @@ class Plugin
 
     const DEFAULT_CAPABILITY = 'manage_options';
     const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
+    const FILTER_ENABLE_LOGGING = 'laposta_signup_basic_enable_logging';
     const FILTER_REQUIRED_INDICATOR = 'laposta_signup_basic_filter_required_indicator';
     const FILTER_FIELD_LABEL = 'laposta_signup_basic_filter_field_label';
     const FILTER_FIELD_PLACEHOLDER = 'laposta_signup_basic_filter_field_placeholder';
@@ -96,15 +98,22 @@ class Plugin
     public function init()
     {
         if (is_admin()) {
-            add_action('admin_init', [$this, 'adminInit']);
+            add_action('admin_init', [$this, 'onAdminInitAction']);
             add_filter("plugin_action_links_{$this->pluginBaseName}", [$this, 'setPluginActionLinks']);
             add_action('admin_menu', [$this, 'addMenu']);
         }
+        add_action('init', [$this, 'onInitAction']);
         add_shortcode(self::SHORTCODE_RENDER_FORM, [$this->c->getFormController(), 'renderFormByShortcode']);
         $this->addAjaxRoutes();
     }
 
-    public function adminInit()
+    public function onInitAction()
+    {
+        $enableLogger = apply_filters(self::FILTER_ENABLE_LOGGING, defined('WP_DEBUG') && WP_DEBUG);
+        Logger::setIsEnabled($enableLogger);
+    }
+
+    public function onAdminInitAction()
     {
         register_setting(self::OPTION_GROUP, self::OPTION_API_KEY);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_TYPE);

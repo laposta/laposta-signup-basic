@@ -1,7 +1,6 @@
 (function ($) {
   $(function() {
-    $('.js-lsb-form').on('submit', function(e) {
-
+    $('body').on('submit', '.js-lsb-form', function(e) {
       e.preventDefault();
       let $form = $(this);
       let $errorContainer = $form.find('.lsb-form-global-error');

@@ -33,6 +33,7 @@ class Container
     {
         if (!class_exists('Laposta\\SignupBasic\\Plugin')) {
             require_once realpath(__DIR__.'/..').'/Plugin.php';
+            $this->requireLogger();
             $this->plugin = new Plugin($this);
         }
 
@@ -57,10 +58,17 @@ class Container
         return $this->dataService;
     }
 
-    protected function requireRequestHelper()
+    public function requireRequestHelper()
     {
         if (!class_exists('Laposta\\SignupBasic\\Service\\RequestHelper')) {
             require_once realpath(__DIR__.'/../Service').'/RequestHelper.php';
+        }
+    }
+
+    public function requireLogger()
+    {
+        if (!class_exists('Laposta\\SignupBasic\\Service\\Logger')) {
+            require_once realpath(__DIR__.'/../Service').'/Logger.php';
         }
     }
 

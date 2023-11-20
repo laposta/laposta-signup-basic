@@ -5,6 +5,7 @@ namespace Laposta\SignupBasic\Controller;
 use Laposta\SignupBasic\Container\Container;
 use Laposta\SignupBasic\Plugin;
 use Laposta\SignupBasic\Service\DataService;
+use Laposta\SignupBasic\Service\Logger;
 use Laposta\SignupBasic\Service\RequestHelper;
 
 class FormController extends BaseController
@@ -254,8 +255,9 @@ EOL;
             $error = $e->json_body['error'];
             $globalError = $e->getMessage();
             if ($error['type'] === 'invalid_input') {
-                $fields = array_filter($listFields, function($field) use ($error) {
-                    return $field['field_id'] === $error['id'];
+                $errorId = $error['id'] ?? null;
+                $fields = array_filter($listFields, function($field) use ($errorId) {
+                    return $field['field_id'] === $errorId;
                 });
                 if ($fields) {
                     $field = reset($fields);
@@ -264,6 +266,7 @@ EOL;
                 }
             } else {
                 $globalError = $e->getMessage();
+                Logger::logError('FormController::ajaxFormPost, onbekende Laposta_Error bij versturen formulier naar API', $e);
             }
             RequestHelper::returnJson([
                 'status' => 'error',
@@ -271,10 +274,10 @@ EOL;
             ]);
         }
         catch (\Throwable $e) {
-            $globalError = $e->getMessage();
+            Logger::logError('FormController::ajaxFormPost, caught Throwable bij versturen formulier naar API', $e);
             RequestHelper::returnJson([
                 'status' => 'error',
-                'html' => $globalError
+                'html' => $globalErrorMessage
             ]);
         }
     }
