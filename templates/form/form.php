@@ -72,6 +72,7 @@ use Laposta\SignupBasic\Plugin;
                 $label .= $requiredIndicator;
             }
             $label = apply_filters(Plugin::FILTER_FIELD_LABEL, $label, $listId, $field);
+            $autocompleteValue = $field['autocomplete'] ?? null;
         ?>
         <div class="<?php echo $fieldWrapperClass ?> lsb-field-tag-<?php echo esc_attr($field['key']) ?> lsb-field-type-<?php echo $fieldType ?>">
 
@@ -139,6 +140,7 @@ use Laposta\SignupBasic\Plugin;
                     name="<?php echo $fieldName ?>"
                     placeholder="<?php echo $placeholder ?>"
                     <?php if ($field['required']): ?>required="required"<?php endif ?>
+                    <?php if ($autocompleteValue): ?>autocomplete="<?php echo esc_attr($autocompleteValue) ?>"<?php endif ?>
                     <?php if ($fieldType === 'number'): ?>step="any"<?php endif ?>
                     <?php if ($fieldType === 'date'): ?>placeholder="dd-mm-jjjj"<?php endif ?>
                 >
@@ -147,7 +149,7 @@ use Laposta\SignupBasic\Plugin;
     <?php endforeach; ?>
 
     <?php $fieldName = "lsb[$listId][$fieldNameHoneypot]"; ?>
-    <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;">
+    <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;" tabindex="-1">
 
     <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
     <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>">

@@ -113,7 +113,7 @@ use Laposta\SignupBasic\Service\DataService;
                     <?php endif ?>
                 >
                     <h4>Uitleg bij handmatig instellen</h4>
-                    <p>Bij deze optie worden er geen css bestanden ingeladen. Je bent dan zelf volledig verantwoordelijk voor de opmaak.</p>
+                    <p>Bij deze optie worden er geen css bestanden ingeladen. U bent dan zelf volledig verantwoordelijk voor de opmaak.</p>
                 </div>
 
                 <div class="lsb-settings__class-type-custom js-add-classes-section">

@@ -4,7 +4,7 @@ Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe,
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -49,10 +49,10 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 * By default, the logger in our plugin follows the setting of `WP_DEBUG`: if `WP_DEBUG` is enabled (true), logging is active.
 * To override this default behavior, you can use the filter 'laposta_signup_basic_enable_logging'.
 * When logging is enabled, messages are recorded using the PHP `error_log` function. To view these logs, you have three options:
-- **Server Log File**: Typically, you can find the error log in your server's PHP log file. Its location varies depending on your hosting environment.
-- **When `WP_DEBUG_LOG` is Enabled**: If `WP_DEBUG_LOG` is set to true, WordPress logs errors to a `debug.log` file inside the `wp-content` directory. You can access this file via FTP or your hosting file manager.
-- **Using a Plugin**: Plugins like 'Debug' can help you view log messages directly within the WordPress admin area.
-- **Note**: Check your hosting provider's documentation or contact their support for more details on locating and accessing log files.
+    - **Server Log File**: Typically, you can find the error log in your server's PHP log file. Its location varies depending on your hosting environment.
+    - **When `WP_DEBUG_LOG` is Enabled**: If `WP_DEBUG_LOG` is set to true, WordPress logs errors to a `debug.log` file inside the `wp-content` directory. You can access this file via FTP or your hosting file manager.
+    - **Using a Plugin**: Plugins like 'Debug' can help you view log messages directly within the WordPress admin area.
+    - **Note**: Check your hosting provider's documentation or contact their support for more details on locating and accessing log files.
 
 = What are the available Wordpress filters?  =
 
@@ -69,12 +69,15 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Upgrade Notice ==
 
-= 2.3.0 =
-* Integrated custom error logger for optional error logging, enhancing debugging and troubleshooting capabilities, see FAQ for more information.
-* Resolved an issue where AJAX was not handling form submissions in dynamically added HTML forms.
+= 2.4.0 =
+* Added the autocomplete attribute to the relevant form fields
 
 
 == Changelog ==
+
+= 2.4.0 =
+* Added the autocomplete attribute to the relevant form fields
+
 
 = 2.3.0 =
 * Integrated custom error logger for optional error logging, enhancing debugging and troubleshooting capabilities, see FAQ for more information.
