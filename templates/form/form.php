@@ -23,6 +23,7 @@
  * @var string $fieldNameNonce
  * @var string $nonce
  * @var string $formPostUrl
+ * @var array|null $datepickerLang
  *
  */
 
@@ -167,7 +168,17 @@ use Laposta\SignupBasic\Plugin;
     <?php if ($hasDateFields): ?>
         <script>
           document.addEventListener("DOMContentLoaded", function() {
-            flatpickr('.js-lsb-datepicker', {locale: 'nl', altInput: true, altFormat: 'd-m-Y'});
+            let config = {};
+            <?php
+              $format = $datepickerLang['format_long'] ?? $datepickerLang['format_short'] ?? null;
+              if ($format): ?>
+                  config = {
+                    locale: '<?php echo $datepickerLang['file_lang'] ?? $datepickerLang['lang'] ?>',
+                    altInput: true,
+                    altFormat: '<?php echo $format ?>',
+                  }
+            <?php endif ?>
+            flatpickr('.js-lsb-datepicker', config);
           });
         </script>
     <?php endif ?>

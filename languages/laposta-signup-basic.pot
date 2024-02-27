@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Laposta Signup Basic\n"
-"POT-Creation-Date: 2024-02-27 11:23+0100\n"
+"POT-Creation-Date: 2024-02-27 12:49+0100\n"
 "PO-Revision-Date: 2024-02-26 16:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -348,9 +348,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Laposta is a program that allows you to create and send newsletters easily "
-"and quickly. With this plugin, you can easily add your signup forms to your "
-"website and customize them using CSS."
+"Easily create & send newsletters with Laposta. This plugin adds customizable "
+"signup forms to your site."
 msgstr ""
 
 #. Author of the plugin/theme

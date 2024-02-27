@@ -1,10 +1,10 @@
 === Laposta Signup Basic ===
 Contributors: roelbousardt, stijnvanderree
-Tags: laposta, nieuwsbrieven, aanmelden, formulier, AVG, newsletters, subscribe, form
+Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -40,10 +40,6 @@ Finally, to render a form, simply use the shortcode as shown in the Settings.
 
 Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Basic" and click on the button with the text "Reset Cache"
 
-= Ik heb mijn lijst aangepast, maar ik zie de veranderingen niet op mijn website. Wat kan ik doen?  =
-
-Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" en klik op de knop met de tekst "Reset Cache"
-
 = How do I enable logging of errors for debugging?  =
 
 * By default, the logger in our plugin follows the setting of `WP_DEBUG`: if `WP_DEBUG` is enabled (true), logging is active.
@@ -69,12 +65,20 @@ Login op uw admin dashboard en ga naar "Instellingen" -> "Laposta Signup Basic" 
 
 == Upgrade Notice ==
 
-= 2.5.0 =
+= 2.5.1 =
 * Multi-language support: The plugin now defaults to English.
 * Dutch translations: Added formal Dutch translations. These translations are automatically applied when the site's language is set to Dutch.
+* Fix: added missing locales for datepicker
 
 
 == Changelog ==
+
+
+= 2.5.1 =
+* Multi-language support: The plugin now defaults to English.
+* Dutch translations: Added formal Dutch translations. These translations are automatically applied when the site's language is set to Dutch.
+* Fix: added missing locales for datepicker
+
 
 = 2.5.0 =
 * Multi-language support: The plugin now defaults to English.

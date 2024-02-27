@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Laposta Signup Basic\n"
-"POT-Creation-Date: 2024-02-27 11:23+0100\n"
-"PO-Revision-Date: 2024-02-27 11:23+0100\n"
+"POT-Creation-Date: 2024-02-27 12:49+0100\n"
+"PO-Revision-Date: 2024-02-27 12:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -377,13 +377,11 @@ msgstr "http://laposta.nl/documentatie/wordpress.524.html"
 
 #. Description of the plugin/theme
 msgid ""
-"Laposta is a program that allows you to create and send newsletters easily "
-"and quickly. With this plugin, you can easily add your signup forms to your "
-"website and customize them using CSS."
+"Easily create & send newsletters with Laposta. This plugin adds customizable "
+"signup forms to your site."
 msgstr ""
-"Laposta is programma waarmee u gemakkelijk en snel nieuwsbrieven kunt maken "
-"en versturen. Met deze plugin kunt u uw aanmeldformulieren eenvoudig aan uw "
-"website toevoegen en aanpassen met behulp van CSS."
+"Creëer en verstuur eenvoudig nieuwsbrieven met Laposta. Deze plugin voegt "
+"aanpasbare inschrijfformulieren toe aan uw site."
 
 #. Author of the plugin/theme
 msgid "Laposta - Roel Bousardt"

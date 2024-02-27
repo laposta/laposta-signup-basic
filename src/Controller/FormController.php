@@ -15,7 +15,6 @@ class FormController extends BaseController
      */
     protected $c;
 
-
     const FIELD_NAME_HONEYPOT = 'email987123';
     const FIELD_NAME_NONCE = 'nonce';
 
@@ -135,7 +134,10 @@ EOL;
         $submitButtonText = $submitButtonText ?: esc_html__('Subscribe', 'laposta-signup-basic');
         $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
 
-        $this->addAssets($addDefaultStyling, $hasDateFields);
+        $locale = determine_locale();
+        $lang = substr($locale, 0, 2);
+        $datepickerLang = $this->getDatePickerLang($lang);
+        $this->addAssets($addDefaultStyling, $hasDateFields, $datepickerLang);
         return $this->getRenderedTemplate('/form/form.php', [
             'listId' => $listId,
             'listFields' => $listFields,
@@ -160,6 +162,7 @@ EOL;
             'fieldNameNonce' => self::FIELD_NAME_NONCE,
             'nonce' => wp_create_nonce($nonceAction),
             'formPostUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=form_submit',
+            'datepickerLang' => $datepickerLang,
         ]);
     }
 
@@ -283,7 +286,7 @@ EOL;
         }
     }
 
-    public function addAssets(bool $addDefaultStyling, bool $addDatepickerAssets)
+    public function addAssets(bool $addDefaultStyling, bool $addDatepickerAssets, ?array $datepickerLang = null)
     {
         if ($addDefaultStyling) {
             wp_enqueue_style('laposta-signup-basic.lsb-form', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/css/lsb-form.css', [], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
@@ -292,9 +295,12 @@ EOL;
         wp_enqueue_script('laposta-signup-basic.lsb-form.main', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/js/lsb-form/main.js', ['jquery'], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
 
         if ($addDatepickerAssets) {
-            wp_enqueue_style('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/flatpickr.min.css', [], '4.6.9');
-            wp_enqueue_script('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/flatpickr.min.js', [], '4.6.9');
-            wp_enqueue_script('flatpickr_l10n_nl', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/l10n/nl.js', [], '4.6.9');
+            wp_enqueue_style('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.13/flatpickr.min.css');
+            wp_enqueue_script('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.13/flatpickr.min.js');
+            if ($datepickerLang) {
+                $fileLang = $datepickerLang['file_lang'] ?? $datepickerLang['lang'];
+                wp_enqueue_script('flatpickr_l10n_'.$fileLang, LAPOSTA_SIGNUP_BASIC_ASSETS_URL."/flatpickr4.6.13/l10n/$fileLang.js");
+            }
         }
 
         // JS translations
@@ -308,5 +314,73 @@ EOL;
     public function getTemplateDir()
     {
         return LAPOSTA_SIGNUP_BASIC_TEMPLATE_DIR;
+    }
+
+    protected function getDatePickerLang(string $lang): ?array
+    {
+        $langs = [
+            'ar' => ['lang' => 'ar', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Arabic
+            'at' => ['lang' => 'at', 'format_long' => 'd. M Y', 'format_short' => 'd.m.Y'], // Austrian German
+            'az' => ['lang' => 'az', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Azerbaijani
+            'be' => ['lang' => 'be', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Belarusian
+            'bg' => ['lang' => 'bg', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Bulgarian
+            'bn' => ['lang' => 'bn', 'format_long' => 'j F, Y', 'format_short' => 'd/m/Y'], // Bengali
+            'cat' => ['lang' => 'cat', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Catalan
+            'cs' => ['lang' => 'cs', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Czech
+            'cy' => ['lang' => 'cy', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Welsh
+            'da' => ['lang' => 'da', 'format_long' => 'j. F Y', 'format_short' => 'd/m-Y'], // Danish
+            'de' => ['lang' => 'de', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // German
+            'en' => ['lang' => 'en', 'format_long' => 'F j, Y', 'format_short' => 'm/d/Y', 'file_lang' => 'default'], // English
+            'eo' => ['lang' => 'eo', 'format_long' => null, 'format_short' => null], // Esperanto
+            'es' => ['lang' => 'es', 'format_long' => 'j de F de Y', 'format_short' => 'd/m/Y'], // Spanish
+            'et' => ['lang' => 'et', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Estonian
+            'fa' => ['lang' => 'fa', 'format_long' => 'j F Y', 'format_short' => 'Y/m/d'], // Persian
+            'fi' => ['lang' => 'fi', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Finnish
+            'fo' => ['lang' => 'fo', 'format_long' => null, 'format_short' => null], // Faroese
+            'fr' => ['lang' => 'fr', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // French
+            'gr' => ['lang' => 'gr', 'format_long' => 'd F Y', 'format_short' => 'd-m-Y'], // Greek
+            'el' => ['lang' => 'el', 'format_long' => 'd F Y', 'format_short' => 'd-m-Y', 'file_lang' => 'gr'], // Greek
+            'he' => ['lang' => 'he', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Hebrew
+            'hi' => ['lang' => 'hi', 'format_long' => null, 'format_short' => null], // Hindi
+            'hr' => ['lang' => 'hr', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Croatian
+            'hu' => ['lang' => 'hu', 'format_long' => 'Y. F j.', 'format_short' => 'Y.m.d.'], // Hungarian
+            'id' => ['lang' => 'id', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Indonesian
+            'is' => ['lang' => 'is', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Icelandic
+            'it' => ['lang' => 'it', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Italian
+            'ja' => ['lang' => 'ja', 'format_long' => null, 'format_short' => 'Y/m/d'], // Japanese
+            'ka' => ['lang' => 'ka', 'format_long' => 'j F Y', 'format_short' => null], // Georgian
+            'ko' => ['lang' => 'ko', 'format_long' => null, 'format_short' => 'Y-m-d'], // Korean
+            'km' => ['lang' => 'km', 'format_long' => null, 'format_short' => 'd/m/Y'], // Khmer
+            'kz' => ['lang' => 'kz', 'format_long' => null, 'format_short' => null], // Kazakh
+            'lt' => ['lang' => 'lt', 'format_long' => 'Y m. F d.', 'format_short' => 'Y-m-d'], // Lithuanian
+            'lv' => ['lang' => 'lv', 'format_long' => 'Y. gada j. F', 'format_short' => 'd.m.Y'], // Latvian
+            'mk' => ['lang' => 'mk', 'format_long' => null, 'format_short' => null], // Macedonian
+            'mn' => ['lang' => 'mn', 'format_long' => 'Y оны Fын j', 'format_short' => 'Y/m/d'], // Mongolian
+            'ms' => ['lang' => 'ms', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Malay
+            'my' => ['lang' => 'my', 'format_long' => null, 'format_short' => 'd/m/Y'], // Burmese
+            'nl' => ['lang' => 'nl', 'format_long' => 'j F Y', 'format_short' => 'd-m-Y'], // Dutch
+            'no' => ['lang' => 'no', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Norwegian
+            'pa' => ['lang' => 'pa', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Punjabi
+            'pl' => ['lang' => 'pl', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Polish
+            'pt' => ['lang' => 'pt', 'format_long' => 'j de F de Y', 'format_short' => 'd/m/Y'], // Portuguese
+            'ro' => ['lang' => 'ro', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Romanian
+            'ru' => ['lang' => 'ru', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Russian
+            'si' => ['lang' => 'si', 'format_long' => 'Y F j', 'format_short' => null], // Sinhala
+            'sk' => ['lang' => 'sk', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Slovak
+            'sl' => ['lang' => 'sl', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Slovenian
+            'sq' => ['lang' => 'sq', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Albanian
+            'sr' => ['lang' => 'sr', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Serbian
+            'sv' => ['lang' => 'sv', 'format_long' => 'j F Y', 'format_short' => 'Y-m-d'], // Swedish
+            'th' => ['lang' => 'th', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Thai
+            'tj' => ['lang' => 'tj', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Tajik
+            'tr' => ['lang' => 'tr', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Turkish
+            'uk' => ['lang' => 'uk', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Ukrainian
+            'uz' => ['lang' => 'uz', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Uzbek
+            'vn' => ['lang' => 'vn', 'format_long' => null, 'format_short' => null], // Vietnamese
+            'zh' => ['lang' => 'zh', 'format_long' => null, 'format_short' => 'Y/m/d'], // Chinese Simplified
+            'zh-tw' => ['lang' => 'zh-tw', 'format_long' => null, 'format_short' => 'Y/m/d'], // Chinese Traditional
+        ];
+
+        return $langs[$lang] ?? null;
     }
 }

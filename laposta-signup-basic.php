@@ -5,8 +5,8 @@
 /*
 Plugin Name: Laposta Signup Basic
 Plugin URI: http://laposta.nl/documentatie/wordpress.524.html
-Description: Laposta is a program that allows you to create and send newsletters easily and quickly. With this plugin, you can easily add your signup forms to your website and customize them using CSS.
-Version: 2.5.0
+Description: Easily create & send newsletters with Laposta. This plugin adds customizable signup forms to your site.
+Version: 2.5.1
 Author: Laposta - Roel Bousardt
 Author URI: https://laposta.nl/contact
 Text Domain: laposta-signup-basic
@@ -43,7 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 use Laposta\SignupBasic\Container\Container;
 
-define('LAPOSTA_SIGNUP_BASIC_VERSION', '2.5.0');
+define('LAPOSTA_SIGNUP_BASIC_VERSION', '2.5.1');
 
 if (!function_exists('add_action')) {
     echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
