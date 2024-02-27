@@ -14,7 +14,7 @@
 
       let url = $form.data('formPostUrl');
       let data = $form.serialize();
-      let defaultErrorMessage = 'Onbekende fout, probeer het nog eens';
+      let defaultErrorMessage = lsbTranslations['global.unknown_error'];
 
       $.ajax({
         data: data,

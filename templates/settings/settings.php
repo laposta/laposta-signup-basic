@@ -19,7 +19,7 @@ use Laposta\SignupBasic\Service\DataService;
 
 <div class="lsb-settings wrap" data-reset-cache-url="<?php echo esc_url($refreshCacheUrl) ?>">
 
-    <h1>Laposta Signup Basic Instellingen</h1>
+    <h1><?php echo esc_html__('Laposta Signup Basic Settings', 'laposta-signup-basic') ?></h1>
 
     <form method="post" action="options.php" autocomplete="off">
 
@@ -27,21 +27,25 @@ use Laposta\SignupBasic\Service\DataService;
         <section>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><label for="<?php echo Plugin::OPTION_API_KEY ?>">API key</label></th>
+                    <th scope="row"><label for="<?php echo Plugin::OPTION_API_KEY ?>"><?php echo esc_html__('API key', 'laposta-signup-basic') ?></label></th>
                     <td><input type="text" name="<?php echo Plugin::OPTION_API_KEY ?>" id="<?php echo Plugin::OPTION_API_KEY ?>" value="<?php echo esc_html($apiKey) ?>"></td>
                 </tr>
                 <tr>
-                    <th scope="row">Zijn er velden aangepast of gaat er iets mis?</th>
-                    <td><a href="#" class="button button-primary js-reset-cache">Reset Cache</a><span class="lsb-settings__reset-cache-result js-reset-result"</td>
+                    <th scope="row"><?php echo esc_html__('Have fields been changed or is something going wrong?', 'laposta-signup-basic') ?></th>
+                    <td>
+                        <a href="#" class="button button-primary js-reset-cache"><?php echo esc_html__('Reset cache', 'laposta-signup-basic') ?></a>
+                        <span style="display: none;" class="lsb-settings__reset-cache-result js-reset-result-success"><?php echo esc_html__('The cache has been emptied', 'laposta-signup-basic') ?></span>
+                        <span style="display: none;"  class="lsb-settings__reset-cache-result js-reset-result-error"><?php echo esc_html__('Something went wrong', 'laposta-signup-basic') ?></span>
+                    </td>
                 </tr>
             </table>
         </section>
 
         <?php if ($status && $status !== DataService::STATUS_OK): ?>
             <section class="lsb-settings__error">
-                <h2 class="lsb-settings__error-title">Foutmelding</h2>
+                <h2 class="lsb-settings__error-title"><?php echo esc_html__('Error message', 'laposta-signup-basic') ?></h2>
                 <p class="lsb-settings__error-text">
-                    Helaas is er iets misgegaan. Bekijk deze foutmelding: <br>
+                    <?php echo esc_html__('Unfortunately, something went wrong. Check out this error message:', 'laposta-signup-basic') ?> <br>
                     <?php echo esc_html($statusMessage) ?>
                 </p>
             </section>
@@ -51,12 +55,11 @@ use Laposta\SignupBasic\Service\DataService;
         <!-- note: the option input fields must be there, otherwise they will be made empty when saving just the api key, therfore display: none instead of not outputting at all -->
         <div <?php if ($status !== DataService::STATUS_OK): ?>style="display: none"<?php endif ?>>
             <section class="lsb-settings__lists">
-                <h2 class="lsb-settings__lists-title">Overzicht van uw lijsten</h2>
+                <h2 class="lsb-settings__lists-title"><?php echo esc_html__('Overview of your lists', 'laposta-signup-basic') ?></h2>
                 <p class="lsb-settings__lists-text">
-                    De onderstaande lijsten zijn gekoppeld aan de opgegeven API key.
-                    Het is mogelijk deze op elke Wordpress pagina te tonen door het gebruik van een shortcode.
+                    <?php echo esc_html__('The lists below are linked to the specified API key. It is possible to display these on every Wordpress page by using a shortcode.', 'laposta-signup-basic') ?>
                 </p>
-                <h4>Klik op een lijst om de shortcode van die lijst te zien.</h4>
+                <h4><?php echo esc_html__("Click on a list to see that list's shortcode.", 'laposta-signup-basic') ?></h4>
                 <?php foreach ($lists as $list): ?>
                     <a class="lsb-settings__list js-list" href="#" data-list-id="<?php echo esc_attr($list['list_id']) ?>">
                         <?php echo esc_html($list['name']) ?>
@@ -68,7 +71,7 @@ use Laposta\SignupBasic\Service\DataService;
             </section>
 
             <section class="lsb-settings__class-types">
-                <h2 class="lsb-settings__class-types-title">Wat voor opmaak wilt u hanteren voor de formuliervelden?</h2>
+                <h2 class="lsb-settings__class-types-title"><?php echo esc_html__('What kind of styling do you want to use for the form fields?', 'laposta-signup-basic') ?></h2>
                 <div class="lsb-settings__class-type-items">
                     <?php foreach ($classTypes as $key => $val): ?>
                     <?php $key = esc_attr($key) ?>
@@ -91,8 +94,8 @@ use Laposta\SignupBasic\Service\DataService;
                         style="display: none"
                     <?php endif ?>
                 >
-                    <h4>Uitleg bij onze default</h4>
-                    <p>Gebruik deze optie om onze default opmaak te laden.</p>
+                    <h4><?php echo esc_html__('Explanation of our default', 'laposta-signup-basic') ?></h4>
+                    <p><?php echo esc_html__('Use this option to load our default styling.', 'laposta-signup-basic') ?></p>
                 </div>
 
                 <div class="lsb-settings__class-type-custom js-external-classes-info"
@@ -102,8 +105,8 @@ use Laposta\SignupBasic\Service\DataService;
                         style="display: none"
                     <?php endif ?>
                 >
-                    <h4>Uitleg bij bootstrap</h4>
-                    <p>Gebruik deze optie als bootstrap is gebruikt in uw Wordpress theme, wij zullen dan de passende bootstrap classes toevoegen. Om mogelijke conflicten te voorkomen laden wij deze opmaak niet in.</p>
+                    <h4><?php echo esc_html__('Explanation of bootstrap', 'laposta-signup-basic') ?></h4>
+                    <p><?php echo esc_html__('Use this option if bootstrap is used in your Wordpress theme. We will add the appropriate bootstrap classes. To avoid possible conflicts, we do not load the bootstrap stylesheets.', 'laposta-signup-basic') ?></p>
                 </div>
 
                 <div class="lsb-settings__class-type-custom js-custom-classes-info"
@@ -112,17 +115,19 @@ use Laposta\SignupBasic\Service\DataService;
                         style="display: none"
                     <?php endif ?>
                 >
-                    <h4>Uitleg bij handmatig instellen</h4>
-                    <p>Bij deze optie worden er geen css bestanden ingeladen. U bent dan zelf volledig verantwoordelijk voor de opmaak.</p>
+                    <h4><?php echo esc_html__('Explanation of the custom settings', 'laposta-signup-basic') ?></h4>
+                    <p><?php echo esc_html__('This option does not load any css files. You are fully responsible for the layout.', 'laposta-signup-basic') ?></p>
                 </div>
 
                 <div class="lsb-settings__class-type-custom js-add-classes-section">
-                    <h4>Wilt u extra classes toevoegen?</h4>
-                    <p>Wij voegen al classes toe aan elk element (zie kopje 'Uitleg over de classes'). Als u kiest voor 'ja', heeft u de mogelijkheid extra classes toe te voegen.</p>
+                    <h4><?php echo esc_html__('Do you want to add extra classes?', 'laposta-signup-basic') ?></h4>
+                    <p><?php echo esc_html__("We already add classes to each element (see heading 'Explanation of the classes'). If you choose 'yes', you have the option to add additional classes.", 'laposta-signup-basic') ?></p>
                     <?php
                     $addClassesOptionVal = get_option(Plugin::OPTION_ADD_CLASSES, '');
                     $addClassesOptionVal = $addClassesOptionVal === '' ? '1' : $addClassesOptionVal; // if empty set to checked, best BC option
-                    foreach (['0' => 'nee', '1' => 'ja'] as $key => $val): $key = (string)$key; ?>
+                    $noText = esc_html__('no', 'laposta-signup-basic');
+                    $yesText = esc_html__('yes', 'laposta-signup-basic');
+                    foreach (['0' => $noText, '1' => $yesText] as $key => $val): $key = (string)$key; ?>
                         <input class="lsb-settings__class-type-input js-add-classes-input"
                                type="radio"
                                name="<?php echo Plugin::OPTION_ADD_CLASSES ?>"
@@ -139,13 +144,13 @@ use Laposta\SignupBasic\Service\DataService;
                         style="display: none"
                     <?php endif ?>
                 >
-                    <h4>Extra classes toevoegen</h4>
-                    <p>Hieronder kunt u per element css classes toevoegen. Het is mogelijk om meerdere classes toe te voegen door middel van een spatie. Bv:<br>
+                    <h4><?php echo esc_html__('Add extra classes', 'laposta-signup-basic') ?></h4>
+                    <p><?php echo esc_html__('Below you can add css classes for each element. It is possible to add multiple classes by means of a space. For example:', 'laposta-signup-basic') ?><br>
                         my-class1 my-class2
                     </p>
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FORM ?>">Form class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FORM ?>"><?php echo esc_html__('Form class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_FORM ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_FORM ?>"
@@ -155,7 +160,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>">Field wrapper class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"><?php echo esc_html__('Field wrapper class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
@@ -165,7 +170,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_INPUT ?>">Input class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_INPUT ?>"><?php echo esc_html__('Input class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_INPUT ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_INPUT ?>"
@@ -175,7 +180,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LABEL ?>">Label class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LABEL ?>"><?php echo esc_html__('Label class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_LABEL ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_LABEL ?>"
@@ -185,7 +190,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SELECT ?>">Select class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SELECT ?>"><?php echo esc_html__('Select class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_SELECT ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_SELECT ?>"
@@ -195,7 +200,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>">Wrapper class for collection of radio/checkboxes fields</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"><?php echo esc_html__('Wrapper class for collection of radio/checkboxes fields', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_CHECKS_WRAPPER ?>"
@@ -205,7 +210,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>">Wrapper class for single radio/checkbox field</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"><?php echo esc_html__('Wrapper class for single radio/checkbox field', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_CHECK_WRAPPER ?>"
@@ -215,7 +220,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>">Radio/checkbox input class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>"><?php echo esc_html__('Radio/checkbox input class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_CHECK_INPUT ?>"
@@ -225,7 +230,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>">Radio/checkbox label class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>"><?php echo esc_html__('Radio/checkbox label class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_CHECK_LABEL ?>"
@@ -235,7 +240,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>">Submit button and loader wrapper class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>"><?php echo esc_html__('Submit button en loader wrapper class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER ?>"
@@ -246,7 +251,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>">Button class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"><?php echo esc_html__('Button class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_SUBMIT_BUTTON ?>"
@@ -256,7 +261,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LOADER ?>">Loader class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LOADER ?>"><?php echo esc_html__('Loader class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_LOADER ?>"
@@ -267,7 +272,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>">Global error class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"><?php echo esc_html__('Global error class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
@@ -278,7 +283,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>">Successfully subscribed wrapper class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"><?php echo esc_html__('Successfully subscribed wrapper class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_SUCCESS_WRAPPER ?>"
@@ -289,7 +294,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>">Successfully subscribed title class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"><?php echo esc_html__('Successfully subscribed title class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TITLE ?>"
@@ -300,7 +305,7 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>">Successfully subscribed text class</label></th>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"><?php echo esc_html__('Successfully subscribed text class', 'laposta-signup-basic') ?></label></th>
                             <td><input
                                         type="text"
                                         name="<?php echo Plugin::OPTION_CLASS_SUCCESS_TEXT ?>"
@@ -315,9 +320,9 @@ use Laposta\SignupBasic\Service\DataService;
             </section>
 
             <section>
-                <h2>Uitleg over de classes</h2>
+                <h2><?php echo esc_html__('Explanation of the classes', 'laposta-signup-basic') ?></h2>
                 <p>
-                    Hieronder zit u een overzicht van de basisclasses die we gebruiken, deze worden standaard toegevoegd:
+                    <?php echo esc_html__('Below you will find an overview of the basic classes we use, which are added by default:', 'laposta-signup-basic') ?>
                 </p>
                 <code class="laposta-code">
                     .lsb-form<br>
@@ -337,25 +342,25 @@ use Laposta\SignupBasic\Service\DataService;
                     .lsb-success-text
                 </code>
                 <p>
-                    De &lt;form&gt; tag krijgt nog aanvullende classes mee:<br>
+                    <?php echo esc_html__('The &lt;form&gt; tag gets additional classes:', 'laposta-signup-basic') ?><br>
                     <code class="laposta-code">&lt;form class="lsb-form lsb-list-id-[listId]"&gt;</code>
-                    Waarbij [listId] vervangen wordt voor het id van de lijst.
+                    <?php echo esc_html__('Where [listId] is replaced by the id of the list.', 'laposta-signup-basic') ?>
                 </p>
-                <p>Verder krijgen de field wrappers als extra class de relatievariabele (tag) van dat specifieke veld mee, alsmede het veld type:
+                <p><?php echo esc_html__('Furthermore, the field wrappers receive the relation variable (tag) of that specific field as an extra class, as well as the field type:', 'laposta-signup-basic') ?>
                     <code class="laposta-code">&lt;div class="lsb-field-tag-[tag] lsb-field-type-[fieldType] [misc-classes]"&gt;</code>
-                    Waarbij [tag] vervangen wordt voor de relatievariebele (tag) van de lijst, <br>
-                    [fieldType] wordt vervangen voor het type veld (text, email, number, date, select, radio, checkbox)<br>
-                    en [misc-classes] wordt vervangen voor class die hoort bij de gekozen opmaak + onze eigen class 'lsb-form-field-wrapper' + optioneel de extra toegevoegde classes zoals ingesteld onder het kopje 'Extra classes toevoegen'.
+                    <?php echo esc_html__('Where [tag] is replaced by the relation variable (tag) of the list,', 'laposta-signup-basic') ?> <br>
+                    <?php echo esc_html__('[fieldType] is replaced by the field type (text, email, number, date, select, radio, checkbox)', 'laposta-signup-basic') ?><br>
+                    <?php echo esc_html__('and [misc-classes] is replaced by the class that belongs to the chosen format + our own class \"lsb-form-field-wrapper\" + optionally the extra added classes as set under the heading \"Add extra classes\".', 'laposta-signup-basic') ?>
                     <br>
-                    Door deze combinatie van unieke formulier- en veldeigenschappen kunt u ieder veld apart beïnvloeden met behulp van CSS.
+                    <?php echo esc_html__('This combination of unique form and field properties allows you to influence each field separately using CSS.', 'laposta-signup-basic') ?>
                 </p>
 
             </section>
 
             <section class="lsb-settings__inline-css">
-                <h2>Inline CSS</h2>
-                <p>In dit veld kunt u eigen CSS invoeren. De CSS zal uitsluitend inline worden toegevoegd op pagina's waar de shortcode wordt toegevoegd.</p>
-                <label class="lsb-settings__inline-css-label" for="<?php echo Plugin::OPTION_INLINE_CSS ?>">Inline css invoerveld</label>
+                <h2><?php echo esc_html__('Inline CSS', 'laposta-signup-basic') ?></h2>
+                <p><?php echo esc_html__("In this field you can enter your own CSS. The CSS will only be added inline on pages where the shortcode is added.", 'laposta-signup-basic') ?></p>
+                <label class="lsb-settings__inline-css-label" for="<?php echo Plugin::OPTION_INLINE_CSS ?>"><?php echo esc_html__('Inline css input field', 'laposta-signup-basic') ?></label>
                 <textarea
                     class="lsb-settings__inline-css-input"
                     name="<?php echo Plugin::OPTION_INLINE_CSS ?>"
@@ -372,36 +377,36 @@ use Laposta\SignupBasic\Service\DataService;
             </section>
 
             <section class="lsb-settings__misc">
-                <h2>Overige instellingen</h2>
+                <h2><?php echo esc_html__('Other settings', 'laposta-signup-basic') ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>">Submit button text</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"><?php echo esc_html__('Submit button text', 'laposta-signup-basic') ?></label></th>
                         <td><input
                                     type="text"
                                     name="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"
                                     id="<?php echo Plugin::OPTION_SUBMIT_BUTTON_TEXT ?>"
                                     value="<?php echo esc_attr(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)) ?>"
-                                    placeholder="Aanmelden"
+                                    placeholder="<?php echo esc_html__('Subscribe', 'laposta-signup-basic') ?>"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>">Successfully subscribed title</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>"><?php echo esc_html__('Successfully subscribed title', 'laposta-signup-basic') ?></label></th>
                         <td><input
                                     type="text"
                                     name="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>"
                                     id="<?php echo Plugin::OPTION_SUCCESS_TITLE ?>"
                                     value="<?php echo esc_attr(get_option(Plugin::OPTION_SUCCESS_TITLE)) ?>"
-                                    placeholder="Succesvol aangemeld"
+                                    placeholder="<?php echo esc_html__('Successfully subscribed', 'laposta-signup-basic') ?>"
                             >
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>">Successfully subscribed text</label></th>
+                        <th scope="row"><label for="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"><?php echo esc_html__('Successfully subscribed text', 'laposta-signup-basic') ?></label></th>
                         <td><textarea
                                     name="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
                                     id="<?php echo Plugin::OPTION_SUCCESS_TEXT ?>"
-                                    placeholder="Het aanmelden is gelukt."
+                                    placeholder="<?php echo esc_html__('You have been successfully subscribed.', 'laposta-signup-basic') ?>"
                                     rows="3"
                             ><?php echo esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)) ?></textarea>
                         </td>
@@ -413,9 +418,5 @@ use Laposta\SignupBasic\Service\DataService;
         <?php @submit_button(); ?>
 
     </form>
-
-
-
-
 
 </div>

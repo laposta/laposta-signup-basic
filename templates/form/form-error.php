@@ -13,6 +13,6 @@
 <?php endif ?>
 
 <div class="lsb-form-global-error <?php echo $globalErrorClass ?>">
-    Laposta Signup Basic foutmelding:<br>
+    <?php echo esc_html__('Laposta Signup Basic error:', 'laposta-signup-basic') ?><br>
     <?php echo esc_html($errorMessage) ?>
 </div>

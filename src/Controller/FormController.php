@@ -38,7 +38,7 @@ class FormController extends BaseController
             return $this->getRenderedTemplate('/form/form-error.php', [
                 'inlineCss' => $inlineCss,
                 'globalErrorClass' => $globalErrorClass,
-                'errorMessage' => 'list_id ontbreekt',
+                'errorMessage' => esc_html__('list_id is missing', 'laposta-signup-basic'),
             ]);
         }
 
@@ -132,7 +132,7 @@ EOL;
 
         $nonceAction = crc32($listId);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
-        $submitButtonText = $submitButtonText ?: 'Aanmelden';
+        $submitButtonText = $submitButtonText ?: esc_html__('Subscribe', 'laposta-signup-basic');
         $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
 
         $this->addAssets($addDefaultStyling, $hasDateFields);
@@ -170,7 +170,7 @@ EOL;
         $classType = get_option(Plugin::OPTION_CLASS_TYPE);
         $inlineCss = esc_html(get_option(Plugin::OPTION_INLINE_CSS));
         $addDefaultStyling = $classType === DataService::CLASS_TYPE_DEFAULT;
-        $globalErrorMessage = 'Onbekende fout, probeer het nog eens';
+        $globalErrorMessage = esc_html__('Unknown error, please try again', 'laposta-signup-basic');
 
         $forms = $_POST['lsb'] ?? null;
         if (!$forms) {
@@ -230,9 +230,9 @@ EOL;
             $successTitleClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
             $successTextClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
             $successTitle = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TITLE)));
-            $successTitle = $successTitle ?: 'Succesvol aangemeld';
+            $successTitle = $successTitle ?: esc_html__('Successfully subscribed', 'laposta-signup-basic');
             $successText = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)));
-            $successText = $successText ?: 'Het aanmelden is gelukt.';
+            $successText = $successText ?: esc_html__('You have been successfully subscribed.', 'laposta-signup-basic');
             $successText = nl2br($successText);
 
             $successTitle = apply_filters(Plugin::FILTER_SUCCESS_TITLE, $successTitle, $listId, $submittedFieldValues);
@@ -262,11 +262,12 @@ EOL;
                 if ($fields) {
                     $field = reset($fields);
                     $fieldName = $field['name'];
-                    $globalError = "Er ging iets mis. Controleer het veld '{$fieldName}' en probeer het nog eens.";
+                    $globalError = esc_html__("Something went wrong. Please check the field '%s' and try again.", 'laposta-signup-basic');
+                    $globalError = sprintf($globalError, $fieldName);
                 }
             } else {
                 $globalError = $e->getMessage();
-                Logger::logError('FormController::ajaxFormPost, onbekende Laposta_Error bij versturen formulier naar API', $e);
+                Logger::logError('FormController::ajaxFormPost, unknown Laposta_Error by submitting form through the API', $e);
             }
             RequestHelper::returnJson([
                 'status' => 'error',
@@ -274,7 +275,7 @@ EOL;
             ]);
         }
         catch (\Throwable $e) {
-            Logger::logError('FormController::ajaxFormPost, caught Throwable bij versturen formulier naar API', $e);
+            Logger::logError('FormController::ajaxFormPost, caught Throwable by submitting form through the API', $e);
             RequestHelper::returnJson([
                 'status' => 'error',
                 'html' => $globalErrorMessage
@@ -295,6 +296,13 @@ EOL;
             wp_enqueue_script('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/flatpickr.min.js', [], '4.6.9');
             wp_enqueue_script('flatpickr_l10n_nl', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.9/l10n/nl.js', [], '4.6.9');
         }
+
+        // JS translations
+        $translations = [
+            'global.unknown_error' => __('Unknown error, please try again', 'laposta-signup-basic'),
+        ];
+
+        wp_localize_script('laposta-signup-basic.lsb-form.main', 'lsbTranslations', $translations);
     }
 
     public function getTemplateDir()

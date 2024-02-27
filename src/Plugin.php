@@ -103,6 +103,7 @@ class Plugin
             add_action('admin_menu', [$this, 'addMenu']);
         }
         add_action('init', [$this, 'onInitAction']);
+        add_action('plugins_loaded', [$this, 'onPluginsLoaded']);
         add_shortcode(self::SHORTCODE_RENDER_FORM, [$this->c->getFormController(), 'renderFormByShortcode']);
         $this->addAjaxRoutes();
     }
@@ -138,6 +139,25 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_SUCCESS_TITLE);
         register_setting(self::OPTION_GROUP, self::OPTION_SUCCESS_TEXT);
         register_setting(self::OPTION_GROUP, self::OPTION_INLINE_CSS);
+    }
+
+    public function onPluginsLoaded()
+    {
+        // Attempt to load the translation from the global languages directory.
+        $loaded = load_plugin_textdomain('laposta-signup-basic');
+        if ($loaded) {
+            return;
+        }
+
+        // Fallback to bundled translations in the plugin's languages directory.
+        $locale = determine_locale();
+        $textDomain = 'laposta-signup-basic';
+        $pathToLanguages = realpath(__DIR__.'/../languages');
+
+        // Check if the current locale is a Dutch variant and attempt to load the bundled translation file.
+        if (stripos($locale, 'nl_') === 0) {
+            load_textdomain($textDomain, $pathToLanguages."/$textDomain-nl.mo");
+        }
     }
 
     public function setPluginActionLinks($links) {

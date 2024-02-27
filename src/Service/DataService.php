@@ -35,6 +35,11 @@ class DataService
      */
     protected $status;
 
+    /**
+     * @var int
+     */
+    protected $cacheDuration = 60 * 60 * 24 * 365;
+
     public function __construct(Container $container)
     {
         $this->c = $container;
@@ -82,7 +87,7 @@ class DataService
     public function setStatus(?string $status)
     {
         $this->status = $status;
-        set_transient(Plugin::TRANSIENT_STATUS, $status, 0);
+        set_transient(Plugin::TRANSIENT_STATUS, $status, $this->cacheDuration);
     }
 
     /**
@@ -98,15 +103,15 @@ class DataService
 
         switch ($this->getStatus()) {
             case self::STATUS_NO_API_KEY:
-                return 'Nog geen api-key ingevuld.';
+                return esc_html__('No API key provided.', 'laposta-signup-basic');
             case self::STATUS_NO_CURL:
-                return 'Deze plugin heeft de php-curl extensie nodig, maar deze is niet geinstalleerd.';
+                return esc_html__('This plugin requires the php-curl extension, but it is not installed.', 'laposta-signup-basic');
             case self::STATUS_INVALID_API_KEY:
-                return 'Dit is geen geldige api-key.';
+                return esc_html__('This is not a valid API key.', 'laposta-signup-basic');
             case self::STATUS_NO_LISTS:
-                return 'Geen lijsten gevonden.';
+                return esc_html__('No lists found.', 'laposta-signup-basic');
             default:
-                return 'Onbekende fout';
+                return esc_html__('Unknown error', 'laposta-signup-basic');
         }
     }
 
@@ -148,7 +153,7 @@ class DataService
                 foreach ($items as $item) {
                     $this->lists[] = $item['list'];
                 }
-                set_transient(Plugin::TRANSIENT_LISTS, $this->lists, 0);
+                set_transient(Plugin::TRANSIENT_LISTS, $this->lists, $this->cacheDuration);
                 $this->setStatus(self::STATUS_OK);
                 $this->emptyListFieldsCache();
 
@@ -197,12 +202,12 @@ class DataService
                 $error = [
                     'error' => [
                         'type' => 'unknown',
-                        'message' => 'Onbekende fout',
+                        'message' => esc_html__('Unknown error', 'laposta-signup-basic'),
                         'code' => null,
                         'parameter' => null,
                     ],
                 ];
-                Logger::logError('DataService::getListFields, ontvangen API error', $error);
+                Logger::logError('DataService::getListFields, API error', $error);
                 $this->setListFields($listId, $error);
 
                 return $error;
@@ -253,7 +258,7 @@ class DataService
      */
     public function setListFields($listId, $listFields)
     {
-        set_transient(Plugin::TRANSIENT_LIST_FIELDS_PREFIX.$listId, $listFields);
+        set_transient(Plugin::TRANSIENT_LIST_FIELDS_PREFIX.$listId, $listFields, $this->cacheDuration);
     }
 
     public function emptyAllCache()
@@ -280,10 +285,26 @@ class DataService
     public function getClassTypesKeyValuePairs()
     {
         return [
-            self::CLASS_TYPE_DEFAULT => 'Onze default',
-            self::CLASS_TYPE_BOOTSTRAP_V4 => 'Bootstrap v4',
-            self::CLASS_TYPE_BOOTSTRAP_V5 => 'Bootstrap v5',
-            self::CLASS_TYPE_CUSTOM => 'Handmatig instellen',
+            self::CLASS_TYPE_DEFAULT => esc_html__('Our default', 'laposta-signup-basic'),
+            self::CLASS_TYPE_BOOTSTRAP_V4 => esc_html__('Bootstrap v4', 'laposta-signup-basic'),
+            self::CLASS_TYPE_BOOTSTRAP_V5 => esc_html__('Bootstrap v5', 'laposta-signup-basic'),
+            self::CLASS_TYPE_CUSTOM => esc_html__('Custom settings', 'laposta-signup-basic'),
         ];
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getCacheDuration()
+    {
+        return $this->cacheDuration;
+    }
+
+    /**
+     * @param float|int $cacheDuration
+     */
+    public function setCacheDuration($cacheDuration): void
+    {
+        $this->cacheDuration = $cacheDuration;
     }
 }

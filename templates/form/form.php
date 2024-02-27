@@ -77,7 +77,8 @@ use Laposta\SignupBasic\Plugin;
         <div class="<?php echo $fieldWrapperClass ?> lsb-field-tag-<?php echo esc_attr($field['key']) ?> lsb-field-type-<?php echo $fieldType ?>">
 
             <?php if ($fieldType === 'select'):
-                $defaultSelectOptionText = apply_filters(Plugin::FILTER_FIELD_DEFAULT_SELECT_OPTION_TEXT, 'Maak een keuze', $listId, $field);
+                $defaultSelectOptionText = esc_html__('Please choose', 'laposta-signup-basic');
+                $defaultSelectOptionText = apply_filters(Plugin::FILTER_FIELD_DEFAULT_SELECT_OPTION_TEXT, $defaultSelectOptionText, $listId, $field);
             ?>
                 <label for="<?php echo $uniqueFieldKey ?>" class="<?php echo $labelClass ?>"><?php echo $label ?></label>
                 <select

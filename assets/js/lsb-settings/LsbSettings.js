@@ -5,7 +5,8 @@ var Lsb = Lsb || {};
     self.element = element;
     self.resetCacheUrl = element.data('resetCacheUrl');
     self.resetCacheButton = $('.js-reset-cache', element);
-    self.resetCacheResult = $('.js-reset-result', element);
+    self.resetCacheResultSuccess = $('.js-reset-result-success', element);
+    self.resetCacheResultError = $('.js-reset-result-error', element);
     self.listElements = $('.js-list', element);
     self.shortcodeExample = $('.js-shortcode-example', element);
     self.shortcodeExampleListId = $('.js-shortcode-example-list-id', self.shortcodeExample);
@@ -77,10 +78,16 @@ var Lsb = Lsb || {};
       type: 'get',
       dataType: 'json',
       success: function(response) {
-        self.resetCacheResult.text('De cache is geleegd')
+        self.resetCacheResultSuccess.show();
+        setTimeout(function() {
+          self.resetCacheResultSuccess.hide();
+        }, 3000)
       },
       error: function(response) {
-        self.resetCacheResult.text('Er ging iets mis')
+        self.resetCacheResultError.show();
+        setTimeout(function() {
+          self.resetCacheResultError.hide();
+        }, 3000)
       }
     });
   }
