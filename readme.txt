@@ -4,7 +4,7 @@ Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -66,17 +66,15 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 == Upgrade Notice ==
 
 = 2.5.1 =
-* Multi-language support: The plugin now defaults to English.
-* Dutch translations: Added formal Dutch translations. These translations are automatically applied when the site's language is set to Dutch.
-* Fix: added missing locales for datepicker
-
+* Fixed Dutch translation error
 
 == Changelog ==
 
+= 2.5.1 =
+* Fixed Dutch translation error
+
 
 = 2.5.1 =
-* Multi-language support: The plugin now defaults to English.
-* Dutch translations: Added formal Dutch translations. These translations are automatically applied when the site's language is set to Dutch.
 * Fix: added missing locales for datepicker
 
 
