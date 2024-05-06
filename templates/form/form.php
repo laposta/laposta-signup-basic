@@ -24,7 +24,6 @@
  * @var string $nonce
  * @var string $formPostUrl
  * @var array|null $datepickerLang
- *
  */
 
 use Laposta\SignupBasic\Plugin;
@@ -154,7 +153,7 @@ use Laposta\SignupBasic\Plugin;
     <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;" tabindex="-1">
 
     <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
-    <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>">
+    <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>" class="js-nonce-input">
 
     <div class="lsb-form-global-error <?php echo $globalErrorClass ?>" style="display: none"></div>
 

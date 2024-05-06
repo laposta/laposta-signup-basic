@@ -129,7 +129,7 @@ EOL;
             return $field['datatype'] === 'date';
         });
 
-        $nonceAction = crc32($listId);
+        $nonceAction = $this->createNonceAction($listId);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
         $submitButtonText = $submitButtonText ?: esc_html__('Subscribe', 'laposta-signup-basic');
         $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
@@ -196,14 +196,22 @@ EOL;
         // sanitize form fields
         $submittedFieldValues = $this->sanitizeData(sanitize_post($forms[$listId]));
 
-        // check validity for nonce and honeypot
-        $nonceAction = crc32($listId);
-        $validNonce = false !== wp_verify_nonce($submittedFieldValues[self::FIELD_NAME_NONCE], $nonceAction);
+        // check honeypot
         $validHoneypot = !isset($submittedFieldValues[self::FIELD_NAME_HONEYPOT]) || !$submittedFieldValues[self::FIELD_NAME_HONEYPOT];
-        if (!$validNonce || !$validHoneypot) {
+        if (!$validHoneypot) {
             RequestHelper::returnJson([
                 'status' => 'error',
                 'html' => $globalErrorMessage,
+            ]);
+        }
+
+        // check nonce
+        $nonceAction = $this->createNonceAction($listId);
+        $validNonce = false !== wp_verify_nonce($submittedFieldValues[self::FIELD_NAME_NONCE], $nonceAction);
+        if (!$validNonce) {
+            RequestHelper::returnJson([
+                'status' => 'invalid_nonce',
+                'nonce' => wp_create_nonce($nonceAction),
             ]);
         }
 
@@ -314,6 +322,11 @@ EOL;
     public function getTemplateDir()
     {
         return LAPOSTA_SIGNUP_BASIC_TEMPLATE_DIR;
+    }
+
+    protected function createNonceAction(string $listId): string
+    {
+        return crc32($listId);
     }
 
     protected function getDatePickerLang(string $lang): ?array
