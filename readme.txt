@@ -73,7 +73,7 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 * Support for Page Caching: Enhanced the plugin to automatically refresh nonces on forms when detected as invalid.
 
 
-= 2.5.1 =
+= 2.5.2 =
 * Fixed Dutch translation error
 
 
