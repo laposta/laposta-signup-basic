@@ -2,9 +2,9 @@
 Contributors: roelbousardt, stijnvanderree
 Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing solution.
@@ -65,10 +65,15 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 == Upgrade Notice ==
 
-= 2.6.0 =
-* Support for Page Caching: Enhanced the plugin to automatically refresh nonces on forms when detected as invalid.
+= 2.7.0 =
+* Tested up to: 6.6
+
 
 == Changelog ==
+= 2.7.0 =
+* Tested up to: 6.6
+
+
 = 2.6.0 =
 * Support for Page Caching: Enhanced the plugin to automatically refresh nonces on forms when detected as invalid.
 
