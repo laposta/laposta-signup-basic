@@ -21,17 +21,19 @@ Finally, to render a form, simply use the shortcode as shown in the Settings.
 
 == Screenshots ==
 
-1. HTML form
+1. Rendered HTML form, which can be based on the styling of your choice
 
-2. HTML5 validation of fields
+2. Realtime validation of fields, example 1
 
-3. Datepicker for date fields
+3. Realtime validation of fields, example 2
 
-4. Settings: loading of lists with shortcode
+4. Example of HTML5 date field
 
-5. Settings: What CSS to use? Option to set elements manually.
+5. Settings: Overview of lists with shortcode to copy
 
-6. Settings: add inline CSS and misc settings
+6. Settings: Choose predefined styles and add custom classes
+
+7. Settings: Inline CSS and other settings
 
 
 == Frequently Asked Questions ==
