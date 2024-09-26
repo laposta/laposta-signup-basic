@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Laposta Signup Basic\n"
-"POT-Creation-Date: 2024-02-27 12:49+0100\n"
-"PO-Revision-Date: 2024-02-28 16:28+0100\n"
+"POT-Creation-Date: 2024-09-23 18:36+0200\n"
+"PO-Revision-Date: 2024-09-23 18:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: laposta-signup-basic.php\n"
@@ -20,43 +20,93 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: src/Controller/FormController.php:41
+#: src/Controller/FormController.php:83
 msgid "list_id is missing"
 msgstr "list_id ontbreekt"
 
-#: src/Controller/FormController.php:135 templates/settings/settings.php:389
+#: src/Controller/FormController.php:142 templates/settings/settings.php:473
 msgid "Subscribe"
-msgstr "Aanmelden"
+msgstr "Abonneer"
 
-#: src/Controller/FormController.php:173 src/Controller/FormController.php:302
+#: src/Controller/FormController.php:180 src/Controller/FormController.php:316
 msgid "Unknown error, please try again"
 msgstr "Onbekende fout, probeer het opnieuw"
 
-#: src/Controller/FormController.php:233 templates/settings/settings.php:400
+#: src/Controller/FormController.php:252 templates/settings/settings.php:484
 msgid "Successfully subscribed"
-msgstr "Succesvol aangemeld"
+msgstr "Met succes geabonneerd"
 
-#: src/Controller/FormController.php:235 templates/settings/settings.php:409
+#: src/Controller/FormController.php:254 templates/settings/settings.php:493
 msgid "You have been successfully subscribed."
-msgstr "Het aanmelden is gelukt."
+msgstr "U bent succesvol geabonneerd."
 
-#: src/Controller/FormController.php:265
+#: src/Controller/FormController.php:283
 #, php-format
 msgid "Something went wrong. Please check the field '%s' and try again."
 msgstr "Er is iets misgegaan. Controleer het veld '%s' en probeer het opnieuw."
 
+#: src/Controller/FormController.php:317
+msgid ""
+"There are errors in the form. Please review and correct the fields with "
+"error messages."
+msgstr ""
+"Er staan fouten in het formulier. Controleer en corrigeer de velden met "
+"foutmeldingen."
+
+#: src/Controller/FormController.php:318
+msgid "The form is being submitted. Please wait while we process your request."
+msgstr ""
+"Het formulier wordt verzonden. Even geduld a.u.b. terwijl we uw verzoek "
+"verwerken."
+
+#: src/Controller/FormController.php:319
+msgid "Please provide a value for '%field_name%'"
+msgstr "Geef een waarde op voor '%field_name%'"
+
+#: src/Controller/FormController.php:320
+msgid "Please provide an email address"
+msgstr "Geef een e-mailadres op"
+
+#: src/Controller/FormController.php:321
+msgid "Please provide a date"
+msgstr "Geef een datum op"
+
+#: src/Controller/FormController.php:322
+msgid "Please provide a number"
+msgstr "Geef een nummer op"
+
+#: src/Controller/FormController.php:323
+msgid "Please choose an option"
+msgstr "Selecteer een optie"
+
+#: src/Controller/FormController.php:324
+msgid "Please select at least one option"
+msgstr "Selecteer ten minste één optie"
+
+#: src/Controller/FormController.php:325
+msgid "Please provide a valid email address, e.g., example@domain.com"
+msgstr "Geef een geldig e-mailadres op, bijvoorbeeld voorbeeld@domein.com"
+
+#: src/Controller/FormController.php:326
+msgid "Please provide a valid date"
+msgstr "Geef een geldige datum op"
+
+#: src/Controller/FormController.php:327
+msgid "Please provide a valid number"
+msgstr "Geef een geldig nummer op"
+
 #: src/Service/DataService.php:106
 msgid "No API key provided."
-msgstr "Nog geen API key ingevuld."
+msgstr "Geen API-sleutel verstrekt."
 
 #: src/Service/DataService.php:108
 msgid "This plugin requires the php-curl extension, but it is not installed."
 msgstr ""
-"Deze plugin vereist de php-curl-extensie, maar deze is niet geïnstalleerd."
+"Deze plugin vereist de php-curl extensie, maar deze is niet geïnstalleerd."
 
 #: src/Service/DataService.php:110
 msgid "This is not a valid API key."
-msgstr "Dit is geen geldige API key."
+msgstr "Dit is geen geldige API-sleutel."
 
 #: src/Service/DataService.php:112
 msgid "No lists found."
@@ -84,11 +134,15 @@ msgstr "Handmatige instellingen"
 
 #: templates/form/form-error.php:16
 msgid "Laposta Signup Basic error:"
-msgstr "Laposta Signup Basic foutmelding:"
+msgstr "Laposta Signup Basic fout:"
 
-#: templates/form/form.php:80
+#: templates/form/form.php:98
 msgid "Please choose"
-msgstr "Maak een keuze"
+msgstr "Alstublieft maak een keuze"
+
+#: templates/form/form.php:153
+msgid "YYYY-MM-DD"
+msgstr "JJJJ-MM-DD"
 
 #: templates/settings/settings.php:22
 msgid "Laposta Signup Basic Settings"
@@ -96,7 +150,7 @@ msgstr "Laposta Signup Basic Instellingen"
 
 #: templates/settings/settings.php:30
 msgid "API key"
-msgstr "API key"
+msgstr "API-sleutel"
 
 #: templates/settings/settings.php:34
 msgid "Have fields been changed or is something going wrong?"
@@ -116,11 +170,11 @@ msgstr "Er ging iets mis"
 
 #: templates/settings/settings.php:46
 msgid "Error message"
-msgstr "Foutmelding"
+msgstr "Foutbericht"
 
 #: templates/settings/settings.php:48
 msgid "Unfortunately, something went wrong. Check out this error message:"
-msgstr "Helaas is er iets misgegaan. Bekijk deze foutmelding:"
+msgstr "Helaas, er is iets misgegaan. Bekijk dit foutbericht:"
 
 #: templates/settings/settings.php:58
 msgid "Overview of your lists"
@@ -131,203 +185,239 @@ msgid ""
 "The lists below are linked to the specified API key. It is possible to "
 "display these on every Wordpress page by using a shortcode."
 msgstr ""
-"Onderstaande lijsten zijn gekoppeld aan de opgegeven API key. Het is "
-"mogelijk om deze op elke Wordpress pagina weer te geven door gebruik te "
-"maken van een shortcode."
+"De lijsten hieronder zijn gekoppeld aan de opgegeven API-sleutel. Het is "
+"mogelijk om deze op elke WordPress pagina weer te geven door een shortcode "
+"te gebruiken."
 
 #: templates/settings/settings.php:62
 msgid "Click on a list to see that list's shortcode."
 msgstr "Klik op een lijst om de shortcode van die lijst te zien."
 
-#: templates/settings/settings.php:74
-msgid "What kind of styling do you want to use for the form fields?"
-msgstr "Wat voor opmaak wilt u hanteren voor de formuliervelden?"
+#: templates/settings/settings.php:73
+msgid "Copy to clipboard"
+msgstr "Kopiëren naar klembord"
 
-#: templates/settings/settings.php:97
+#: templates/settings/settings.php:74
+msgid "Copied!"
+msgstr "Gekopieerd!"
+
+#: templates/settings/settings.php:80
+msgid "What kind of styling do you want to use for the form fields?"
+msgstr "Welk soort styling wil je gebruiken voor de formulier velden?"
+
+#: templates/settings/settings.php:103
 msgid "Explanation of our default"
 msgstr "Uitleg van onze standaard"
 
-#: templates/settings/settings.php:98
+#: templates/settings/settings.php:104
 msgid "Use this option to load our default styling."
 msgstr "Gebruik deze optie om onze standaard styling te laden."
 
-#: templates/settings/settings.php:108
+#: templates/settings/settings.php:114
 msgid "Explanation of bootstrap"
 msgstr "Uitleg over bootstrap"
 
-#: templates/settings/settings.php:109
+#: templates/settings/settings.php:115
 msgid ""
 "Use this option if bootstrap is used in your Wordpress theme. We will add "
 "the appropriate bootstrap classes. To avoid possible conflicts, we do not "
 "load the bootstrap stylesheets."
 msgstr ""
-"Gebruik deze optie als bootstrap wordt gebruikt in uw Wordpress thema. We "
-"zullen de juiste bootstrap classes toevoegen. Om mogelijke conflicten te "
+"Gebruik deze optie als bootstrap wordt gebruikt in uw WordPress thema. We "
+"zullen de juiste bootstrap klassen toevoegen. Om mogelijke conflicten te "
 "voorkomen, laden we de bootstrap stylesheet niet in."
 
-#: templates/settings/settings.php:118
+#: templates/settings/settings.php:124
 msgid "Explanation of the custom settings"
-msgstr "Uitleg van de handmatige instellingen"
+msgstr "Uitleg van de aangepaste instellingen"
 
-#: templates/settings/settings.php:119
+#: templates/settings/settings.php:125
 msgid ""
 "This option does not load any css files. You are fully responsible for the "
 "layout."
 msgstr ""
 "Met deze optie worden geen css bestanden geladen. U bent volledig "
-"verantwoordelijk voor de opmaak."
+"verantwoordelijk voor de lay-out."
 
-#: templates/settings/settings.php:123
+#: templates/settings/settings.php:129
 msgid "Do you want to add extra classes?"
-msgstr "Wilt u extra classes toevoegen?"
+msgstr "Wilt u extra klassen toevoegen?"
 
-#: templates/settings/settings.php:124
+#: templates/settings/settings.php:130
 msgid ""
 "We already add classes to each element (see heading 'Explanation of the "
 "classes'). If you choose 'yes', you have the option to add additional "
 "classes."
 msgstr ""
-"We voegen al classes toe aan elk element (zie kopje ‘Uitleg over de "
-"classes’). Als u voor ‘ja’ kiest, heeft u de mogelijkheid om extra classes "
+"We voegen al klassen toe aan elk element (zie kopje ‘Uitleg over de "
+"classes’). Als u voor ‘ja’ kiest, heeft u de mogelijkheid om extra klassen "
 "toe te voegen."
 
-#: templates/settings/settings.php:128
+#: templates/settings/settings.php:134
 msgid "no"
 msgstr "nee"
 
-#: templates/settings/settings.php:129
+#: templates/settings/settings.php:135
 msgid "yes"
 msgstr "ja"
 
-#: templates/settings/settings.php:147
+#: templates/settings/settings.php:153
 msgid "Add extra classes"
-msgstr "Extra classes toevoegen"
+msgstr "Extra klassen toevoegen"
 
-#: templates/settings/settings.php:148
+#: templates/settings/settings.php:154
 msgid ""
 "Below you can add css classes for each element. It is possible to add "
 "multiple classes by means of a space. For example:"
 msgstr ""
-"Hieronder kunt u per element css classes toevoegen. Het is mogelijk om "
-"meerdere classes toe te voegen door middel van een spatie. Bv:"
+"Hieronder kunt u per element css klassen toevoegen. Het is mogelijk om "
+"meerdere klassen toe te voegen door middel van een spatie. Bv:"
 
-#: templates/settings/settings.php:153
+#: templates/settings/settings.php:159
 msgid "Form class"
-msgstr "Form class"
+msgstr "Formulier klasse"
 
-#: templates/settings/settings.php:163
+#: templates/settings/settings.php:169
+msgid "Form body class"
+msgstr "Form body class"
+
+#: templates/settings/settings.php:179
 msgid "Field wrapper class"
-msgstr "Field wrapper class"
+msgstr "Veldomhullende klasse"
 
-#: templates/settings/settings.php:173
+#: templates/settings/settings.php:189
+msgid "Field has error class"
+msgstr "Field has error class"
+
+#: templates/settings/settings.php:199
+msgid "Input has error class"
+msgstr "Input has error class"
+
+#: templates/settings/settings.php:209
+msgid "Field error feedback class"
+msgstr "Field error feedback class"
+
+#: templates/settings/settings.php:219
 msgid "Input class"
-msgstr "Input class"
+msgstr "Invoer klasse"
 
-#: templates/settings/settings.php:183
+#: templates/settings/settings.php:229
 msgid "Label class"
-msgstr "Label class"
+msgstr "Label klasse"
 
-#: templates/settings/settings.php:193
+#: templates/settings/settings.php:239
+msgid "Label name class"
+msgstr "Label name class"
+
+#: templates/settings/settings.php:249
+msgid "Label required class"
+msgstr "Label required class"
+
+#: templates/settings/settings.php:259
 msgid "Select class"
-msgstr "Select class"
+msgstr "Selecteer klasse"
 
-#: templates/settings/settings.php:203
+#: templates/settings/settings.php:269
 msgid "Wrapper class for collection of radio/checkboxes fields"
-msgstr "Wrapper class voor verzameling van radio/checkboxes velden"
+msgstr "Wrapper klasse voor verzameling van radio/selectievakje velden"
 
-#: templates/settings/settings.php:213
+#: templates/settings/settings.php:279
 msgid "Wrapper class for single radio/checkbox field"
-msgstr "Wrapper-klasse voor één radio/checkbox veld"
+msgstr "Wrapper klasse voor één radio/selectievakje veld"
 
-#: templates/settings/settings.php:223
+#: templates/settings/settings.php:289
 msgid "Radio/checkbox input class"
-msgstr "Radio/checkbox input class"
+msgstr "Klasse voor radio-/selectievakje invoer"
 
-#: templates/settings/settings.php:233
+#: templates/settings/settings.php:299
 msgid "Radio/checkbox label class"
-msgstr "Radio/checkbox label class"
+msgstr "Klasse voor radio-/selectievakje label"
 
-#: templates/settings/settings.php:243
+#: templates/settings/settings.php:309
 msgid "Submit button en loader wrapper class"
-msgstr "Verzendknop en lader wrapper class"
+msgstr "Indienen knop en loader wrapper klasse"
 
-#: templates/settings/settings.php:254
+#: templates/settings/settings.php:320
 msgid "Button class"
-msgstr "Verzendknop class"
+msgstr "Knop klasse"
 
-#: templates/settings/settings.php:264
+#: templates/settings/settings.php:330
 msgid "Loader class"
-msgstr "Loader class"
+msgstr "Lader klasse"
 
-#: templates/settings/settings.php:275
+#: templates/settings/settings.php:341
 msgid "Global error class"
-msgstr "Global error class"
+msgstr "Globale foutklasse"
 
-#: templates/settings/settings.php:286
+#: templates/settings/settings.php:352
+msgid "Success container class"
+msgstr "Succesvol container class"
+
+#: templates/settings/settings.php:363
 msgid "Successfully subscribed wrapper class"
-msgstr "Succesvol aangemeld wrapper class"
+msgstr "Succesvol geabonneerd wrapper klasse"
 
-#: templates/settings/settings.php:297
+#: templates/settings/settings.php:374
 msgid "Successfully subscribed title class"
-msgstr "Succesvol aangemeld titel class"
+msgstr "Succesvol geabonneerd titel klasse"
 
-#: templates/settings/settings.php:308
+#: templates/settings/settings.php:385
 msgid "Successfully subscribed text class"
-msgstr "Succesvol aangemeld tekst class"
+msgstr "Succesvol geabonneerd tekst klasse"
 
-#: templates/settings/settings.php:323
+#: templates/settings/settings.php:400
 msgid "Explanation of the classes"
-msgstr "Uitleg over de classes"
+msgstr "Uitleg over de klassen"
 
-#: templates/settings/settings.php:325
+#: templates/settings/settings.php:402
 msgid ""
 "Below you will find an overview of the basic classes we use, which are added "
 "by default:"
 msgstr ""
-"Hieronder ziet u een overzicht van de basisclasses die we gebruiken, deze "
-"worden standaard toegevoegd:"
+"Hieronder vind je een overzicht van de basis klassen die we gebruiken, die "
+"standaard worden toegevoegd:"
 
-#: templates/settings/settings.php:345
+#: templates/settings/settings.php:429
 msgid "The &lt;form&gt; tag gets additional classes:"
-msgstr "De &lt;form&gt; tag krijgt aanvullende classes mee:"
+msgstr "De &lt;form&gt; tag krijgt aanvullende klassen mee:"
 
-#: templates/settings/settings.php:347
+#: templates/settings/settings.php:431
 msgid "Where [listId] is replaced by the id of the list."
 msgstr "Waarbij [listId] vervangen wordt voor het id van de lijst."
 
-#: templates/settings/settings.php:349
+#: templates/settings/settings.php:433
 msgid ""
 "Furthermore, the field wrappers receive the relation variable (tag) of that "
 "specific field as an extra class, as well as the field type:"
 msgstr ""
-"Verder krijgen de field wrappers als extra class de relatievariabele (tag) "
+"Verder krijgen de field wrappers als extra klasse de relatievariabele (tag) "
 "van dat specifieke veld mee, alsmede het veld type:"
 
-#: templates/settings/settings.php:351
+#: templates/settings/settings.php:435
 msgid "Where [tag] is replaced by the relation variable (tag) of the list,"
 msgstr ""
-"Waarbij [tag] vervangen wordt voor de relatievariebele (tag) van de lijst,"
+"Waar [tag] wordt vervangen door de relatie variabele (tag) van de lijst,"
 
-#: templates/settings/settings.php:352
+#: templates/settings/settings.php:436
 msgid ""
 "[fieldType] is replaced by the field type (text, email, number, date, "
 "select, radio, checkbox)"
 msgstr ""
 "[fieldType] wordt vervangen voor het type veld (text, email, number, date, "
-"select, radio, checkbox)"
+"select, radio, selectievakje)"
 
-#: templates/settings/settings.php:353
+#: templates/settings/settings.php:437
 msgid ""
 "and [misc-classes] is replaced by the class that belongs to the chosen "
 "format + our own class \\\"lsb-form-field-wrapper\\\" + optionally the extra "
 "added classes as set under the heading \\\"Add extra classes\\\"."
 msgstr ""
-"en [misc-classes] wordt vervangen voor de class die hoort bij de gekozen "
-"opmaak + onze eigen class ‘lsb-form-field-wrapper’ + optioneel de extra "
-"toegevoegde classes zoals ingesteld onder het kopje ‘Extra classes "
+"en [misc-classes] wordt vervangen voor de klasse die hoort bij het gekozen "
+"format + onze eigen klasse ‘lsb-form-field-wrapper’ + optioneel de extra "
+"toegevoegde klassen zoals ingesteld onder het kopje ‘Extra klassen "
 "toevoegen’."
 
-#: templates/settings/settings.php:355
+#: templates/settings/settings.php:439
 msgid ""
 "This combination of unique form and field properties allows you to influence "
 "each field separately using CSS."
@@ -335,37 +425,37 @@ msgstr ""
 "Door deze combinatie van unieke formulier- en veldeigenschappen kunt u ieder "
 "veld apart beïnvloeden met behulp van CSS."
 
-#: templates/settings/settings.php:361
+#: templates/settings/settings.php:445
 msgid "Inline CSS"
 msgstr "Inline CSS"
 
-#: templates/settings/settings.php:362
+#: templates/settings/settings.php:446
 msgid ""
 "In this field you can enter your own CSS. The CSS will only be added inline "
 "on pages where the shortcode is added."
 msgstr ""
-"In dit veld kunt u eigen CSS invoeren. De CSS zal uitsluitend inline worden "
-"toegevoegd op pagina’s waar de shortcode wordt toegevoegd."
+"In dit veld kunt u uw eigen CSS invoeren. De CSS zal uitsluitend inline "
+"worden toegevoegd op pagina’s waar de shortcode wordt toegevoegd."
 
-#: templates/settings/settings.php:363
+#: templates/settings/settings.php:447
 msgid "Inline css input field"
 msgstr "Inline css invoerveld"
 
-#: templates/settings/settings.php:380
+#: templates/settings/settings.php:464
 msgid "Other settings"
 msgstr "Overige instellingen"
 
-#: templates/settings/settings.php:383
+#: templates/settings/settings.php:467
 msgid "Submit button text"
 msgstr "Verzendknop tekst"
 
-#: templates/settings/settings.php:394
+#: templates/settings/settings.php:478
 msgid "Successfully subscribed title"
-msgstr "Succesvol aangemeld titel"
+msgstr "Succesvol geabonneerd titel"
 
-#: templates/settings/settings.php:405
+#: templates/settings/settings.php:489
 msgid "Successfully subscribed text"
-msgstr "Succesvol aangemeld tekst"
+msgstr "Met succes geabonneerd tekst"
 
 #. Plugin Name of the plugin/theme
 msgid "Laposta Signup Basic"
@@ -380,7 +470,7 @@ msgid ""
 "Easily create & send newsletters with Laposta. This plugin adds customizable "
 "signup forms to your site."
 msgstr ""
-"Creëer en verstuur eenvoudig nieuwsbrieven met Laposta. Deze plugin voegt "
+"Eenvoudig nieuwsbrieven maken en versturen met Laposta. Deze plugin voegt "
 "aanpasbare inschrijfformulieren toe aan uw site."
 
 #. Author of the plugin/theme

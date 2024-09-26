@@ -43,8 +43,28 @@
     color: white;
 }
 
+.lsb-settings__lists {
+    position: relative;
+}
+
+.lsb-settings__lists-shortcode-example-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .lsb-settings__lists-shortcode-example {
-    margin-top: 0;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lsb-settings__copy-shortcode {
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 .lsb-settings__class-type-custom {

@@ -20,9 +20,15 @@ class Plugin
     const OPTION_CLASS_TYPE = 'laposta_signup_basic_class_type'; // bootstrap v4, v5 or custom
     const OPTION_ADD_CLASSES = 'laposta_signup_basic_add_classes';
     const OPTION_CLASS_FORM = 'laposta_signup_basic_class_form';
+    const OPTION_CLASS_FORM_BODY = 'laposta_signup_basic_class_form_body';
     const OPTION_CLASS_FIELD_WRAPPER = 'laposta_signup_basic_class_field_wrapper';
+    const OPTION_CLASS_FIELD_HAS_ERROR = 'laposta_signup_basic_class_field_has_error';
+    const OPTION_CLASS_INPUT_HAS_ERROR = 'laposta_signup_basic_class_input_has_error';
+    const OPTION_CLASS_FIELD_ERROR_FEEDBACK = 'laposta_signup_basic_class_field_error_feedback';
     const OPTION_CLASS_INPUT = 'laposta_signup_basic_class_input';
     const OPTION_CLASS_LABEL = 'laposta_signup_basic_class_label';
+    const OPTION_CLASS_LABEL_NAME = 'laposta_signup_basic_class_label_name';
+    const OPTION_CLASS_LABEL_REQUIRED = 'laposta_signup_basic_class_label_required';
     const OPTION_CLASS_SELECT = 'laposta_signup_basic_class_select';
     const OPTION_CLASS_CHECKS_WRAPPER = 'laposta_signup_basic_class_checks_wrapper';
     const OPTION_CLASS_CHECK_WRAPPER = 'laposta_signup_basic_class_check_wrapper';
@@ -33,6 +39,7 @@ class Plugin
     const OPTION_SUBMIT_BUTTON_TEXT = 'laposta_signup_basic_submit_button_text';
     const OPTION_CLASS_LOADER = 'laposta_signup_basic_class_loader';
     const OPTION_CLASS_GLOBAL_ERROR = 'laposta_signup_basic_class_global_error';
+    const OPTION_CLASS_SUCCESS_CONTAINER = 'laposta_signup_basic_class_success_container';
     const OPTION_CLASS_SUCCESS_WRAPPER = 'laposta_signup_basic_class_success_wrapper';
     const OPTION_CLASS_SUCCESS_TITLE = 'laposta_signup_basic_class_success_title';
     const OPTION_CLASS_SUCCESS_TEXT = 'laposta_signup_basic_class_success_text';
@@ -120,9 +127,15 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_TYPE);
         register_setting(self::OPTION_GROUP, self::OPTION_ADD_CLASSES);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FORM);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FORM_BODY);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FIELD_WRAPPER);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FIELD_HAS_ERROR);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_INPUT_HAS_ERROR);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_FIELD_ERROR_FEEDBACK);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_INPUT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_LABEL);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_LABEL_NAME);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_LABEL_REQUIRED);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SELECT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECKS_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_CHECK_WRAPPER);
@@ -133,6 +146,7 @@ class Plugin
         register_setting(self::OPTION_GROUP, self::OPTION_SUBMIT_BUTTON_TEXT);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_LOADER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_GLOBAL_ERROR);
+        register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_CONTAINER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_WRAPPER);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_TITLE);
         register_setting(self::OPTION_GROUP, self::OPTION_CLASS_SUCCESS_TEXT);

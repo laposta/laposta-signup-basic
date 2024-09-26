@@ -27,13 +27,56 @@ class FormController extends BaseController
     {
         $dataService = $this->c->getDataService();
 
-        $classType = get_option(Plugin::OPTION_CLASS_TYPE);
-        $globalErrorClass = esc_html(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR, ''));
+		$formClass = 'lsb-form';
+		$formBodyClass = 'lsb-form-body';
+		$fieldWrapperClass = 'lsb-form-field-wrapper';
+		$fieldHasErrorClass = 'lsb-form-field-has-error';
+		$inputHasErrorClass = 'lsb-form-input-has-error';
+		$fieldErrorFeedbackClass = 'lsb-form-field-error-feedback';
+		$labelClass = 'lsb-form-label';
+		$labelNameClass = 'lsb-form-label-name';
+		$labelRequiredClass = 'lsb-form-label-required';
+		$inputClass = 'lsb-form-input';
+		$selectClass = $inputClass;
+		$checksWrapperClass = 'lsb-form-checks';
+		$checkWrapperClass = 'lsb-form-check';
+		$checkInputClass = 'lsb-form-check-input';
+		$checkLabelClass = 'lsb-form-check-label';
+		$submitButtonAndLoaderWrapperClass = 'lsb-form-button-and-loader-wrapper';
+		$submitButtonClass = 'lsb-form-button';
+		$loaderClass = 'lsb-loader';
+		$globalErrorClass = 'lsb-form-global-error';
+		$successContainerClass = 'lsb-form-success-container';
+		$addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
+		if ($addClasses) {
+			$formClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FORM, ''));
+			$formBodyClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FORM_BODY, ''));
+			$fieldWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER, ''));
+			$fieldHasErrorClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FIELD_HAS_ERROR, ''));
+			$inputHasErrorClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_INPUT_HAS_ERROR, ''));
+			$fieldErrorFeedbackClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FIELD_ERROR_FEEDBACK, ''));
+			$labelClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LABEL, ''));
+			$labelNameClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LABEL_NAME, ''));
+			$labelRequiredClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LABEL_REQUIRED, ''));
+			$inputClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_INPUT, ''));
+			$selectClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SELECT, ''));
+			$checksWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER, ''));
+			$checkWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER, ''));
+			$checkInputClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_INPUT, ''));
+			$checkLabelClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_LABEL, ''));
+			$submitButtonAndLoaderWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER, ''));
+			$submitButtonClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON, ''));
+			$loaderClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LOADER, ''));
+			$globalErrorClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR, ''));
+			$successContainerClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_CONTAINER, ''));
+		}
+
         $inlineCss = esc_html(get_option(Plugin::OPTION_INLINE_CSS));
+		$classType = get_option(Plugin::OPTION_CLASS_TYPE);
         $addDefaultStyling = $classType === DataService::CLASS_TYPE_DEFAULT;
 
         if (!$atts || !isset($atts['list_id'])) {
-            $this->addAssets($addDefaultStyling, false);
+            $this->addAssets($addDefaultStyling);
             return $this->getRenderedTemplate('/form/form-error.php', [
                 'inlineCss' => $inlineCss,
                 'globalErrorClass' => $globalErrorClass,
@@ -44,7 +87,7 @@ class FormController extends BaseController
         $listId = sanitize_text_field($atts['list_id']);
         $listFields = $dataService->getListFields($listId);
         if (isset($listFields['error'])) {
-            $this->addAssets($addDefaultStyling, false);
+            $this->addAssets($addDefaultStyling);
             return $this->getRenderedTemplate('/form/form-error.php', [
                 'inlineCss' => $inlineCss,
                 'globalErrorClass' => $globalErrorClass,
@@ -52,32 +95,14 @@ class FormController extends BaseController
             ]);
         }
 
-        $formClass = 'lsb-form';
-        $fieldWrapperClass = 'lsb-form-field-wrapper';
-        $labelClass = 'lsb-form-label';
-        $inputClass = 'lsb-form-input';
-        $selectClass = $inputClass;
-        $checksWrapperClass = 'lsb-form-checks';
-        $checkWrapperClass = 'lsb-form-check';
-        $checkInputClass = 'lsb-form-check-input';
-        $checkLabelClass = 'lsb-form-check-label';
-        $submitButtonAndLoaderWrapperClass = 'lsb-form-button-and-loader-wrapper';
-        $submitButtonClass = 'lsb-form-button';
-        $loaderClass = 'lsb-loader';
-
-        $bootstrapPreInlineCss = <<<EOL
-.js-lsb-datepicker.form-control:disabled,
-.js-lsb-datepicker.form-control[readonly] {
-    background-color: inherit;
-}
-EOL;
-
-
         switch ($classType) {
             case DataService::CLASS_TYPE_BOOTSTRAP_V4:
-                $inlineCss = $bootstrapPreInlineCss.$inlineCss;
-                $formClass .= '';
-                $fieldWrapperClass .= ' form-group';
+				$globalErrorClass .= ' alert alert-danger';
+				$formClass .= '';
+				$fieldWrapperClass .= ' form-group';
+				$fieldHasErrorClass .= '';
+				$inputHasErrorClass .= ' is-invalid';
+				$fieldErrorFeedbackClass .= ' invalid-feedback';
                 $labelClass .= '';
                 $inputClass .= ' form-control';
                 $selectClass .= ' form-control';
@@ -89,9 +114,12 @@ EOL;
                 $loaderClass .= ' spinner-border';
                 break;
             case DataService::CLASS_TYPE_BOOTSTRAP_V5:
-                $inlineCss = $bootstrapPreInlineCss.$inlineCss;
-                $formClass .= '';
+				$globalErrorClass .= ' alert alert-danger';
+				$formClass .= '';
                 $fieldWrapperClass .= ' mb-3';
+				$fieldHasErrorClass .= '';
+				$inputHasErrorClass .= ' is-invalid';
+				$fieldErrorFeedbackClass .= ' invalid-feedback';
                 $labelClass .= ' form-label';
                 $inputClass .= ' form-control';
                 $selectClass .= ' form-select';
@@ -104,46 +132,27 @@ EOL;
                 break;
         }
 
-        $addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
-        if ($addClasses) {
-            $formClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FORM, ''));
-            $fieldWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER, ''));
-            $labelClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LABEL, ''));
-            $inputClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_INPUT, ''));
-            $selectClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SELECT, ''));
-            $checksWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECKS_WRAPPER, ''));
-            $checkWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_WRAPPER, ''));
-            $checkInputClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_INPUT, ''));
-            $checkLabelClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_CHECK_LABEL, ''));
-            $submitButtonAndLoaderWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON_AND_LOADER_WRAPPER, ''));
-            $submitButtonClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUBMIT_BUTTON, ''));
-            $loaderClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_LOADER, ''));
-        }
-
         $fieldValues = [];
         foreach ($listFields as $field) {
             $fieldValues[$field['key']] = null;
         }
-
-        $hasDateFields = !!array_filter($listFields, function($field) {
-            return $field['datatype'] === 'date';
-        });
 
         $nonceAction = $this->createNonceAction($listId);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
         $submitButtonText = $submitButtonText ?: esc_html__('Subscribe', 'laposta-signup-basic');
         $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
 
-        $locale = determine_locale();
-        $lang = substr($locale, 0, 2);
-        $datepickerLang = $this->getDatePickerLang($lang);
-        $this->addAssets($addDefaultStyling, $hasDateFields, $datepickerLang);
+        $this->addAssets($addDefaultStyling, compact('fieldHasErrorClass', 'inputHasErrorClass'));
         return $this->getRenderedTemplate('/form/form.php', [
             'listId' => $listId,
             'listFields' => $listFields,
             'formClass' => $formClass,
+            'formBodyClass' => $formBodyClass,
             'fieldWrapperClass' => $fieldWrapperClass,
+            'fieldErrorFeedbackClass' => $fieldErrorFeedbackClass,
             'labelClass' => $labelClass,
+            'labelNameClass' => $labelNameClass,
+            'labelRequiredClass' => $labelRequiredClass,
             'inputClass' => $inputClass,
             'selectClass' => $selectClass,
             'checksWrapperClass' => $checksWrapperClass,
@@ -155,24 +164,19 @@ EOL;
             'loaderClass' => $loaderClass,
             'inlineCss' => $inlineCss,
             'fieldValues' => $fieldValues,
-            'hasDateFields' => $hasDateFields,
             'globalErrorClass' => $globalErrorClass,
+            'successContainerClass' => $successContainerClass,
             'submitButtonText' => $submitButtonText,
             'fieldNameHoneypot' => self::FIELD_NAME_HONEYPOT,
             'fieldNameNonce' => self::FIELD_NAME_NONCE,
             'nonce' => wp_create_nonce($nonceAction),
             'formPostUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=form_submit',
-            'datepickerLang' => $datepickerLang,
         ]);
     }
 
     public function ajaxFormPost()
     {
         $dataService = $this->c->getDataService();
-
-        $classType = get_option(Plugin::OPTION_CLASS_TYPE);
-        $inlineCss = esc_html(get_option(Plugin::OPTION_INLINE_CSS));
-        $addDefaultStyling = $classType === DataService::CLASS_TYPE_DEFAULT;
         $globalErrorMessage = esc_html__('Unknown error, please try again', 'laposta-signup-basic');
 
         $forms = $_POST['lsb'] ?? null;
@@ -221,7 +225,6 @@ EOL;
             $fieldValues[$field['key']] = null;
         }
         $submittedFieldValues = array_intersect_key($submittedFieldValues, $fieldValues);
-
         try {
             $dataService->initLaposta();
             $member = new \Laposta_Member($listId);
@@ -235,11 +238,16 @@ EOL;
                 ],
             ));
 
+			$successWrapperClass = 'lsb-success';
+			$successTitleClass = 'lsb-success-title';
+			$successTextClass = 'lsb-success-text';
+			$addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
+			if ($addClasses) {
+				$successWrapperClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
+				$successTitleClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
+				$successTextClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
+			}
 
-            $this->addAssets($addDefaultStyling, false);
-            $successWrapperClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
-            $successTitleClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
-            $successTextClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
             $successTitle = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TITLE)));
             $successTitle = $successTitle ?: esc_html__('Successfully subscribed', 'laposta-signup-basic');
             $successText = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)));
@@ -250,7 +258,6 @@ EOL;
             $successText = apply_filters(Plugin::FILTER_SUCCESS_TEXT, $successText, $listId, $submittedFieldValues);
 
             $html = $this->getRenderedTemplate('/form/form-success.php', [
-                'inlineCss' => $inlineCss,
                 'successWrapperClass' => $successWrapperClass,
                 'successTitleClass' => $successTitleClass,
                 'successTextClass' => $successTextClass,
@@ -294,29 +301,35 @@ EOL;
         }
     }
 
-    public function addAssets(bool $addDefaultStyling, bool $addDatepickerAssets, ?array $datepickerLang = null)
+    public function addAssets(bool $addDefaultStyling, array $jsClasses = [])
     {
+		wp_enqueue_style('laposta-signup-basic.lsb-form-always', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/css/lsb-form-always.css', [], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
         if ($addDefaultStyling) {
-            wp_enqueue_style('laposta-signup-basic.lsb-form', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/css/lsb-form.css', [], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
+            wp_enqueue_style('laposta-signup-basic.lsb-form-default', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/css/lsb-form-default.css', [], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
         }
 
         wp_enqueue_script('laposta-signup-basic.lsb-form.main', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/js/lsb-form/main.js', ['jquery'], LAPOSTA_SIGNUP_BASIC_ASSETS_VERSION);
 
-        if ($addDatepickerAssets) {
-            wp_enqueue_style('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.13/flatpickr.min.css');
-            wp_enqueue_script('flatpickr', LAPOSTA_SIGNUP_BASIC_ASSETS_URL.'/flatpickr4.6.13/flatpickr.min.js');
-            if ($datepickerLang) {
-                $fileLang = $datepickerLang['file_lang'] ?? $datepickerLang['lang'];
-                wp_enqueue_script('flatpickr_l10n_'.$fileLang, LAPOSTA_SIGNUP_BASIC_ASSETS_URL."/flatpickr4.6.13/l10n/$fileLang.js");
-            }
-        }
-
-        // JS translations
-        $translations = [
-            'global.unknown_error' => __('Unknown error, please try again', 'laposta-signup-basic'),
+        // JS config
+        $jsConfig = [
+			'trans' => [
+				'global.unknown_error' => esc_html__('Unknown error, please try again', 'laposta-signup-basic'),
+				'global.form_contains_errors' => esc_html__('There are errors in the form. Please review and correct the fields with error messages.', 'laposta-signup-basic'),
+				'global.loading' => esc_html__('The form is being submitted. Please wait while we process your request.', 'laposta-signup-basic'),
+				'field.error.required' => esc_html__("Please provide a value for '%field_name%'", 'laposta-signup-basic'),
+				'field.error.required.email' => esc_html__('Please provide an email address', 'laposta-signup-basic'),
+				'field.error.required.date' => esc_html__('Please provide a date', 'laposta-signup-basic'),
+				'field.error.required.number' => esc_html__('Please provide a number', 'laposta-signup-basic'),
+				'field.error.required.radio' => esc_html__('Please choose an option', 'laposta-signup-basic'),
+				'field.error.required.checkbox' => esc_html__('Please select at least one option', 'laposta-signup-basic'),
+				'field.error.invalid.email' => esc_html__('Please provide a valid email address, e.g., example@domain.com', 'laposta-signup-basic'),
+				'field.error.invalid.date' => esc_html__('Please provide a valid date', 'laposta-signup-basic'),
+				'field.error.invalid.number' => esc_html__('Please provide a valid number', 'laposta-signup-basic'),
+			],
+			'class' => $jsClasses
         ];
 
-        wp_localize_script('laposta-signup-basic.lsb-form.main', 'lsbTranslations', $translations);
+        wp_localize_script('laposta-signup-basic.lsb-form.main', 'lsbConfig', $jsConfig);
     }
 
     public function getTemplateDir()
@@ -327,73 +340,5 @@ EOL;
     protected function createNonceAction(string $listId): string
     {
         return crc32($listId);
-    }
-
-    protected function getDatePickerLang(string $lang): ?array
-    {
-        $langs = [
-            'ar' => ['lang' => 'ar', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Arabic
-            'at' => ['lang' => 'at', 'format_long' => 'd. M Y', 'format_short' => 'd.m.Y'], // Austrian German
-            'az' => ['lang' => 'az', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Azerbaijani
-            'be' => ['lang' => 'be', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Belarusian
-            'bg' => ['lang' => 'bg', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Bulgarian
-            'bn' => ['lang' => 'bn', 'format_long' => 'j F, Y', 'format_short' => 'd/m/Y'], // Bengali
-            'cat' => ['lang' => 'cat', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Catalan
-            'cs' => ['lang' => 'cs', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Czech
-            'cy' => ['lang' => 'cy', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Welsh
-            'da' => ['lang' => 'da', 'format_long' => 'j. F Y', 'format_short' => 'd/m-Y'], // Danish
-            'de' => ['lang' => 'de', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // German
-            'en' => ['lang' => 'en', 'format_long' => 'F j, Y', 'format_short' => 'm/d/Y', 'file_lang' => 'default'], // English
-            'eo' => ['lang' => 'eo', 'format_long' => null, 'format_short' => null], // Esperanto
-            'es' => ['lang' => 'es', 'format_long' => 'j de F de Y', 'format_short' => 'd/m/Y'], // Spanish
-            'et' => ['lang' => 'et', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Estonian
-            'fa' => ['lang' => 'fa', 'format_long' => 'j F Y', 'format_short' => 'Y/m/d'], // Persian
-            'fi' => ['lang' => 'fi', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Finnish
-            'fo' => ['lang' => 'fo', 'format_long' => null, 'format_short' => null], // Faroese
-            'fr' => ['lang' => 'fr', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // French
-            'gr' => ['lang' => 'gr', 'format_long' => 'd F Y', 'format_short' => 'd-m-Y'], // Greek
-            'el' => ['lang' => 'el', 'format_long' => 'd F Y', 'format_short' => 'd-m-Y', 'file_lang' => 'gr'], // Greek
-            'he' => ['lang' => 'he', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Hebrew
-            'hi' => ['lang' => 'hi', 'format_long' => null, 'format_short' => null], // Hindi
-            'hr' => ['lang' => 'hr', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Croatian
-            'hu' => ['lang' => 'hu', 'format_long' => 'Y. F j.', 'format_short' => 'Y.m.d.'], // Hungarian
-            'id' => ['lang' => 'id', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Indonesian
-            'is' => ['lang' => 'is', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Icelandic
-            'it' => ['lang' => 'it', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Italian
-            'ja' => ['lang' => 'ja', 'format_long' => null, 'format_short' => 'Y/m/d'], // Japanese
-            'ka' => ['lang' => 'ka', 'format_long' => 'j F Y', 'format_short' => null], // Georgian
-            'ko' => ['lang' => 'ko', 'format_long' => null, 'format_short' => 'Y-m-d'], // Korean
-            'km' => ['lang' => 'km', 'format_long' => null, 'format_short' => 'd/m/Y'], // Khmer
-            'kz' => ['lang' => 'kz', 'format_long' => null, 'format_short' => null], // Kazakh
-            'lt' => ['lang' => 'lt', 'format_long' => 'Y m. F d.', 'format_short' => 'Y-m-d'], // Lithuanian
-            'lv' => ['lang' => 'lv', 'format_long' => 'Y. gada j. F', 'format_short' => 'd.m.Y'], // Latvian
-            'mk' => ['lang' => 'mk', 'format_long' => null, 'format_short' => null], // Macedonian
-            'mn' => ['lang' => 'mn', 'format_long' => 'Y оны Fын j', 'format_short' => 'Y/m/d'], // Mongolian
-            'ms' => ['lang' => 'ms', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Malay
-            'my' => ['lang' => 'my', 'format_long' => null, 'format_short' => 'd/m/Y'], // Burmese
-            'nl' => ['lang' => 'nl', 'format_long' => 'j F Y', 'format_short' => 'd-m-Y'], // Dutch
-            'no' => ['lang' => 'no', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Norwegian
-            'pa' => ['lang' => 'pa', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Punjabi
-            'pl' => ['lang' => 'pl', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Polish
-            'pt' => ['lang' => 'pt', 'format_long' => 'j de F de Y', 'format_short' => 'd/m/Y'], // Portuguese
-            'ro' => ['lang' => 'ro', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Romanian
-            'ru' => ['lang' => 'ru', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Russian
-            'si' => ['lang' => 'si', 'format_long' => 'Y F j', 'format_short' => null], // Sinhala
-            'sk' => ['lang' => 'sk', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Slovak
-            'sl' => ['lang' => 'sl', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Slovenian
-            'sq' => ['lang' => 'sq', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Albanian
-            'sr' => ['lang' => 'sr', 'format_long' => 'j. F Y', 'format_short' => 'd.m.Y'], // Serbian
-            'sv' => ['lang' => 'sv', 'format_long' => 'j F Y', 'format_short' => 'Y-m-d'], // Swedish
-            'th' => ['lang' => 'th', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Thai
-            'tj' => ['lang' => 'tj', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Tajik
-            'tr' => ['lang' => 'tr', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Turkish
-            'uk' => ['lang' => 'uk', 'format_long' => 'j F Y', 'format_short' => 'd.m.Y'], // Ukrainian
-            'uz' => ['lang' => 'uz', 'format_long' => 'j F Y', 'format_short' => 'd/m/Y'], // Uzbek
-            'vn' => ['lang' => 'vn', 'format_long' => null, 'format_short' => null], // Vietnamese
-            'zh' => ['lang' => 'zh', 'format_long' => null, 'format_short' => 'Y/m/d'], // Chinese Simplified
-            'zh-tw' => ['lang' => 'zh-tw', 'format_long' => null, 'format_short' => 'Y/m/d'], // Chinese Traditional
-        ];
-
-        return $langs[$lang] ?? null;
     }
 }

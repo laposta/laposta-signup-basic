@@ -1,8 +1,13 @@
+:root {
+    --lsb-error-color: #dc3545;
+}
+
 .lsb-form-global-error {
-    color: darkred;
-    font-size: 1.3em;
+    color: #dc3545;
+    color: var(--lsb-error-color);
+    font-size: 1.2em;
     margin-bottom: 1em;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 .lsb-form-field-wrapper {
@@ -32,6 +37,25 @@
     appearance: none;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.lsb-form-field-has-error .lsb-form-input-has-error {
+    border-color: #dc3545;
+    border-color: var(--lsb-error-color);
+}
+
+.lsb-form-field-has-error .lsb-form-check-label {
+    color: #dc3545;
+    color: var(--lsb-error-color);
+}
+
+
+.lsb-form-field-error-feedback {
+    color: #dc3545;
+    color: var(--lsb-error-color);
+    font-size: 1.3em;
+    margin-bottom: 1em;
+    line-height: 1.3;
 }
 
 .lsb-loader {

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Laposta Signup Basic\n"
-"POT-Creation-Date: 2024-02-27 12:49+0100\n"
+"POT-Creation-Date: 2024-09-23 18:29+0200\n"
 "PO-Revision-Date: 2024-02-26 16:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: laposta-signup-basic.php\n"
@@ -21,29 +21,75 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: src/Controller/FormController.php:41
+#: src/Controller/FormController.php:83
 msgid "list_id is missing"
 msgstr ""
 
-#: src/Controller/FormController.php:135 templates/settings/settings.php:389
+#: src/Controller/FormController.php:142 templates/settings/settings.php:473
 msgid "Subscribe"
 msgstr ""
 
-#: src/Controller/FormController.php:173 src/Controller/FormController.php:302
+#: src/Controller/FormController.php:180 src/Controller/FormController.php:316
 msgid "Unknown error, please try again"
 msgstr ""
 
-#: src/Controller/FormController.php:233 templates/settings/settings.php:400
+#: src/Controller/FormController.php:252 templates/settings/settings.php:484
 msgid "Successfully subscribed"
 msgstr ""
 
-#: src/Controller/FormController.php:235 templates/settings/settings.php:409
+#: src/Controller/FormController.php:254 templates/settings/settings.php:493
 msgid "You have been successfully subscribed."
 msgstr ""
 
-#: src/Controller/FormController.php:265
+#: src/Controller/FormController.php:283
 #, php-format
 msgid "Something went wrong. Please check the field '%s' and try again."
+msgstr ""
+
+#: src/Controller/FormController.php:317
+msgid ""
+"There are errors in the form. Please review and correct the fields with error "
+"messages."
+msgstr ""
+
+#: src/Controller/FormController.php:318
+msgid "The form is being submitted. Please wait while we process your request."
+msgstr ""
+
+#: src/Controller/FormController.php:319
+msgid "Please provide a value for '%field_name%'"
+msgstr ""
+
+#: src/Controller/FormController.php:320
+msgid "Please provide an email address"
+msgstr ""
+
+#: src/Controller/FormController.php:321
+msgid "Please provide a date"
+msgstr ""
+
+#: src/Controller/FormController.php:322
+msgid "Please provide a number"
+msgstr ""
+
+#: src/Controller/FormController.php:323
+msgid "Please choose an option"
+msgstr ""
+
+#: src/Controller/FormController.php:324
+msgid "Please select at least one option"
+msgstr ""
+
+#: src/Controller/FormController.php:325
+msgid "Please provide a valid email address, e.g., example@domain.com"
+msgstr ""
+
+#: src/Controller/FormController.php:326
+msgid "Please provide a valid date"
+msgstr ""
+
+#: src/Controller/FormController.php:327
+msgid "Please provide a valid number"
 msgstr ""
 
 #: src/Service/DataService.php:106
@@ -86,8 +132,12 @@ msgstr ""
 msgid "Laposta Signup Basic error:"
 msgstr ""
 
-#: templates/form/form.php:80
+#: templates/form/form.php:98
 msgid "Please choose"
+msgstr ""
+
+#: templates/form/form.php:153
+msgid "YYYY-MM-DD"
 msgstr ""
 
 #: templates/settings/settings.php:22
@@ -136,205 +186,241 @@ msgstr ""
 msgid "Click on a list to see that list's shortcode."
 msgstr ""
 
+#: templates/settings/settings.php:73
+msgid "Copy to clipboard"
+msgstr ""
+
 #: templates/settings/settings.php:74
+msgid "Copied!"
+msgstr ""
+
+#: templates/settings/settings.php:80
 msgid "What kind of styling do you want to use for the form fields?"
 msgstr ""
 
-#: templates/settings/settings.php:97
+#: templates/settings/settings.php:103
 msgid "Explanation of our default"
 msgstr ""
 
-#: templates/settings/settings.php:98
+#: templates/settings/settings.php:104
 msgid "Use this option to load our default styling."
 msgstr ""
 
-#: templates/settings/settings.php:108
+#: templates/settings/settings.php:114
 msgid "Explanation of bootstrap"
 msgstr ""
 
-#: templates/settings/settings.php:109
+#: templates/settings/settings.php:115
 msgid ""
 "Use this option if bootstrap is used in your Wordpress theme. We will add the "
 "appropriate bootstrap classes. To avoid possible conflicts, we do not load "
 "the bootstrap stylesheets."
 msgstr ""
 
-#: templates/settings/settings.php:118
+#: templates/settings/settings.php:124
 msgid "Explanation of the custom settings"
 msgstr ""
 
-#: templates/settings/settings.php:119
+#: templates/settings/settings.php:125
 msgid ""
 "This option does not load any css files. You are fully responsible for the "
 "layout."
 msgstr ""
 
-#: templates/settings/settings.php:123
+#: templates/settings/settings.php:129
 msgid "Do you want to add extra classes?"
 msgstr ""
 
-#: templates/settings/settings.php:124
+#: templates/settings/settings.php:130
 msgid ""
 "We already add classes to each element (see heading 'Explanation of the "
 "classes'). If you choose 'yes', you have the option to add additional classes."
 msgstr ""
 
-#: templates/settings/settings.php:128
+#: templates/settings/settings.php:134
 msgid "no"
 msgstr ""
 
-#: templates/settings/settings.php:129
+#: templates/settings/settings.php:135
 msgid "yes"
 msgstr ""
 
-#: templates/settings/settings.php:147
+#: templates/settings/settings.php:153
 msgid "Add extra classes"
 msgstr ""
 
-#: templates/settings/settings.php:148
+#: templates/settings/settings.php:154
 msgid ""
 "Below you can add css classes for each element. It is possible to add "
 "multiple classes by means of a space. For example:"
 msgstr ""
 
-#: templates/settings/settings.php:153
+#: templates/settings/settings.php:159
 msgid "Form class"
 msgstr ""
 
-#: templates/settings/settings.php:163
+#: templates/settings/settings.php:169
+msgid "Form body class"
+msgstr ""
+
+#: templates/settings/settings.php:179
 msgid "Field wrapper class"
 msgstr ""
 
-#: templates/settings/settings.php:173
+#: templates/settings/settings.php:189
+msgid "Field has error class"
+msgstr ""
+
+#: templates/settings/settings.php:199
+msgid "Input has error class"
+msgstr ""
+
+#: templates/settings/settings.php:209
+msgid "Field error feedback class"
+msgstr ""
+
+#: templates/settings/settings.php:219
 msgid "Input class"
 msgstr ""
 
-#: templates/settings/settings.php:183
+#: templates/settings/settings.php:229
 msgid "Label class"
 msgstr ""
 
-#: templates/settings/settings.php:193
+#: templates/settings/settings.php:239
+msgid "Label name class"
+msgstr ""
+
+#: templates/settings/settings.php:249
+msgid "Label required class"
+msgstr ""
+
+#: templates/settings/settings.php:259
 msgid "Select class"
 msgstr ""
 
-#: templates/settings/settings.php:203
+#: templates/settings/settings.php:269
 msgid "Wrapper class for collection of radio/checkboxes fields"
 msgstr ""
 
-#: templates/settings/settings.php:213
+#: templates/settings/settings.php:279
 msgid "Wrapper class for single radio/checkbox field"
 msgstr ""
 
-#: templates/settings/settings.php:223
+#: templates/settings/settings.php:289
 msgid "Radio/checkbox input class"
 msgstr ""
 
-#: templates/settings/settings.php:233
+#: templates/settings/settings.php:299
 msgid "Radio/checkbox label class"
 msgstr ""
 
-#: templates/settings/settings.php:243
+#: templates/settings/settings.php:309
 msgid "Submit button en loader wrapper class"
 msgstr ""
 
-#: templates/settings/settings.php:254
+#: templates/settings/settings.php:320
 msgid "Button class"
 msgstr ""
 
-#: templates/settings/settings.php:264
+#: templates/settings/settings.php:330
 msgid "Loader class"
 msgstr ""
 
-#: templates/settings/settings.php:275
+#: templates/settings/settings.php:341
 msgid "Global error class"
 msgstr ""
 
-#: templates/settings/settings.php:286
+#: templates/settings/settings.php:352
+msgid "Success container class"
+msgstr ""
+
+#: templates/settings/settings.php:363
 msgid "Successfully subscribed wrapper class"
 msgstr ""
 
-#: templates/settings/settings.php:297
+#: templates/settings/settings.php:374
 msgid "Successfully subscribed title class"
 msgstr ""
 
-#: templates/settings/settings.php:308
+#: templates/settings/settings.php:385
 msgid "Successfully subscribed text class"
 msgstr ""
 
-#: templates/settings/settings.php:323
+#: templates/settings/settings.php:400
 msgid "Explanation of the classes"
 msgstr ""
 
-#: templates/settings/settings.php:325
+#: templates/settings/settings.php:402
 msgid ""
 "Below you will find an overview of the basic classes we use, which are added "
 "by default:"
 msgstr ""
 
-#: templates/settings/settings.php:345
+#: templates/settings/settings.php:429
 msgid "The &lt;form&gt; tag gets additional classes:"
 msgstr ""
 
-#: templates/settings/settings.php:347
+#: templates/settings/settings.php:431
 msgid "Where [listId] is replaced by the id of the list."
 msgstr ""
 
-#: templates/settings/settings.php:349
+#: templates/settings/settings.php:433
 msgid ""
 "Furthermore, the field wrappers receive the relation variable (tag) of that "
 "specific field as an extra class, as well as the field type:"
 msgstr ""
 
-#: templates/settings/settings.php:351
+#: templates/settings/settings.php:435
 msgid "Where [tag] is replaced by the relation variable (tag) of the list,"
 msgstr ""
 
-#: templates/settings/settings.php:352
+#: templates/settings/settings.php:436
 msgid ""
 "[fieldType] is replaced by the field type (text, email, number, date, select, "
 "radio, checkbox)"
 msgstr ""
 
-#: templates/settings/settings.php:353
+#: templates/settings/settings.php:437
 msgid ""
 "and [misc-classes] is replaced by the class that belongs to the chosen format "
 "+ our own class \\\"lsb-form-field-wrapper\\\" + optionally the extra added "
 "classes as set under the heading \\\"Add extra classes\\\"."
 msgstr ""
 
-#: templates/settings/settings.php:355
+#: templates/settings/settings.php:439
 msgid ""
 "This combination of unique form and field properties allows you to influence "
 "each field separately using CSS."
 msgstr ""
 
-#: templates/settings/settings.php:361
+#: templates/settings/settings.php:445
 msgid "Inline CSS"
 msgstr ""
 
-#: templates/settings/settings.php:362
+#: templates/settings/settings.php:446
 msgid ""
 "In this field you can enter your own CSS. The CSS will only be added inline "
 "on pages where the shortcode is added."
 msgstr ""
 
-#: templates/settings/settings.php:363
+#: templates/settings/settings.php:447
 msgid "Inline css input field"
 msgstr ""
 
-#: templates/settings/settings.php:380
+#: templates/settings/settings.php:464
 msgid "Other settings"
 msgstr ""
 
-#: templates/settings/settings.php:383
+#: templates/settings/settings.php:467
 msgid "Submit button text"
 msgstr ""
 
-#: templates/settings/settings.php:394
+#: templates/settings/settings.php:478
 msgid "Successfully subscribed title"
 msgstr ""
 
-#: templates/settings/settings.php:405
+#: templates/settings/settings.php:489
 msgid "Successfully subscribed text"
 msgstr ""
 

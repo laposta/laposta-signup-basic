@@ -8,8 +8,12 @@ var Lsb = Lsb || {};
     self.resetCacheResultSuccess = $('.js-reset-result-success', element);
     self.resetCacheResultError = $('.js-reset-result-error', element);
     self.listElements = $('.js-list', element);
+    self.shortcodeExampleWrapper = $('.js-shortcode-example-wrapper', element);
     self.shortcodeExample = $('.js-shortcode-example', element);
-    self.shortcodeExampleListId = $('.js-shortcode-example-list-id', self.shortcodeExample);
+    self.shortcodeExampleListId = $('.js-shortcode-example-list-id', self.shortcodeExampleWrapper);
+    self.shortcodeCopyButton = $('.js-copy-shortcode', element);
+    self.shortcodeCopyButtonText = $('.js-copy-shortcode-text', self.shortcodeCopyButton);
+    self.shortcodeCopyButtonSuccess = $('.js-copy-shortcode-success', self.shortcodeCopyButton);
     self.classTypeInput = $('.js-class-type-input', element);
     self.addClassesInput = $('.js-add-classes-input', element);
     self.defaultClassesInfo = $('.js-default-classes-info', element);
@@ -32,6 +36,14 @@ var Lsb = Lsb || {};
       e.preventDefault();
       var listId = $(this).data('listId');
       self.showShortcodeExample(listId);
+      if (window.navigator && window.navigator.clipboard) {
+        self.shortcodeCopyButton.show()
+      }
+    });
+
+    self.shortcodeCopyButton.on('click', function(e) {
+      e.preventDefault();
+      self.copyShortcode();
     });
 
     self.classTypeInput.on('change', function(e) {
@@ -96,6 +108,25 @@ var Lsb = Lsb || {};
     var self = this;
 
     self.shortcodeExampleListId.text(listId);
-    self.shortcodeExample.show();
+    self.shortcodeExampleWrapper.show();
   }
+
+  Lsb.Settings.prototype.copyShortcode = function() {
+    var self = this;
+
+    var text = self.shortcodeExample.text().trim();
+    navigator.clipboard.writeText(text)
+      .then(function() {
+        self.shortcodeCopyButtonText.hide();
+        self.shortcodeCopyButtonSuccess.show();
+        setTimeout(function() {
+          self.shortcodeCopyButtonText.show();
+          self.shortcodeCopyButtonSuccess.hide();
+        }, 1000)
+      })
+      .catch(function(err) {
+        console.error('Copy to clipboard failed', err);
+      });
+  }
+
 })(jQuery);

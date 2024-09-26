@@ -65,8 +65,14 @@ use Laposta\SignupBasic\Service\DataService;
                         <?php echo esc_html($list['name']) ?>
                     </a>
                 <?php endforeach ?>
-                <code class="laposta-code lsb-settings__lists-shortcode-example js-shortcode-example" style="display: none">
-                    [<?php echo Plugin::SHORTCODE_RENDER_FORM ?> list_id="<span class="js-shortcode-example-list-id"></span>"]
+                <code class="lsb-settings__lists-shortcode-example-wrapper laposta-code js-shortcode-example-wrapper" style="display: none">
+                    <span class="lsb-settings__lists-shortcode-example js-shortcode-example">
+                        [<?php echo Plugin::SHORTCODE_RENDER_FORM ?> list_id="<span class="js-shortcode-example-list-id"></span>"]
+                    </span>
+                    <a style="display: none" href="#" class="lsb-settings__copy-shortcode js-copy-shortcode">
+                        <span class="lsb-settings__copy-shortcode-text js-copy-shortcode-text">📋 <?php echo esc_html__('Copy to clipboard', 'laposta-signup-basic') ?></span>
+                        <span class="lsb-settings__copy-shortcode-success js-copy-shortcode-success" style="display: none">✓ <?php echo esc_html__('Copied!', 'laposta-signup-basic') ?></span>
+                    </a>
                 </code>
             </section>
 
@@ -160,12 +166,52 @@ use Laposta\SignupBasic\Service\DataService;
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FORM_BODY ?>"><?php echo esc_html__('Form body class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_FORM_BODY ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_FORM_BODY ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FORM_BODY)) ?>"
+                                       placeholder="form-body-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
                             <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"><?php echo esc_html__('Field wrapper class', 'laposta-signup-basic') ?></label></th>
                             <td><input type="text"
                                        name="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
                                        id="<?php echo Plugin::OPTION_CLASS_FIELD_WRAPPER ?>"
                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_WRAPPER)) ?>"
                                        placeholder="field-wrapper-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_HAS_ERROR ?>"><?php echo esc_html__('Field has error class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_FIELD_HAS_ERROR ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_FIELD_HAS_ERROR ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_HAS_ERROR)) ?>"
+                                       placeholder="field-has-error-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_INPUT_HAS_ERROR ?>"><?php echo esc_html__('Input has error class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_INPUT_HAS_ERROR ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_INPUT_HAS_ERROR ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_INPUT_HAS_ERROR)) ?>"
+                                       placeholder="input-has-error-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_FIELD_ERROR_FEEDBACK ?>"><?php echo esc_html__('Field error feedback class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_FIELD_ERROR_FEEDBACK ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_FIELD_ERROR_FEEDBACK ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_FIELD_ERROR_FEEDBACK)) ?>"
+                                       placeholder="field-error-feedback-class"
                                 >
                             </td>
                         </tr>
@@ -186,6 +232,26 @@ use Laposta\SignupBasic\Service\DataService;
                                        id="<?php echo Plugin::OPTION_CLASS_LABEL ?>"
                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_LABEL)) ?>"
                                        placeholder="label-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LABEL_NAME ?>"><?php echo esc_html__('Label name class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_LABEL_NAME ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_LABEL_NAME ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_LABEL_NAME)) ?>"
+                                       placeholder="label-name-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_LABEL_REQUIRED ?>"><?php echo esc_html__('Label required class', 'laposta-signup-basic') ?></label></th>
+                            <td><input type="text"
+                                       name="<?php echo Plugin::OPTION_CLASS_LABEL_REQUIRED ?>"
+                                       id="<?php echo Plugin::OPTION_CLASS_LABEL_REQUIRED ?>"
+                                       value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_LABEL_REQUIRED)) ?>"
+                                       placeholder="label-required-class"
                                 >
                             </td>
                         </tr>
@@ -278,7 +344,18 @@ use Laposta\SignupBasic\Service\DataService;
                                         name="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
                                         id="<?php echo Plugin::OPTION_CLASS_GLOBAL_ERROR ?>"
                                         value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_GLOBAL_ERROR)) ?>"
-                                        placeholder="global-error-class"
+                                        placeholder="form-global-error-class"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="<?php echo Plugin::OPTION_CLASS_SUCCESS_CONTAINER ?>"><?php echo esc_html__('Success container class', 'laposta-signup-basic') ?></label></th>
+                            <td><input
+                                        type="text"
+                                        name="<?php echo Plugin::OPTION_CLASS_SUCCESS_CONTAINER ?>"
+                                        id="<?php echo Plugin::OPTION_CLASS_SUCCESS_CONTAINER ?>"
+                                        value="<?php echo esc_attr(get_option(Plugin::OPTION_CLASS_SUCCESS_CONTAINER)) ?>"
+                                        placeholder="form-success-container-class"
                                 >
                             </td>
                         </tr>
@@ -326,8 +403,14 @@ use Laposta\SignupBasic\Service\DataService;
                 </p>
                 <code class="laposta-code">
                     .lsb-form<br>
+                    .lsb-form-body<br>
                     .lsb-form-field-wrapper<br>
+                    .lsb-form-field-has-error<br>
+                    .lsb-form-input-has-error<br>
+                    .lsb-form-field-error-feedback<br>
                     .lsb-form-label<br>
+                    .lsb-form-label-name<br>
+                    .lsb-form-label-required<br>
                     .lsb-form-input<br>
                     .lsb-form-checks<br>
                     .lsb-form-check<br>
@@ -337,6 +420,7 @@ use Laposta\SignupBasic\Service\DataService;
                     .lsb-form-button<br>
                     .lsb-loader<br>
                     .lsb-form-global-error<br>
+                    .lsb-form-success-container<br>
                     .lsb-success<br>
                     .lsb-success-title<br>
                     .lsb-success-text
