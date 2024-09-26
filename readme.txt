@@ -7,9 +7,7 @@ Requires PHP: 7.1
 Stable tag: 3.0.0
 License: BSD 2-Clause License
 
-Laposta is a Dutch email marketing solution.
-This plugin can be used to load any of your Laposta lists and render its fields in a HTML form that can be fully customized using CSS.
-You can choose between Bootstrap, our default, or a fully custom implementation.
+Laposta is a Dutch email marketing tool. Load your Laposta lists and render fields in a HTML form with custom styling.
 
 
 == Installation ==
