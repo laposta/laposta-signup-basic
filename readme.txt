@@ -52,8 +52,9 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 = What are the available Wordpress filters?  =
 
-* Settings page capability - 'laposta_signup_basic_settings_page_capability': Modifies the required capability for editing the plugin settings. The first and only argument is the capability.
 * Enable logging - 'laposta_signup_basic_enable_logging': A filter to enable or disable logging of errors within this plugin. The first and only argument is the default value, which is based on WP_DEBUG.
+* Settings page capability - 'laposta_signup_basic_settings_page_capability': Modifies the required capability for editing the plugin settings. The first and only argument is the capability.
+* Menu position - 'laposta_signup_basic_menu_position': Modifies the position of the menu item in the admin environment. The first and only argument is the position.
 * Field label - 'laposta_signup_basic_filter_field_label': Modifies the field label. The first argument is the field label, the second is the list ID, and the third is an array of the field.
 * Required indicator - 'laposta_signup_basic_filter_required_indicator': Modifies the required indicator at the end of the field label. The first argument is the indicator, the second is the list ID, and the third is an array of the field.
 * Field placeholder - 'laposta_signup_basic_filter_field_placeholder': Modifies the field placeholder. The first argument is the field placeholder, the second is the list ID, and the third is an array of the field.
