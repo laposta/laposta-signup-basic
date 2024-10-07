@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Laposta Signup Basic\n"
 "POT-Creation-Date: 2024-09-23 18:36+0200\n"
-"PO-Revision-Date: 2024-09-23 18:39+0200\n"
+"PO-Revision-Date: 2024-09-30 09:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -38,7 +38,7 @@ msgstr "Met succes geabonneerd"
 
 #: src/Controller/FormController.php:254 templates/settings/settings.php:493
 msgid "You have been successfully subscribed."
-msgstr "U bent succesvol geabonneerd."
+msgstr "Je bent succesvol geabonneerd."
 
 #: src/Controller/FormController.php:283
 #, php-format
@@ -56,7 +56,7 @@ msgstr ""
 #: src/Controller/FormController.php:318
 msgid "The form is being submitted. Please wait while we process your request."
 msgstr ""
-"Het formulier wordt verzonden. Even geduld a.u.b. terwijl we uw verzoek "
+"Het formulier wordt verzonden. Even geduld a.u.b. terwijl we je verzoek "
 "verwerken."
 
 #: src/Controller/FormController.php:319
@@ -178,7 +178,7 @@ msgstr "Helaas, er is iets misgegaan. Bekijk dit foutbericht:"
 
 #: templates/settings/settings.php:58
 msgid "Overview of your lists"
-msgstr "Overzicht van uw lijsten"
+msgstr "Overzicht van je lijsten"
 
 #: templates/settings/settings.php:60
 msgid ""
@@ -223,7 +223,7 @@ msgid ""
 "the appropriate bootstrap classes. To avoid possible conflicts, we do not "
 "load the bootstrap stylesheets."
 msgstr ""
-"Gebruik deze optie als bootstrap wordt gebruikt in uw WordPress thema. We "
+"Gebruik deze optie als bootstrap wordt gebruikt in je WordPress thema. We "
 "zullen de juiste bootstrap klassen toevoegen. Om mogelijke conflicten te "
 "voorkomen, laden we de bootstrap stylesheet niet in."
 
@@ -236,12 +236,12 @@ msgid ""
 "This option does not load any css files. You are fully responsible for the "
 "layout."
 msgstr ""
-"Met deze optie worden geen css bestanden geladen. U bent volledig "
+"Met deze optie worden geen css bestanden geladen. Je bent volledig "
 "verantwoordelijk voor de lay-out."
 
 #: templates/settings/settings.php:129
 msgid "Do you want to add extra classes?"
-msgstr "Wilt u extra klassen toevoegen?"
+msgstr "Wil je extra klassen toevoegen?"
 
 #: templates/settings/settings.php:130
 msgid ""
@@ -250,7 +250,7 @@ msgid ""
 "classes."
 msgstr ""
 "We voegen al klassen toe aan elk element (zie kopje ‘Uitleg over de "
-"classes’). Als u voor ‘ja’ kiest, heeft u de mogelijkheid om extra klassen "
+"classes’). Als je voor ‘ja’ kiest, heb je de mogelijkheid om extra klassen "
 "toe te voegen."
 
 #: templates/settings/settings.php:134
@@ -270,7 +270,7 @@ msgid ""
 "Below you can add css classes for each element. It is possible to add "
 "multiple classes by means of a space. For example:"
 msgstr ""
-"Hieronder kunt u per element css klassen toevoegen. Het is mogelijk om "
+"Hieronder kun je per element css klassen toevoegen. Het is mogelijk om "
 "meerdere klassen toe te voegen door middel van een spatie. Bv:"
 
 #: templates/settings/settings.php:159
@@ -279,7 +279,7 @@ msgstr "Formulier klasse"
 
 #: templates/settings/settings.php:169
 msgid "Form body class"
-msgstr "Form body class"
+msgstr "Form body klasse"
 
 #: templates/settings/settings.php:179
 msgid "Field wrapper class"
@@ -287,15 +287,15 @@ msgstr "Veldomhullende klasse"
 
 #: templates/settings/settings.php:189
 msgid "Field has error class"
-msgstr "Field has error class"
+msgstr "Field has error klasse"
 
 #: templates/settings/settings.php:199
 msgid "Input has error class"
-msgstr "Input has error class"
+msgstr "Input has error klasse"
 
 #: templates/settings/settings.php:209
 msgid "Field error feedback class"
-msgstr "Field error feedback class"
+msgstr "Field error feedback klasse"
 
 #: templates/settings/settings.php:219
 msgid "Input class"
@@ -307,11 +307,11 @@ msgstr "Label klasse"
 
 #: templates/settings/settings.php:239
 msgid "Label name class"
-msgstr "Label name class"
+msgstr "Label name klasse"
 
 #: templates/settings/settings.php:249
 msgid "Label required class"
-msgstr "Label required class"
+msgstr "Label required klasse"
 
 #: templates/settings/settings.php:259
 msgid "Select class"
@@ -347,11 +347,11 @@ msgstr "Lader klasse"
 
 #: templates/settings/settings.php:341
 msgid "Global error class"
-msgstr "Globale foutklasse"
+msgstr "Globale fout klasse"
 
 #: templates/settings/settings.php:352
 msgid "Success container class"
-msgstr "Succesvol container class"
+msgstr "Succesvol container klasse"
 
 #: templates/settings/settings.php:363
 msgid "Successfully subscribed wrapper class"
@@ -422,7 +422,7 @@ msgid ""
 "This combination of unique form and field properties allows you to influence "
 "each field separately using CSS."
 msgstr ""
-"Door deze combinatie van unieke formulier- en veldeigenschappen kunt u ieder "
+"Door deze combinatie van unieke formulier- en veldeigenschappen kun je ieder "
 "veld apart beïnvloeden met behulp van CSS."
 
 #: templates/settings/settings.php:445
@@ -434,7 +434,7 @@ msgid ""
 "In this field you can enter your own CSS. The CSS will only be added inline "
 "on pages where the shortcode is added."
 msgstr ""
-"In dit veld kunt u uw eigen CSS invoeren. De CSS zal uitsluitend inline "
+"In dit veld kun je je eigen CSS invoeren. De CSS zal uitsluitend inline "
 "worden toegevoegd op pagina’s waar de shortcode wordt toegevoegd."
 
 #: templates/settings/settings.php:447
@@ -471,7 +471,7 @@ msgid ""
 "signup forms to your site."
 msgstr ""
 "Eenvoudig nieuwsbrieven maken en versturen met Laposta. Deze plugin voegt "
-"aanpasbare inschrijfformulieren toe aan uw site."
+"aanpasbare inschrijfformulieren toe aan je site."
 
 #. Author of the plugin/theme
 msgid "Laposta - Roel Bousardt"

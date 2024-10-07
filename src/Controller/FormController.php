@@ -229,9 +229,9 @@ class FormController extends BaseController
             $dataService->initLaposta();
             $member = new \Laposta_Member($listId);
             $result = $member->create(array(
-                'ip' => $_SERVER['REMOTE_ADDR'],
+                'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
                 'email' => $submittedFieldValues['email'],
-                'source_url' => $_SERVER['HTTP_REFERER'],
+                'source_url' => $_SERVER['HTTP_REFERER'] ?? null,
                 'custom_fields' => $submittedFieldValues,
                 'options' => [
                     'upsert' => true,

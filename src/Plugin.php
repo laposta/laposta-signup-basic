@@ -3,6 +3,7 @@
 namespace Laposta\SignupBasic;
 
 use Laposta\SignupBasic\Container\Container;
+use Laposta\SignupBasic\Service\AdminMenu;
 use Laposta\SignupBasic\Service\Logger;
 use Laposta\SignupBasic\Service\RequestHelper;
 
@@ -48,6 +49,7 @@ class Plugin
     const OPTION_INLINE_CSS = 'laposta_signup_basic_inline_css';
 
     const DEFAULT_CAPABILITY = 'manage_options';
+    const FILTER_MENU_POSITION = 'laposta_signup_basic_menu_position';
     const FILTER_SETTINGS_PAGE_CAPABILITY = 'laposta_signup_basic_settings_page_capability';
     const FILTER_ENABLE_LOGGING = 'laposta_signup_basic_enable_logging';
     const FILTER_REQUIRED_INDICATOR = 'laposta_signup_basic_filter_required_indicator';
@@ -78,6 +80,10 @@ class Plugin
      */
     protected $pluginBaseName;
 
+    /**
+     * @var string
+     */
+    protected $name;
 
     public function __construct(Container $container)
     {
@@ -86,6 +92,7 @@ class Plugin
         $this->rootDir = realpath(__DIR__.'/..');
         $this->rootUrl = plugin_dir_url($this->rootDir.'/laposta-signup-basic.php');
         $this->pluginBaseName = plugin_basename($this->rootDir.'/laposta-signup-basic.php');
+		$this->name = 'Laposta Signup Basic';
 
         $this->defineConstants();
         $this->init();
@@ -107,7 +114,7 @@ class Plugin
         if (is_admin()) {
             add_action('admin_init', [$this, 'onAdminInitAction']);
             add_filter("plugin_action_links_{$this->pluginBaseName}", [$this, 'setPluginActionLinks']);
-            add_action('admin_menu', [$this, 'addMenu']);
+			new AdminMenu($this->c, $this->rootUrl, $this->name, 'Laposta Basic');
         }
         add_action('init', [$this, 'onInitAction']);
         add_action('plugins_loaded', [$this, 'onPluginsLoaded']);
@@ -178,20 +185,6 @@ class Plugin
         $settingsLink = '<a href="options-general.php?page='.self::SLUG_SETTINGS.'">Settings</a>';
         array_unshift($links, $settingsLink);
         return $links;
-    }
-
-    public function addMenu()
-    {
-        $actualCapability = apply_filters(self::FILTER_SETTINGS_PAGE_CAPABILITY, self::DEFAULT_CAPABILITY);
-        $actualCapability = is_string($actualCapability) ? $actualCapability : self::DEFAULT_CAPABILITY;
-
-        add_options_page(
-            'Laposta Signup Basic',
-            'Laposta Signup Basic',
-            $actualCapability,
-            self::SLUG_SETTINGS,
-            [$this->c->getSettingsController(), 'renderSettings']
-        );
     }
 
     public function addAjaxRoutes()

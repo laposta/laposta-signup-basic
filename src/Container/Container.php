@@ -34,6 +34,7 @@ class Container
         if (!class_exists('Laposta\\SignupBasic\\Plugin')) {
             require_once realpath(__DIR__.'/..').'/Plugin.php';
             $this->requireLogger();
+            $this->requireAdminMenu();
             $this->plugin = new Plugin($this);
         }
 
@@ -69,6 +70,13 @@ class Container
     {
         if (!class_exists('Laposta\\SignupBasic\\Service\\Logger')) {
             require_once realpath(__DIR__.'/../Service').'/Logger.php';
+        }
+    }
+
+    public function requireAdminMenu()
+    {
+        if (!class_exists('Laposta\\SignupBasic\\Service\\AdminMenu')) {
+            require_once realpath(__DIR__.'/../Service').'/AdminMenu.php';
         }
     }
 
