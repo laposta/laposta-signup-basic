@@ -15,7 +15,6 @@
  * @var string $checkInputClass (sanitized)
  * @var string $checkLabelClass (sanitized)
  * @var string $fieldErrorFeedbackClass (sanitized)
- * @var string $fieldHasErrorClass (sanitized)
  * @var string $submitButtonAndLoaderWrapperClass (sanitized)
  * @var string $submitButtonClass (sanitized)
  * @var string $submitButtonText (sanitized)
@@ -45,7 +44,6 @@ use Laposta\SignupBasic\Plugin;
 <form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?> js-lsb-form"
       method="post"
       data-form-post-url="<?php echo $formPostUrl ?>"
-      data-field-has-error-class="<?php echo $fieldHasErrorClass ?>"
       role="form"
       novalidate
 >
