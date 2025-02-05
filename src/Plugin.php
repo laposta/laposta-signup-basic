@@ -118,12 +118,12 @@ class Plugin
         }
         add_action('init', [$this, 'onInitAction']);
         add_action('plugins_loaded', [$this, 'onPluginsLoaded']);
-        add_shortcode(self::SHORTCODE_RENDER_FORM, [$this->c->getFormController(), 'renderFormByShortcode']);
         $this->addAjaxRoutes();
     }
 
     public function onInitAction()
     {
+		add_shortcode(self::SHORTCODE_RENDER_FORM, [$this->c->getFormController(), 'renderFormByShortcode']);
         $enableLogger = apply_filters(self::FILTER_ENABLE_LOGGING, defined('WP_DEBUG') && WP_DEBUG);
         Logger::setIsEnabled($enableLogger);
     }
