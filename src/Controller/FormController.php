@@ -243,9 +243,9 @@ class FormController extends BaseController
 			$successTextClass = 'lsb-success-text';
 			$addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
 			if ($addClasses) {
-				$successWrapperClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
-				$successTitleClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
-				$successTextClass = esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
+                $successWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
+                $successTitleClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
+                $successTextClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
 			}
 
             $successTitle = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TITLE)));
