@@ -55,7 +55,7 @@ class DataService
             $this->c->initLaposta();
         }
 
-        return class_exists('\\Laposta');
+        return $this->c->getLapostaApiProxy()->isAvailable();
     }
 
     public function getApiKey(): ?string
@@ -142,9 +142,8 @@ class DataService
             return null;
         }
 
-        $lapostaList = new Laposta_List();
         try {
-            $result = $lapostaList->all();
+            $result = $this->c->getLapostaApiProxy()->getAllLists();
             if (!$result['data']) {
                 $this->setStatus(self::STATUS_NO_LISTS);
             } else {
@@ -196,8 +195,7 @@ class DataService
         }
 
         try {
-            $lapostaField = new \Laposta_Field($listId);
-            $result = $lapostaField->all();
+            $result = $this->c->getLapostaApiProxy()->getAllFields($listId);
             if (!$result['data']) {
                 $error = [
                     'error' => [

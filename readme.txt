@@ -2,7 +2,7 @@
 Contributors: roelbousardt, stijnvanderree
 Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.1
 Stable tag: 3.1.3
 License: BSD 2-Clause License
@@ -66,10 +66,15 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 == Upgrade Notice ==
 
-= 3.1.3 =
-* Fixed: A bug where the default success classes were not added when custom classes were provided.
+= 3.2.0 =
+* Added: Bundled Laposta API PHP wrapper v2.0.1 for compatibility with PHP >= 8.0.
+* Maintained: Laposta API wrapper v1.6 remains included for PHP < 8.0 compatibility.
 
 == Changelog ==
+
+= 3.2.0 =
+* Added: Bundled Laposta API PHP wrapper v2.0.1 for compatibility with PHP >= 8.0.
+* Maintained: Laposta API wrapper v1.6 remains included for PHP < 8.0 compatibility.
 
 = 3.1.3 =
 * Fixed: A bug where the default success classes were not added when custom classes were provided.

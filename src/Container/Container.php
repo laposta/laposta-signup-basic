@@ -6,6 +6,7 @@ use Laposta\SignupBasic\Controller\FormController;
 use Laposta\SignupBasic\Controller\SettingsController;
 use Laposta\SignupBasic\Plugin;
 use Laposta\SignupBasic\Service\DataService;
+use Laposta\SignupBasic\Service\LapostaApiProxy;
 
 class Container
 {
@@ -29,70 +30,54 @@ class Container
      */
     protected $dataService;
 
+    /**
+     * @var LapostaApiProxy
+     */
+    protected $lapostaApiProxy;
+
     public function getPlugin()
     {
-        if (!class_exists('Laposta\\SignupBasic\\Plugin')) {
-            require_once realpath(__DIR__.'/..').'/Plugin.php';
-            $this->requireLogger();
-            $this->requireAdminMenu();
-            $this->plugin = new Plugin($this);
-        }
+        $this->plugin = new Plugin($this);
 
         return $this->plugin;
     }
 
     public function initLaposta()
     {
-        if (!class_exists('\\Laposta')) {
+        if (
+            $this->getLapostaApiProxy()->getApiVersion() === LapostaApiProxy::API_VERSION_V1_6 &&
+            !class_exists('\\Laposta')
+        ) {
             require_once realpath(__DIR__.'/../../includes/laposta-api-php-1.6/lib/').'/Laposta.php';
         }
-        \Laposta::setApiKey($this->getDataService()->getApiKey());
+
+        $apiKey = $this->getDataService()->getApiKey();
+        if ($apiKey) {
+            $this->getLapostaApiProxy()->setApiKey($apiKey);
+        }
+    }
+
+    public function getLapostaApiProxy()
+    {
+        if (!$this->lapostaApiProxy) {
+            $this->lapostaApiProxy = new LapostaApiProxy();
+        }
+
+        return $this->lapostaApiProxy;
     }
 
     public function getDataService()
     {
-        if (!class_exists('Laposta\\SignupBasic\\Service\\DataService')) {
-            require_once realpath(__DIR__.'/../Service').'/DataService.php';
+        if (!$this->dataService) {
             $this->dataService = new DataService($this);
         }
 
         return $this->dataService;
     }
 
-    public function requireRequestHelper()
-    {
-        if (!class_exists('Laposta\\SignupBasic\\Service\\RequestHelper')) {
-            require_once realpath(__DIR__.'/../Service').'/RequestHelper.php';
-        }
-    }
-
-    public function requireLogger()
-    {
-        if (!class_exists('Laposta\\SignupBasic\\Service\\Logger')) {
-            require_once realpath(__DIR__.'/../Service').'/Logger.php';
-        }
-    }
-
-    public function requireAdminMenu()
-    {
-        if (!class_exists('Laposta\\SignupBasic\\Service\\AdminMenu')) {
-            require_once realpath(__DIR__.'/../Service').'/AdminMenu.php';
-        }
-    }
-
-    protected function requireBaseController()
-    {
-        if (!class_exists('Laposta\\SignupBasic\\Controller\\BaseController')) {
-            $this->requireRequestHelper();
-            require_once realpath(__DIR__.'/../Controller').'/BaseController.php';
-        }
-    }
-
     public function getSettingsController()
     {
-        if (!class_exists('Laposta\\SignupBasic\\Controller\\SettingsController')) {
-            $this->requireBaseController();
-            require_once realpath(__DIR__.'/../Controller').'/SettingsController.php';
+        if (!$this->settingsController) {
             $this->settingsController = new SettingsController($this);
         }
 
@@ -101,9 +86,7 @@ class Container
 
     public function getFormController()
     {
-        if (!class_exists('Laposta\\SignupBasic\\Controller\\FormController')) {
-            $this->requireBaseController();
-            require_once realpath(__DIR__.'/../Controller').'/FormController.php';
+        if (!$this->formController) {
             $this->formController = new FormController($this);
         }
 
