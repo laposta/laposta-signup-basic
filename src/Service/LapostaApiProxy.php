@@ -35,7 +35,6 @@ class LapostaApiProxy
     public function __construct()
     {
         $this->isV2 = PHP_VERSION_ID >= 80000;
-        $this->isV2 = false;
     }
 
     /**
