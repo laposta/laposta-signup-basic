@@ -93,6 +93,26 @@ class LapostaApiProxy
     }
 
     /**
+     * Create a member in a specific list
+     *
+     * @param string $listId
+     * @param array $data
+     * @return array|null
+     * @throws LapostaApiException
+     */
+    public function createMember(string $listId, array $data): ?array
+    {
+        return $this->executeApiCall(function () use ($listId, $data) {
+            if ($this->isV2) {
+                return $this->lapostaV2->memberApi()->create($listId, $data);
+            } else {
+                $lapostaMember = new \Laposta_Member($listId);
+                return $lapostaMember->create($data);
+            }
+        });
+    }
+
+    /**
      * Executes a callable and wraps expected API exceptions.
      *
      * @param callable $callable The API call to execute.

@@ -4,7 +4,6 @@ namespace Laposta\SignupBasic\Service;
 
 use Laposta\SignupBasic\Plugin;
 use Laposta\SignupBasic\Container\Container;
-use Laposta_List;
 
 class DataService
 {

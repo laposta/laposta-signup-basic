@@ -3,6 +3,7 @@
 namespace Laposta\SignupBasic\Controller;
 
 use Laposta\SignupBasic\Container\Container;
+use Laposta\SignupBasic\Exception\LapostaApiException;
 use Laposta\SignupBasic\Plugin;
 use Laposta\SignupBasic\Service\DataService;
 use Laposta\SignupBasic\Service\Logger;
@@ -227,8 +228,7 @@ class FormController extends BaseController
         $submittedFieldValues = array_intersect_key($submittedFieldValues, $fieldValues);
         try {
             $dataService->initLaposta();
-            $member = new \Laposta_Member($listId);
-            $result = $member->create(array(
+            $result = $this->c->getLapostaApiProxy()->createMember($listId, array(
                 'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
                 'email' => $submittedFieldValues['email'],
                 'source_url' => $_SERVER['HTTP_REFERER'] ?? null,
@@ -269,10 +269,21 @@ class FormController extends BaseController
                 'html' => $html,
             ]);
         }
-        catch (\Laposta_Error $e) {
-            $error = $e->json_body['error'];
+        catch (LapostaApiException $e) {
+            $originalException = $e->getOriginalException();
             $globalError = $e->getMessage();
-            if ($error['type'] === 'invalid_input') {
+
+            // Try to get error details from the original exception
+            $error = null;
+            if ($originalException && property_exists($originalException, 'json_body') && isset($originalException->json_body['error'])) {
+                $error = $originalException->json_body['error'];
+            }
+
+            if ($originalException && method_exists($originalException, 'getResponseData') && isset($originalException->getResponseData()['error'])) {
+                $error = $originalException->getResponseData()['error'];
+            }
+
+            if ($error && $error['type'] === 'invalid_input') {
                 $errorId = $error['id'] ?? null;
                 $fields = array_filter($listFields, function($field) use ($errorId) {
                     return $field['field_id'] === $errorId;
@@ -285,7 +296,7 @@ class FormController extends BaseController
                 }
             } else {
                 $globalError = $e->getMessage();
-                Logger::logError('FormController::ajaxFormPost, unknown Laposta_Error by submitting form through the API', $e);
+                Logger::logError('FormController::ajaxFormPost, unknown LapostaApiException by submitting form through the API', $e);
             }
             RequestHelper::returnJson([
                 'status' => 'error',
