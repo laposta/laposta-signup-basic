@@ -1,0 +1,16 @@
+# Files and folders that should not be part of the WordPress.org package.
+/.github
+/.gitattributes
+/.gitignore
+/.playwright
+/node_modules
+/package-lock.json
+/package.json
+/playwright-report
+/playwright.config.*
+/test-results
+/tests
+/tsconfig.json
+/.env
+/.env.local
+/README.md

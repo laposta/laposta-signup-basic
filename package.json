@@ -1,0 +1,15 @@
+{
+  "name": "laposta-signup-basic",
+  "version": "0.0.0",
+  "private": true,
+  "description": "E2E tests for the Laposta Signup Basic WordPress plugin.",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "dotenv": "^16.4.5"
+  }
+}

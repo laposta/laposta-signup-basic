@@ -226,24 +226,31 @@ class DataService
                 return $listFields;
             }
         } catch (\Throwable $e) {
+            $logContext = [
+                'type' => 'unknown',
+                'parameter' => null,
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ];
             $error = @$e->json_body;
             if (!$error) {
-                $error = [
-                    'error' => [
-                        'type' => 'unknown',
-                        'parameter' => null,
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
-                        'trace' => $e->getTrace(),
-                    ],
-                ];
+                $error = ['error' => $logContext];
             }
-            Logger::logError('DataService::getListFields, caught Throwable', $error);
-            $this->setListFields($listId, $error);
+            Logger::logError('DataService::getListFields, caught Throwable', $logContext);
+            // Only cache sanitized error data to avoid serialization issues and leaking details.
+            $publicError = [
+                'error' => [
+                    'type' => $error['error']['type'] ?? 'unknown',
+                    'message' => $error['error']['message'] ?? esc_html__('Unknown error, please try again.', 'laposta-signup-basic'),
+                    'code' => $error['error']['code'] ?? null,
+                    'parameter' => $error['error']['parameter'] ?? null,
+                ],
+            ];
+            $this->setListFields($listId, $publicError);
 
-            return $error;
+            return $publicError;
         }
     }
 

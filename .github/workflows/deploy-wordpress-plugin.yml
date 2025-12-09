@@ -1,0 +1,23 @@
+# Deploy to WordPress.org on tagged release
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@v2
+        with:
+          slug: laposta-signup-basic
+          # assets-dir defaults to ".wordpress-org", which we use.
+        env:
+          SVN_USERNAME: ${{ secrets.WORDPRESS_SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WORDPRESS_SVN_PASSWORD }}

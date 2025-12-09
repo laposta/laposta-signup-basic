@@ -1,0 +1,12 @@
+# Keep dev/test tooling out of WordPress distribution builds.
+tests/** export-ignore
+playwright.config.* export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+tsconfig.json export-ignore
+.playwright/** export-ignore
+playwright-report/** export-ignore
+test-results/** export-ignore
+.env* export-ignore
+.gitignore export-ignore
+.distignore export-ignore
