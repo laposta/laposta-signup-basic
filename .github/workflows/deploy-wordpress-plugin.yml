@@ -4,7 +4,8 @@ name: Deploy to WordPress.org
 on:
   push:
     tags:
-      - "*"
+      - "*.*.*"
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -15,9 +16,6 @@ jobs:
 
       - name: Deploy to WordPress.org
         uses: 10up/action-wordpress-plugin-deploy@stable
-        with:
-          slug: laposta-signup-basic
-          # assets-dir defaults to ".wordpress-org", which we use.
         env:
           SVN_USERNAME: ${{ secrets.WORDPRESS_SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WORDPRESS_SVN_PASSWORD }}
