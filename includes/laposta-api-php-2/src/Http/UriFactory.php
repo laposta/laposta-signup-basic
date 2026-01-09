@@ -1,19 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Http;
 
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-
+use LapostaApi\Vendor\Psr\Http\Message\UriFactoryInterface;
+use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+/** @internal */
 class UriFactory implements UriFactoryInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function createUri(string $uri = ''): UriInterface
+    public function createUri(string $uri = '') : UriInterface
     {
-        return new Uri($uri);
+        return new \LapostaApi\Http\Uri($uri);
     }
 }

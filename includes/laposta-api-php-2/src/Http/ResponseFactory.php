@@ -1,19 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Http;
 
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
-
+use LapostaApi\Vendor\Psr\Http\Message\ResponseFactoryInterface;
+use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
+/** @internal */
 class ResponseFactory implements ResponseFactoryInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
+    public function createResponse(int $code = 200, string $reasonPhrase = '') : ResponseInterface
     {
-        return new Response($code, $reasonPhrase);
+        return new \LapostaApi\Http\Response($code, $reasonPhrase);
     }
 }

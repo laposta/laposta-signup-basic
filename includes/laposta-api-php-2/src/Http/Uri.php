@@ -2,8 +2,8 @@
 
 namespace LapostaApi\Http;
 
-use Psr\Http\Message\UriInterface;
-
+use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+/** @internal */
 class Uri implements UriInterface
 {
     protected string $scheme = '';
@@ -13,7 +13,6 @@ class Uri implements UriInterface
     protected string $path = '';
     protected string $query = '';
     protected string $fragment = '';
-
     /**
      * Constructs a new Uri instance by parsing a URI string.
      *
@@ -24,8 +23,7 @@ class Uri implements UriInterface
      */
     public function __construct(string $uri = '')
     {
-        $parts = parse_url($uri);
-
+        $parts = \parse_url($uri);
         $this->scheme = $parts['scheme'] ?? '';
         $this->host = $parts['host'] ?? '';
         $this->port = $parts['port'] ?? null;
@@ -37,185 +35,158 @@ class Uri implements UriInterface
             $this->userInfo .= ':' . $parts['pass'];
         }
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getScheme(): string
+    public function getScheme() : string
     {
         return $this->scheme;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getAuthority(): string
+    public function getAuthority() : string
     {
         $authority = $this->host;
         if (!empty($this->userInfo)) {
             $authority = $this->userInfo . '@' . $authority;
         }
-
         if ($this->port !== null) {
             $authority .= ':' . $this->port;
         }
-
         return $authority;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getUserInfo(): string
+    public function getUserInfo() : string
     {
         return $this->userInfo;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getHost(): string
+    public function getHost() : string
     {
         return $this->host;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getPort(): ?int
+    public function getPort() : ?int
     {
         return $this->port;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getPath(): string
+    public function getPath() : string
     {
         return $this->path;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getQuery(): string
+    public function getQuery() : string
     {
         return $this->query;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function getFragment(): string
+    public function getFragment() : string
     {
         return $this->fragment;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withScheme(string $scheme): UriInterface
+    public function withScheme(string $scheme) : UriInterface
     {
         $clone = clone $this;
         $clone->scheme = $scheme;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withUserInfo(string $user, ?string $password = null): UriInterface
+    public function withUserInfo(string $user, ?string $password = null) : UriInterface
     {
         $clone = clone $this;
         $clone->userInfo = $password !== null ? $user . ':' . $password : $user;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withHost(string $host): UriInterface
+    public function withHost(string $host) : UriInterface
     {
         $clone = clone $this;
         $clone->host = $host;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withPort(?int $port): UriInterface
+    public function withPort(?int $port) : UriInterface
     {
         $clone = clone $this;
         $clone->port = $port;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withPath(string $path): UriInterface
+    public function withPath(string $path) : UriInterface
     {
         $clone = clone $this;
         $clone->path = $path;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withQuery(string $query): UriInterface
+    public function withQuery(string $query) : UriInterface
     {
         $clone = clone $this;
         $clone->query = $query;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function withFragment(string $fragment): UriInterface
+    public function withFragment(string $fragment) : UriInterface
     {
         $clone = clone $this;
         $clone->fragment = $fragment;
         return $clone;
     }
-
     /**
      * {@inheritDoc}
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         $uri = '';
-
         if ($this->scheme !== '') {
             $uri .= $this->scheme . ':';
         }
-
         if ($this->host !== '') {
             $uri .= '//';
-
             if ($this->userInfo !== '') {
                 $uri .= $this->userInfo . '@';
             }
-
             $uri .= $this->host;
-
             if ($this->port !== null) {
                 $uri .= ':' . $this->port;
             }
         }
-
         $uri .= $this->path;
-
         if ($this->query !== '') {
             $uri .= '?' . $this->query;
         }
-
         if ($this->fragment !== '') {
             $uri .= '#' . $this->fragment;
         }
-
         return $uri;
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Api;
 
 use LapostaApi\Exception\ApiException;
 use LapostaApi\Exception\ClientException;
-
-class FieldApi extends BaseApi
+/** @internal */
+class FieldApi extends \LapostaApi\Api\BaseApi
 {
     /**
      * Get a single field by ID.
@@ -20,15 +19,10 @@ class FieldApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function get(string $listId, string $fieldId): array
+    public function get(string $listId, string $fieldId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$fieldId],
-            ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', [$fieldId], ['list_id' => $listId]);
     }
-
     /**
      * Create a new field.
      *
@@ -40,16 +34,11 @@ class FieldApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function create(string $listId, array $data): array
+    public function create(string $listId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            body: $data,
-        );
+        return $this->sendRequest('POST', body: $data);
     }
-
     /**
      * Update an existing field.
      *
@@ -62,17 +51,11 @@ class FieldApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function update(string $listId, string $fieldId, array $data): array
+    public function update(string $listId, string $fieldId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            [$fieldId],
-            body: $data,
-        );
+        return $this->sendRequest('POST', [$fieldId], body: $data);
     }
-
     /**
      * Delete a field.
      *
@@ -84,15 +67,10 @@ class FieldApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function delete(string $listId, string $fieldId): array
+    public function delete(string $listId, string $fieldId) : array
     {
-        return $this->sendRequest(
-            'DELETE',
-            [$fieldId],
-            ['list_id' => $listId],
-        );
+        return $this->sendRequest('DELETE', [$fieldId], ['list_id' => $listId]);
     }
-
     /**
      * Get all fields for the given list.
      *
@@ -103,11 +81,8 @@ class FieldApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function all(string $listId): array
+    public function all(string $listId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', queryParams: ['list_id' => $listId]);
     }
 }

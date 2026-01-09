@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Api;
 
 use LapostaApi\Exception\ApiException;
 use LapostaApi\Exception\ClientException;
-
-class MemberApi extends BaseApi
+/** @internal */
+class MemberApi extends \LapostaApi\Api\BaseApi
 {
     /**
      * Get a single member by ID.
@@ -20,15 +19,10 @@ class MemberApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function get(string $listId, string $memberId): array
+    public function get(string $listId, string $memberId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$memberId],
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', [$memberId], queryParams: ['list_id' => $listId]);
     }
-
     /**
      * Create a new member.
      *
@@ -40,16 +34,11 @@ class MemberApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function create(string $listId, array $data): array
+    public function create(string $listId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            body: $data,
-        );
+        return $this->sendRequest('POST', body: $data);
     }
-
     /**
      * Update an existing member.
      *
@@ -62,17 +51,11 @@ class MemberApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function update(string $listId, string $memberId, array $data): array
+    public function update(string $listId, string $memberId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            [$memberId],
-            body: $data,
-        );
+        return $this->sendRequest('POST', [$memberId], body: $data);
     }
-
     /**
      * Delete a member.
      *
@@ -84,15 +67,10 @@ class MemberApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function delete(string $listId, string $memberId): array
+    public function delete(string $listId, string $memberId) : array
     {
-        return $this->sendRequest(
-            'DELETE',
-            [$memberId],
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('DELETE', [$memberId], queryParams: ['list_id' => $listId]);
     }
-
     /**
      * Get all members.
      *
@@ -103,11 +81,8 @@ class MemberApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function all(string $listId): array
+    public function all(string $listId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', queryParams: ['list_id' => $listId]);
     }
 }

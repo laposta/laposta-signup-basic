@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Api;
 
 use LapostaApi\Exception\ApiException;
 use LapostaApi\Exception\ClientException;
-
-class CampaignApi extends BaseApi
+/** @internal */
+class CampaignApi extends \LapostaApi\Api\BaseApi
 {
     /**
      * Get campaign details.
@@ -19,14 +18,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function get(string $campaignId): array
+    public function get(string $campaignId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$campaignId],
-        );
+        return $this->sendRequest('GET', [$campaignId]);
     }
-
     /**
      * Create a new campaign.
      *
@@ -37,14 +32,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function create(array $data): array
+    public function create(array $data) : array
     {
-        return $this->sendRequest(
-            'POST',
-            body: $data,
-        );
+        return $this->sendRequest('POST', body: $data);
     }
-
     /**
      * Update an existing campaign.
      *
@@ -56,15 +47,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function update(string $campaignId, array $data): array
+    public function update(string $campaignId, array $data) : array
     {
-        return $this->sendRequest(
-            'POST',
-            [$campaignId],
-            body: $data,
-        );
+        return $this->sendRequest('POST', [$campaignId], body: $data);
     }
-
     /**
      * Delete a campaign.
      *
@@ -75,14 +61,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function delete(string $campaignId): array
+    public function delete(string $campaignId) : array
     {
-        return $this->sendRequest(
-            'DELETE',
-            [$campaignId],
-        );
+        return $this->sendRequest('DELETE', [$campaignId]);
     }
-
     /**
      * Get all campaigns.
      *
@@ -91,11 +73,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function all(): array
+    public function all() : array
     {
         return $this->sendRequest('GET');
     }
-
     /**
      * Get campaign content.
      *
@@ -106,14 +87,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function getContent(string $campaignId): array
+    public function getContent(string $campaignId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$campaignId, 'content'],
-        );
+        return $this->sendRequest('GET', [$campaignId, 'content']);
     }
-
     /**
      * Update (or add) campaign content.
      *
@@ -124,15 +101,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function updateContent(string $campaignId, array $data): array
+    public function updateContent(string $campaignId, array $data) : array
     {
-        return $this->sendRequest(
-            'POST',
-            [$campaignId, 'content'],
-            body: $data,
-        );
+        return $this->sendRequest('POST', [$campaignId, 'content'], body: $data);
     }
-
     /**
      * Send campaign content.
      *
@@ -143,14 +115,10 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function send(string $campaignId): array
+    public function send(string $campaignId) : array
     {
-        return $this->sendRequest(
-            'POST',
-            [$campaignId, 'action', 'send'],
-        );
+        return $this->sendRequest('POST', [$campaignId, 'action', 'send']);
     }
-
     /**
      * Schedule campaign.
      *
@@ -164,19 +132,11 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function schedule(string $campaignId, string $deliveryRequested): array
+    public function schedule(string $campaignId, string $deliveryRequested) : array
     {
-        $data = [
-            'delivery_requested' => $deliveryRequested,
-        ];
-
-        return $this->sendRequest(
-            'POST',
-            [$campaignId, 'action', 'schedule'],
-            body: $data,
-        );
+        $data = ['delivery_requested' => $deliveryRequested];
+        return $this->sendRequest('POST', [$campaignId, 'action', 'schedule'], body: $data);
     }
-
     /**
      * Test campaign by sending a test mail.
      *
@@ -189,16 +149,9 @@ class CampaignApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function sendTestMail(string $campaignId, string $email): array
+    public function sendTestMail(string $campaignId, string $email) : array
     {
-        $data = [
-            'email' => $email,
-        ];
-
-        return $this->sendRequest(
-            'POST',
-            [$campaignId, 'action', 'testmail'],
-            body: $data,
-        );
+        $data = ['email' => $email];
+        return $this->sendRequest('POST', [$campaignId, 'action', 'testmail'], body: $data);
     }
 }

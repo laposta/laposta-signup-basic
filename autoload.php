@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
     foreach ($namespaces as $prefix => $baseDir) {
         // If the class starts with this namespace prefix
         if (strpos($class, $prefix) === 0) {
-            // Get the relative class path by removing the namespace prefix
+            // Get the relative class path by remo`ving the namespace prefix
             $relativeClass = substr($class, strlen($prefix));
 
             // Build the full file path by converting namespace separators to directory separators
@@ -33,11 +33,11 @@ spl_autoload_register(function ($class) {
 });
 
 /**
- * Conditionally include the standalone Laposta API autoloader
+ * Conditionally include the Laposta API autoloader
  *
  * This API library is only loaded when PHP 8.0 or higher is in use,
  * to ensure compatibility with its internal structure.
  */
 if (PHP_VERSION_ID >= 80000) {
-    require_once __DIR__ . '/includes/laposta-api-php-2/standalone/autoload.php';
+    require_once __DIR__ . '/includes/laposta-api-php-2/autoload.php';
 }

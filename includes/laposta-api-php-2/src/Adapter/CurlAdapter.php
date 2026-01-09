@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Adapter;
 
 /**
@@ -9,6 +8,7 @@ namespace LapostaApi\Adapter;
  *
  * This class provides a simple wrapper around PHP's native cURL functions
  * to allow for easier testing through mocking of HTTP requests in the application.
+ * @internal
  */
 class CurlAdapter
 {
@@ -17,11 +17,10 @@ class CurlAdapter
      *
      * @return \CurlHandle|false A cURL handle on success, false on failure
      */
-    public function init(): \CurlHandle|false
+    public function init() : \CurlHandle|false
     {
-        return curl_init();
+        return \curl_init();
     }
-
     /**
      * Set an option for a cURL transfer.
      *
@@ -31,11 +30,10 @@ class CurlAdapter
      *
      * @return bool Returns true on success, false on failure
      */
-    public function setopt(\CurlHandle $handle, int $option, mixed $value): bool
+    public function setopt(\CurlHandle $handle, int $option, mixed $value) : bool
     {
-        return curl_setopt($handle, $option, $value);
+        return \curl_setopt($handle, $option, $value);
     }
-
     /**
      * Execute the cURL request.
      *
@@ -43,11 +41,10 @@ class CurlAdapter
      *
      * @return string|false Returns the result of the request as string on success, false on failure
      */
-    public function exec(\CurlHandle $handle): string|false
+    public function exec(\CurlHandle $handle) : string|false
     {
-        return curl_exec($handle);
+        return \curl_exec($handle);
     }
-
     /**
      * Get information about the last transfer.
      *
@@ -56,11 +53,10 @@ class CurlAdapter
      *
      * @return mixed The requested information or an array with all information if no option specified
      */
-    public function getInfo(\CurlHandle $handle, int $option = 0): mixed
+    public function getInfo(\CurlHandle $handle, int $option = 0) : mixed
     {
-        return curl_getinfo($handle, $option);
+        return \curl_getinfo($handle, $option);
     }
-
     /**
      * Get the error code for the last cURL operation.
      *
@@ -68,11 +64,10 @@ class CurlAdapter
      *
      * @return int The error number or 0 if no error occurred
      */
-    public function getErrno(\CurlHandle $handle): int
+    public function getErrno(\CurlHandle $handle) : int
     {
-        return curl_errno($handle);
+        return \curl_errno($handle);
     }
-
     /**
      * Get the error message for the last cURL operation.
      *
@@ -80,11 +75,10 @@ class CurlAdapter
      *
      * @return string The error message or an empty string if no error occurred
      */
-    public function getError(\CurlHandle $handle): string
+    public function getError(\CurlHandle $handle) : string
     {
-        return curl_error($handle);
+        return \curl_error($handle);
     }
-
     /**
      * Close a cURL session and free all resources.
      *
@@ -92,8 +86,8 @@ class CurlAdapter
      *
      * @return void
      */
-    public function close(\CurlHandle $handle): void
+    public function close(\CurlHandle $handle) : void
     {
-        curl_close($handle);
+        \curl_close($handle);
     }
 }

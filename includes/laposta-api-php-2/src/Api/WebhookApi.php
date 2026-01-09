@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Api;
 
 use LapostaApi\Exception\ApiException;
 use LapostaApi\Exception\ClientException;
-
-class WebhookApi extends BaseApi
+/** @internal */
+class WebhookApi extends \LapostaApi\Api\BaseApi
 {
     /**
      * Retrieve a single webhook by ID.
@@ -20,15 +19,10 @@ class WebhookApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function get(string $listId, string $webhookId): array
+    public function get(string $listId, string $webhookId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$webhookId],
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', [$webhookId], queryParams: ['list_id' => $listId]);
     }
-
     /**
      * Create a new webhook.
      *
@@ -40,16 +34,11 @@ class WebhookApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function create(string $listId, array $data): array
+    public function create(string $listId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            body: $data,
-        );
+        return $this->sendRequest('POST', body: $data);
     }
-
     /**
      * Update an existing webhook.
      *
@@ -62,17 +51,11 @@ class WebhookApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function update(string $listId, string $webhookId, array $data): array
+    public function update(string $listId, string $webhookId, array $data) : array
     {
         $data['list_id'] = $listId;
-
-        return $this->sendRequest(
-            'POST',
-            [$webhookId],
-            body: $data,
-        );
+        return $this->sendRequest('POST', [$webhookId], body: $data);
     }
-
     /**
      * Delete a webhook.
      *
@@ -84,15 +67,10 @@ class WebhookApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function delete(string $listId, string $webhookId): array
+    public function delete(string $listId, string $webhookId) : array
     {
-        return $this->sendRequest(
-            'DELETE',
-            [$webhookId],
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('DELETE', [$webhookId], queryParams: ['list_id' => $listId]);
     }
-
     /**
      * Retrieve all webhooks for the specified list.
      *
@@ -103,11 +81,8 @@ class WebhookApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function all(string $listId): array
+    public function all(string $listId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            queryParams: ['list_id' => $listId],
-        );
+        return $this->sendRequest('GET', queryParams: ['list_id' => $listId]);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Type;
 
 /**
@@ -9,19 +8,20 @@ namespace LapostaApi\Type;
  *
  * This enum is used to specify the behavior when performing bulk operations
  * on resources in the Laposta API.
+ *
+ * @deprecated Use {@see SyncAction} with {@see \LapostaApi\Api\ListApi::syncMembers()}.
+ * @internal
  */
-enum BulkMode: string
+enum BulkMode : string
 {
     /**
      * Only add new records, skip existing ones.
      */
     case ADD = 'add';
-
     /**
      * Add new records and update existing ones.
      */
     case ADD_AND_EDIT = 'add_and_edit';
-
     /**
      * Only update existing records, skip new ones.
      */

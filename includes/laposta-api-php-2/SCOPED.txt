@@ -1,0 +1,2 @@
+This is the scoped (prefixed) distribution of laposta-api-php.
+Vendor prefix: LapostaApi\Vendor

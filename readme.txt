@@ -4,7 +4,7 @@ Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
 Tested up to: 6.9
 Requires PHP: 7.1
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing tool. Load your Laposta lists and render fields in a HTML form with custom styling.
@@ -66,10 +66,16 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 == Upgrade Notice ==
 
-= 3.2.3 =
-Tested up to 6.9
+= 3.2.4 =
+Changed: Bundled the scoped Laposta API PHP library (v2.2.0) to avoid PSR-7 namespace conflicts with other plugins.
 
 == Changelog ==
+
+= 3.2.4 =
+Changed: Bundled the scoped Laposta API PHP library (v2.2.0) to avoid PSR-7 namespace conflicts with other plugins.
+
+= 3.2.3 =
+Tested up to 6.9
 
 = 3.2.2 =
 Fixed compatibility issues with Laposta API v2.

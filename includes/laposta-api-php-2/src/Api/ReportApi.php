@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace LapostaApi\Api;
 
 use LapostaApi\Exception\ApiException;
 use LapostaApi\Exception\ClientException;
-
-class ReportApi extends BaseApi
+/** @internal */
+class ReportApi extends \LapostaApi\Api\BaseApi
 {
     /**
      * Get a report by campaign ID.
@@ -19,14 +18,10 @@ class ReportApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function get(string $campaignId): array
+    public function get(string $campaignId) : array
     {
-        return $this->sendRequest(
-            'GET',
-            [$campaignId],
-        );
+        return $this->sendRequest('GET', [$campaignId]);
     }
-
     /**
      * Get all reports.
      *
@@ -35,7 +30,7 @@ class ReportApi extends BaseApi
      * @throws ClientException
      * @throws \JsonException
      */
-    public function all(): array
+    public function all() : array
     {
         return $this->sendRequest('GET');
     }
