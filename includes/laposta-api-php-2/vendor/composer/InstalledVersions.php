@@ -9,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace LapostaApi\Vendor\Composer;
+namespace LapostaApi230\Vendor\Composer;
 
-use LapostaApi\Vendor\Composer\Autoload\ClassLoader;
-use LapostaApi\Vendor\Composer\Semver\VersionParser;
+use LapostaApi230\Vendor\Composer\Autoload\ClassLoader;
+use LapostaApi230\Vendor\Composer\Semver\VersionParser;
 /**
  * This class is copied in every Composer installed project and available to all
  *
@@ -63,7 +63,7 @@ class InstalledVersions
         if (1 === \count($packages)) {
             return $packages[0];
         }
-        return \array_keys(\array_flip(\call_user_func_array('LapostaApi\\Vendor\\array_merge', $packages)));
+        return \array_keys(\array_flip(\call_user_func_array('LapostaApi230\\Vendor\\array_merge', $packages)));
     }
     /**
      * Returns a list of all package names with a specific type e.g. 'library'
@@ -302,7 +302,7 @@ class InstalledVersions
     private static function getInstalled()
     {
         if (null === self::$canGetVendors) {
-            self::$canGetVendors = \method_exists('LapostaApi\\Vendor\\Composer\\Autoload\\ClassLoader', 'getRegisteredLoaders');
+            self::$canGetVendors = \method_exists('LapostaApi230\\Vendor\\Composer\\Autoload\\ClassLoader', 'getRegisteredLoaders');
         }
         $installed = array();
         $copiedLocalDir = \false;

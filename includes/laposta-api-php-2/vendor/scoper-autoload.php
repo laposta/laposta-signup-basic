@@ -29,6 +29,6 @@ if (!function_exists('humbug_phpscoper_expose_class')) {
         }
     }
 }
-humbug_phpscoper_expose_class('ComposerAutoloaderInit41dfb391bb1d494bce9ecce13633dc93', 'LapostaApi\Vendor\ComposerAutoloaderInit41dfb391bb1d494bce9ecce13633dc93');
+humbug_phpscoper_expose_class('ComposerAutoloaderInit41dfb391bb1d494bce9ecce13633dc93', 'LapostaApi230\Vendor\ComposerAutoloaderInit41dfb391bb1d494bce9ecce13633dc93');
 
 return $loader;

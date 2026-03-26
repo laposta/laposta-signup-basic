@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\UriFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriInterface;
 /** @internal */
 class UriFactory implements UriFactoryInterface
 {
@@ -13,6 +13,6 @@ class UriFactory implements UriFactoryInterface
      */
     public function createUri(string $uri = '') : UriInterface
     {
-        return new \LapostaApi\Http\Uri($uri);
+        return new \LapostaApi230\Http\Uri($uri);
     }
 }

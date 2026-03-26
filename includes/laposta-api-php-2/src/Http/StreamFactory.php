@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Adapter\StreamAdapter;
-use LapostaApi\Vendor\Psr\Http\Message\StreamFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Adapter\StreamAdapter;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
 use RuntimeException;
 /**
  * PSR-17 compatible stream factory implementation
@@ -37,7 +37,7 @@ class StreamFactory implements StreamFactoryInterface
             $this->adapter->fwrite($resource, $content);
             $this->adapter->rewind($resource);
         }
-        return new \LapostaApi\Http\Stream($resource, $this->adapter);
+        return new \LapostaApi230\Http\Stream($resource, $this->adapter);
     }
     /**
      * {@inheritDoc}

@@ -1,8 +1,8 @@
 <?php
 
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriInterface;
 /** @internal */
 class Uri implements UriInterface
 {

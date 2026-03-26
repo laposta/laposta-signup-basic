@@ -1,2 +1,4 @@
-This is the scoped (prefixed) distribution of laposta-api-php.
-Vendor prefix: LapostaApi\Vendor
+This is the version-scoped (prefixed + versioned namespace) distribution of laposta-api-php.
+Release version: 2.3.0
+Public namespace: LapostaApi230
+Vendor prefix: LapostaApi230\Vendor

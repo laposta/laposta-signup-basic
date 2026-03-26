@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Type;
+namespace LapostaApi230\Type;
 
 /**
  * Enum representing content types for HTTP requests.

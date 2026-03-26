@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\ResponseFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
 /** @internal */
 class ResponseFactory implements ResponseFactoryInterface
 {
@@ -13,6 +13,6 @@ class ResponseFactory implements ResponseFactoryInterface
      */
     public function createResponse(int $code = 200, string $reasonPhrase = '') : ResponseInterface
     {
-        return new \LapostaApi\Http\Response($code, $reasonPhrase);
+        return new \LapostaApi230\Http\Response($code, $reasonPhrase);
     }
 }

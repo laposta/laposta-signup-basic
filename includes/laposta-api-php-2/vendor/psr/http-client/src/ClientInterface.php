@@ -1,9 +1,9 @@
 <?php
 
-namespace LapostaApi\Vendor\Psr\Http\Client;
+namespace LapostaApi230\Vendor\Psr\Http\Client;
 
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
 /** @internal */
 interface ClientInterface
 {

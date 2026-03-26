@@ -1,6 +1,6 @@
 <?php
 
-namespace LapostaApi\Vendor\Psr\Http\Message;
+namespace LapostaApi230\Vendor\Psr\Http\Message;
 
 /**
  * Value object representing a file uploaded through an HTTP request.

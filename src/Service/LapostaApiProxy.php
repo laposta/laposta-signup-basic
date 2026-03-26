@@ -3,7 +3,7 @@
 namespace Laposta\SignupBasic\Service;
 
 use Laposta\SignupBasic\Exception\LapostaApiException;
-use LapostaApi\Laposta;
+use LapostaApi230\Laposta;
 
 /**
  * Proxy class to handle interaction with both v1.6 and v2 of the Laposta API wrapper
@@ -126,7 +126,7 @@ class LapostaApiProxy
             return $callable();
         } catch (\Throwable $e) {
             // Check for specific exception types without causing a fatal error if the class doesn't exist.
-            $v2ExceptionClass = 'LapostaApi\Exception\LapostaException';
+            $v2ExceptionClass = 'LapostaApi230\\Exception\\LapostaException';
             if (class_exists($v2ExceptionClass) && $e instanceof $v2ExceptionClass) {
                 throw new LapostaApiException($e);
             }
@@ -149,7 +149,7 @@ class LapostaApiProxy
     public function isAvailable(): bool
     {
         if ($this->isV2) {
-            return class_exists('\LapostaApi\Laposta');
+            return class_exists('\LapostaApi230\\Laposta');
         } else {
             return class_exists('\Laposta');
         }

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi;
+namespace LapostaApi230;
 
-use LapostaApi\Api\CampaignApi;
-use LapostaApi\Api\FieldApi;
-use LapostaApi\Api\ListApi;
-use LapostaApi\Api\MemberApi;
-use LapostaApi\Api\ReportApi;
-use LapostaApi\Api\SegmentApi;
-use LapostaApi\Api\WebhookApi;
-use LapostaApi\Http\Client;
-use LapostaApi\Http\RequestFactory;
-use LapostaApi\Http\ResponseFactory;
-use LapostaApi\Http\StreamFactory;
-use LapostaApi\Http\UriFactory;
-use LapostaApi\Vendor\Psr\Http\Client\ClientInterface;
-use LapostaApi\Vendor\Psr\Http\Message\RequestFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamFactoryInterface;
-use LapostaApi\Vendor\Psr\Http\Message\UriFactoryInterface;
+use LapostaApi230\Api\CampaignApi;
+use LapostaApi230\Api\FieldApi;
+use LapostaApi230\Api\ListApi;
+use LapostaApi230\Api\MemberApi;
+use LapostaApi230\Api\ReportApi;
+use LapostaApi230\Api\SegmentApi;
+use LapostaApi230\Api\WebhookApi;
+use LapostaApi230\Http\Client;
+use LapostaApi230\Http\RequestFactory;
+use LapostaApi230\Http\ResponseFactory;
+use LapostaApi230\Http\StreamFactory;
+use LapostaApi230\Http\UriFactory;
+use LapostaApi230\Vendor\Psr\Http\Client\ClientInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamFactoryInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriFactoryInterface;
 /**
  * Class Laposta
  *

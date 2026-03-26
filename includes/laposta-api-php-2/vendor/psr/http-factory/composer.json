@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LapostaApi\\Vendor\\Psr\\Http\\Message\\": "src\/"
+            "LapostaApi230\\Vendor\\Psr\\Http\\Message\\": "src\/"
         }
     },
     "extra": {

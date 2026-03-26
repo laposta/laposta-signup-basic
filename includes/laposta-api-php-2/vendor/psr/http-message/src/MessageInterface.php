@@ -1,6 +1,6 @@
 <?php
 
-namespace LapostaApi\Vendor\Psr\Http\Message;
+namespace LapostaApi230\Vendor\Psr\Http\Message;
 
 /**
  * HTTP messages consist of requests from a client to a server and responses

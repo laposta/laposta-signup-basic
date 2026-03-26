@@ -1,6 +1,6 @@
 <?php
 
-namespace LapostaApi\Vendor\Psr\Http\Client;
+namespace LapostaApi230\Vendor\Psr\Http\Client;
 
 /**
  * Every HTTP client related exception MUST implement this interface.

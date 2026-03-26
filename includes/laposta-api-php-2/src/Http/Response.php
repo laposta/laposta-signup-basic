@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
 /** @internal */
-class Response extends \LapostaApi\Http\Message implements ResponseInterface
+class Response extends \LapostaApi230\Http\Message implements ResponseInterface
 {
     protected StreamInterface $body;
     protected array $headers = [];

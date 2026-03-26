@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Exception;
+namespace LapostaApi230\Exception;
 
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
 use Throwable;
 /** @internal */
-class ApiException extends \LapostaApi\Exception\LapostaException
+class ApiException extends \LapostaApi230\Exception\LapostaException
 {
     protected ?string $requestBody = null;
     protected ?string $responseBody = null;

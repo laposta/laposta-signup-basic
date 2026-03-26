@@ -29,7 +29,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "LapostaApi\\Vendor\\Psr\\Http\\Client\\": "src\/"
+                    "LapostaApi230\\Vendor\\Psr\\Http\\Client\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -84,7 +84,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "LapostaApi\\Vendor\\Psr\\Http\\Message\\": "src\/"
+                    "LapostaApi230\\Vendor\\Psr\\Http\\Message\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -141,7 +141,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "LapostaApi\\Vendor\\Psr\\Http\\Message\\": "src\/"
+                    "LapostaApi230\\Vendor\\Psr\\Http\\Message\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

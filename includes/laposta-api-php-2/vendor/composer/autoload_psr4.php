@@ -6,7 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'LapostaApi\\Vendor\\Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
-    'LapostaApi\\Vendor\\Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
-    'LapostaApi\\' => array($baseDir . '/src'),
+    'LapostaApi230\\Vendor\\Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
+    'LapostaApi230\\Vendor\\Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
+    'LapostaApi230\\' => array($baseDir . '/src'),
 );

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Api;
+namespace LapostaApi230\Api;
 
-use LapostaApi\Exception\ApiException;
-use LapostaApi\Exception\ClientException;
+use LapostaApi230\Exception\ApiException;
+use LapostaApi230\Exception\ClientException;
 /** @internal */
-class MemberApi extends \LapostaApi\Api\BaseApi
+class MemberApi extends \LapostaApi230\Api\BaseApi
 {
     /**
      * Get a single member by ID.

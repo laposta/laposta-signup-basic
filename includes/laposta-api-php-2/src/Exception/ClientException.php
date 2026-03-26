@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Exception;
+namespace LapostaApi230\Exception;
 
-use LapostaApi\Vendor\Psr\Http\Client\ClientExceptionInterface;
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Client\ClientExceptionInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
 /** @internal */
-class ClientException extends \LapostaApi\Exception\LapostaException implements ClientExceptionInterface
+class ClientException extends \LapostaApi230\Exception\LapostaException implements ClientExceptionInterface
 {
     public function __construct(protected $message, protected ?RequestInterface $request, protected int $statusCode = 0, protected array $responseHeaders = [], protected string $responseBody = '', protected $code = 0, protected $previous = null)
     {

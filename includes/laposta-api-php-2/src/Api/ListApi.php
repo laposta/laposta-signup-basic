@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Api;
+namespace LapostaApi230\Api;
 
-use LapostaApi\Exception\ApiException;
-use LapostaApi\Exception\ClientException;
-use LapostaApi\Type\ContentType;
+use LapostaApi230\Exception\ApiException;
+use LapostaApi230\Exception\ClientException;
+use LapostaApi230\Type\ContentType;
 /** @internal */
-class ListApi extends \LapostaApi\Api\BaseApi
+class ListApi extends \LapostaApi230\Api\BaseApi
 {
     /**
      * Get a single list by ID.
@@ -118,11 +118,11 @@ class ListApi extends \LapostaApi\Api\BaseApi
      * Sync members for a list using the JSON actions payload.
      *
      * Required keys:
-     *  - 'actions': array containing one or more {@see \LapostaApi\Type\SyncAction} values
+     *  - 'actions': array containing one or more {@see \LapostaApi230\Type\SyncAction} values
      *               (or strings: add, update, unsubscribe_excluded)
      *  - 'members': array of member definitions (1 - 500,000 items)
      *
-     * Including {@see \LapostaApi\Type\SyncAction::UNSUBSCRIBE_EXCLUDED} ensures that any existing member
+     * Including {@see \LapostaApi230\Type\SyncAction::UNSUBSCRIBE_EXCLUDED} ensures that any existing member
      * omitted from the provided 'members' collection will automatically be unsubscribed.
      *
      * @param string $listId The ID of the list to sync members for.

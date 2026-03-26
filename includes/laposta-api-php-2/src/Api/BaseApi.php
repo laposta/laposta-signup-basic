@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Api;
+namespace LapostaApi230\Api;
 
-use LapostaApi\Exception\ApiException;
-use LapostaApi\Exception\ClientException;
-use LapostaApi\Http\StreamFactory;
-use LapostaApi\Laposta;
-use LapostaApi\Type\ContentType;
-use LapostaApi\Vendor\Psr\Http\Client\ClientExceptionInterface;
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
-use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+use LapostaApi230\Exception\ApiException;
+use LapostaApi230\Exception\ClientException;
+use LapostaApi230\Http\StreamFactory;
+use LapostaApi230\Laposta;
+use LapostaApi230\Type\ContentType;
+use LapostaApi230\Vendor\Psr\Http\Client\ClientExceptionInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriInterface;
 /** @internal */
 abstract class BaseApi
 {
@@ -186,6 +186,6 @@ abstract class BaseApi
     protected function getResource() : string
     {
         // Extract the resource name by removing namespace and suffix
-        return \strtolower(\str_replace(['LapostaApi\\Api\\', 'Api'], '', static::class));
+        return \strtolower(\str_replace(['LapostaApi230\\Api\\', 'Api'], '', static::class));
     }
 }

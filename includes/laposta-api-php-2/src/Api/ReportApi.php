@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Api;
+namespace LapostaApi230\Api;
 
-use LapostaApi\Exception\ApiException;
-use LapostaApi\Exception\ClientException;
+use LapostaApi230\Exception\ApiException;
+use LapostaApi230\Exception\ClientException;
 /** @internal */
-class ReportApi extends \LapostaApi\Api\BaseApi
+class ReportApi extends \LapostaApi230\Api\BaseApi
 {
     /**
      * Get a report by campaign ID.

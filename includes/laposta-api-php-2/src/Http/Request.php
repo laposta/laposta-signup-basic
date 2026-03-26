@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
-use LapostaApi\Vendor\Psr\Http\Message\UriInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\UriInterface;
 /** @internal */
-class Request extends \LapostaApi\Http\Message implements RequestInterface
+class Request extends \LapostaApi230\Http\Message implements RequestInterface
 {
     /**
      * Constructor for the Request object

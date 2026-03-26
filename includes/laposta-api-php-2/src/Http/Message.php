@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Vendor\Psr\Http\Message\MessageInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\MessageInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
 /** @internal */
 abstract class Message implements MessageInterface
 {

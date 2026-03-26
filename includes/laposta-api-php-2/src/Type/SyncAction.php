@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Type;
+namespace LapostaApi230\Type;
 
 /**
  * Enum containing the supported actions when syncing list members.

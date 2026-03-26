@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Adapter\CurlAdapter;
-use LapostaApi\Exception\ClientException;
-use LapostaApi\Vendor\Psr\Http\Client\ClientInterface;
-use LapostaApi\Vendor\Psr\Http\Message\RequestInterface;
-use LapostaApi\Vendor\Psr\Http\Message\ResponseInterface;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Adapter\CurlAdapter;
+use LapostaApi230\Exception\ClientException;
+use LapostaApi230\Vendor\Psr\Http\Client\ClientInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\RequestInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\ResponseInterface;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
 /**
  * PSR-18 compatible HTTP client implementation using cURL
  * @internal
@@ -24,7 +24,7 @@ class Client implements ClientInterface
      * @param StreamFactory $streamFactory Optional custom stream factory
      * @param ResponseFactory $responseFactory Optional custom response factory
      */
-    public function __construct(protected CurlAdapter $curl = new CurlAdapter(), protected \LapostaApi\Http\StreamFactory $streamFactory = new \LapostaApi\Http\StreamFactory(), protected \LapostaApi\Http\ResponseFactory $responseFactory = new \LapostaApi\Http\ResponseFactory())
+    public function __construct(protected CurlAdapter $curl = new CurlAdapter(), protected \LapostaApi230\Http\StreamFactory $streamFactory = new \LapostaApi230\Http\StreamFactory(), protected \LapostaApi230\Http\ResponseFactory $responseFactory = new \LapostaApi230\Http\ResponseFactory())
     {
     }
     /**

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Adapter;
+namespace LapostaApi230\Adapter;
 
 /**
  * Adapter class for PHP's file stream functions.

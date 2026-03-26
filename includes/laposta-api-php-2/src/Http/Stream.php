@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace LapostaApi\Http;
+namespace LapostaApi230\Http;
 
-use LapostaApi\Adapter\StreamAdapter;
-use LapostaApi\Vendor\Psr\Http\Message\StreamInterface;
+use LapostaApi230\Adapter\StreamAdapter;
+use LapostaApi230\Vendor\Psr\Http\Message\StreamInterface;
 use RuntimeException;
 /** @internal */
 class Stream implements StreamInterface
