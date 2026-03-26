@@ -270,6 +270,8 @@ class DataService
         $this->emptyListFieldsCache();
         delete_transient(Plugin::TRANSIENT_LISTS);
         delete_transient(Plugin::TRANSIENT_STATUS);
+        $this->lists = null;
+        $this->status = null;
     }
 
     public function emptyListFieldsCache()

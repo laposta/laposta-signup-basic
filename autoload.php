@@ -1,10 +1,10 @@
 <?php
 
 /**
- * PSR-4 compatible autoloader for the Laposta API library.
+ * Primary runtime autoloader for the plugin classes plus the bundled Laposta API v2 library.
  *
- * This autoloader maps namespace prefixes to directory structures following
- * the PSR-4 standard (https://www.php-fig.org/psr/psr-4/).
+ * WordPress boots the plugin through laposta-signup-basic.php, which includes this file.
+ * In Composer-managed installs, the root project autoloader may also know this namespace.
  */
 
 spl_autoload_register(function ($class) {
@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
     foreach ($namespaces as $prefix => $baseDir) {
         // If the class starts with this namespace prefix
         if (strpos($class, $prefix) === 0) {
-            // Get the relative class path by remo`ving the namespace prefix
+            // Get the relative class path by removing the namespace prefix
             $relativeClass = substr($class, strlen($prefix));
 
             // Build the full file path by converting namespace separators to directory separators

@@ -143,10 +143,18 @@ export async function updateApiKey(page: Page, apiKey: string) {
   await page.locator('.notice-success').first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
 }
 
+export async function resetPluginCache(page: Page) {
+  const success = page.locator('.js-reset-result-success');
+  await page.locator('.js-reset-cache').click();
+  await success.waitFor({ state: 'visible', timeout: 10000 });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+}
+
 export async function resolveListId(page: Page, preferredListId?: string) {
   await page.goto('/wp-admin/options-general.php?page=laposta_signup_basic_settings');
   if (API_KEY) {
     await updateApiKey(page, API_KEY);
+    await resetPluginCache(page);
   }
   const listLinks = page.locator('.lsb-settings__lists .js-list');
   const count = await listLinks.count();

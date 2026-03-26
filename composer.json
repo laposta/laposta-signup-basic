@@ -1,0 +1,33 @@
+{
+    "name": "laposta/laposta-signup-basic",
+    "description": "WordPress plugin that adds customizable Laposta signup forms to your site.",
+    "type": "wordpress-plugin",
+    "license": "BSD-2-Clause",
+    "homepage": "https://docs.laposta.nl/article/546-installatie-van-laposta-signup-basic",
+    "authors": [
+        {
+            "name": "Laposta",
+            "homepage": "https://laposta.nl/contact"
+        }
+    ],
+    "keywords": [
+        "wordpress",
+        "plugin",
+        "laposta",
+        "newsletter",
+        "marketing",
+        "form",
+        "gdpr"
+    ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laposta\\SignupBasic\\": "src/"
+        }
+    },
+    "extra": {
+        "installer-name": "laposta-signup-basic"
+    }
+}
