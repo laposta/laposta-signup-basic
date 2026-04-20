@@ -35,7 +35,7 @@ spl_autoload_register(function ($class) {
 /**
  * Register the version-scoped Laposta API v2 autoloader.
  */
-if (PHP_VERSION_ID >= 80000) {
+if (PHP_VERSION_ID >= 80100) {
     spl_autoload_register(function ($class) {
         $prefixes = [
             'LapostaApi230\\Vendor\\Psr\\Http\\Client\\' => [

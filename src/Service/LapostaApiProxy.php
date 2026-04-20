@@ -9,8 +9,8 @@ use LapostaApi230\Laposta;
  * Proxy class to handle interaction with both v1.6 and v2 of the Laposta API wrapper
  *
  * This class provides a unified interface for both API versions:
- * - v1.6: Used for PHP < 8.0
- * - v2: Used for PHP >= 8.0
+ * - v1.6: Used for PHP < 8.1
+ * - v2: Used for PHP >= 8.1
  */
 class LapostaApiProxy
 {
@@ -34,7 +34,7 @@ class LapostaApiProxy
 
     public function __construct()
     {
-        $this->isV2 = PHP_VERSION_ID >= 80000;
+        $this->isV2 = PHP_VERSION_ID >= 80100;
     }
 
     /**

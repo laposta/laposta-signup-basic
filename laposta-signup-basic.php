@@ -6,7 +6,7 @@
 Plugin Name: Laposta Signup Basic
 Plugin URI: https://docs.laposta.nl/article/546-installatie-van-laposta-signup-basic
 Description: Easily create & send newsletters with Laposta. This plugin adds customizable signup forms to your site.
-Version: 3.3.0
+Version: 3.3.1
 Author: Laposta - Roel Bousardt
 Author URI: https://laposta.nl/contact
 Text Domain: laposta-signup-basic
@@ -49,7 +49,7 @@ if (!function_exists('add_action')) {
 }
 
 if (!defined('LAPOSTA_SIGNUP_BASIC_VERSION')) {
-    define('LAPOSTA_SIGNUP_BASIC_VERSION', '3.3.0');
+    define('LAPOSTA_SIGNUP_BASIC_VERSION', '3.3.1');
 }
 
 // Register the local namespace fallback autoloader and bundled API autoloader.
