@@ -23,6 +23,7 @@
  * @var array $fieldValues (sanitized)
  * @var string $globalErrorClass (sanitized)
  * @var string $successContainerClass (sanitized)
+ * @var string $formAriaLabel
  * @var string $fieldNameHoneypot
  * @var string $fieldNameNonce
  * @var string $nonce
@@ -44,7 +45,7 @@ use Laposta\SignupBasic\Plugin;
 <form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?> js-lsb-form"
       method="post"
       data-form-post-url="<?php echo $formPostUrl ?>"
-      role="form"
+      aria-label="<?php echo esc_attr($formAriaLabel) ?>"
       novalidate
 >
     <div class="<?php echo $formBodyClass ?>">
@@ -163,6 +164,7 @@ use Laposta\SignupBasic\Plugin;
                         placeholder="<?php echo $placeholder ?>"
                         aria-invalid="false"
                         aria-required="<?php if ($field['required']): ?>true<?php else: ?>false<?php endif ?>"
+                        aria-describedby="<?php echo $uniqueFieldKey.'_error' ?>"
                         <?php if ($autocompleteValue): ?>autocomplete="<?php echo esc_attr($autocompleteValue) ?>"<?php endif ?>
                         <?php if ($fieldType === 'number'): ?>step="any"<?php endif ?>
                     >
@@ -174,7 +176,7 @@ use Laposta\SignupBasic\Plugin;
         <?php endforeach; ?>
 
         <?php $fieldName = "lsb[$listId][$fieldNameHoneypot]"; ?>
-        <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;" tabindex="-1">
+        <input autocomplete="new-password" type="email" id="<?php echo $fieldName ?>" name="<?php echo $fieldName ?>" placeholder="Your work e-mail here" style="position:absolute;top:-9999px;left:-9999px;" tabindex="-1" aria-hidden="true">
 
         <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
         <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>" class="js-nonce-input">

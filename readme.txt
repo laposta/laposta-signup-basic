@@ -4,7 +4,7 @@ Tags: laposta, newsletters, marketing, form, GDPR
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 7.1
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: BSD 2-Clause License
 
 Laposta is a Dutch email marketing tool. Load your Laposta lists and render fields in a HTML form with custom styling.
@@ -59,6 +59,7 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 * Required indicator - 'laposta_signup_basic_filter_required_indicator': Modifies the required indicator at the end of the field label. The first argument is the indicator, the second is the list ID, and the third is an array of the field.
 * Field placeholder - 'laposta_signup_basic_filter_field_placeholder': Modifies the field placeholder. The first argument is the field placeholder, the second is the list ID, and the third is an array of the field.
 * Field default select option text - 'laposta_signup_basic_filter_default_select_option_text': Modifies the text of the default select option. The first argument is the default text, the second is the list ID, and the third is an array of the field.
+* Form ARIA label - 'laposta_signup_basic_filter_form_aria_label': Modifies the accessible label of the signup form. The first argument is the form ARIA label, the second is the list ID, and the third is an array of arguments provided in the shortcode.
 * Submit button text filter - 'laposta_signup_basic_filter_submit_button_text': Modifies the submit button text. The first argument is the button text, the second is the list ID, and the third is an array of arguments provided in the shortcode.
 * Success title filter - 'laposta_signup_basic_filter_success_title': Alters the success title text. The first argument is the success title, the second is the list ID, and the third is an array containing the submitted fields.
 * Success text filter - 'laposta_signup_basic_filter_success_text': Changes the success message text. The first argument is the success text, the second is the list ID, and the third is an array containing the submitted fields.
@@ -66,10 +67,13 @@ Please login to your admin dashboard and go to "Settings" -> "Laposta Signup Bas
 
 == Upgrade Notice ==
 
-= 3.3.2 =
-- Tested up to WordPress 7.0
+= 3.4.0 =
+- Improved signup form accessibility for screen readers and automated accessibility checks.
 
 == Changelog ==
+
+= 3.4.0 =
+- Improved signup form accessibility metadata by adding a translated and filterable form ARIA label, linking text inputs to their validation feedback, and hiding the honeypot field from assistive technology.
 
 = 3.3.2 =
 - Tested up to WordPress 7.0

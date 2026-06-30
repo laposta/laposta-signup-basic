@@ -139,6 +139,8 @@ class FormController extends BaseController
         }
 
         $nonceAction = $this->createNonceAction($listId);
+        $formAriaLabel = __('Newsletter signup form', 'laposta-signup-basic');
+        $formAriaLabel = apply_filters(Plugin::FILTER_FORM_ARIA_LABEL, $formAriaLabel, $listId, $atts);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
         $submitButtonText = $submitButtonText ?: esc_html__('Subscribe', 'laposta-signup-basic');
         $submitButtonText = apply_filters(Plugin::FILTER_SUBMIT_BUTTON_TEXT, $submitButtonText, $listId, $atts);
@@ -167,6 +169,7 @@ class FormController extends BaseController
             'fieldValues' => $fieldValues,
             'globalErrorClass' => $globalErrorClass,
             'successContainerClass' => $successContainerClass,
+            'formAriaLabel' => $formAriaLabel,
             'submitButtonText' => $submitButtonText,
             'fieldNameHoneypot' => self::FIELD_NAME_HONEYPOT,
             'fieldNameNonce' => self::FIELD_NAME_NONCE,

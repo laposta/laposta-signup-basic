@@ -56,6 +56,7 @@ class Plugin
     const FILTER_FIELD_LABEL = 'laposta_signup_basic_filter_field_label';
     const FILTER_FIELD_PLACEHOLDER = 'laposta_signup_basic_filter_field_placeholder';
     const FILTER_FIELD_DEFAULT_SELECT_OPTION_TEXT = 'laposta_signup_basic_filter_default_select_option_text';
+    const FILTER_FORM_ARIA_LABEL = 'laposta_signup_basic_filter_form_aria_label';
     const FILTER_SUBMIT_BUTTON_TEXT = 'laposta_signup_basic_filter_submit_button_text';
     const FILTER_SUCCESS_TITLE = 'laposta_signup_basic_filter_success_title';
     const FILTER_SUCCESS_TEXT = 'laposta_signup_basic_filter_success_text';

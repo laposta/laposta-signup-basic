@@ -24,6 +24,10 @@ msgstr ""
 msgid "list_id is missing"
 msgstr "list_id ontbreekt"
 
+#: src/Controller/FormController.php:142
+msgid "Newsletter signup form"
+msgstr "Nieuwsbrief aanmeldformulier"
+
 #: src/Controller/FormController.php:142 templates/settings/settings.php:473
 msgid "Subscribe"
 msgstr "Abonneer"
