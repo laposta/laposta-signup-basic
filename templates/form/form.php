@@ -28,6 +28,10 @@
  * @var string $fieldNameNonce
  * @var string $nonce
  * @var string $formPostUrl
+ * @var string $fieldNameToken
+ * @var string $fieldNamePow
+ * @var string $tokenUrl (empty when the account id is unknown)
+ * @var string $powUrl (empty when the account id is unknown)
  */
 
 $visualHiddenClass = 'lsb-visually-hidden';
@@ -45,6 +49,8 @@ use Laposta\SignupBasic\Plugin;
 <form class="<?php echo $formClass ?> lsb-list-id-<?php echo $listId ?> js-lsb-form"
       method="post"
       data-form-post-url="<?php echo $formPostUrl ?>"
+      data-token-url="<?php echo esc_attr($tokenUrl) ?>"
+      data-pow-url="<?php echo esc_attr($powUrl) ?>"
       aria-label="<?php echo esc_attr($formAriaLabel) ?>"
       novalidate
 >
@@ -180,6 +186,12 @@ use Laposta\SignupBasic\Plugin;
 
         <?php $fieldName = "lsb[$listId][$fieldNameNonce]"; ?>
         <input type="hidden" name="<?php echo $fieldName ?>" value="<?php echo $nonce ?>" class="js-nonce-input">
+
+        <?php // filled by the JS on submit with the Laposta spam protection proof ?>
+        <?php $fieldName = "lsb[$listId][$fieldNameToken]"; ?>
+        <input type="hidden" name="<?php echo $fieldName ?>" value="" class="js-token-input">
+        <?php $fieldName = "lsb[$listId][$fieldNamePow]"; ?>
+        <input type="hidden" name="<?php echo $fieldName ?>" value="" class="js-pow-input">
 
         <div class="<?php echo $globalErrorClass ?> <?php echo $visualHiddenClass ?>" role="alert"></div>
 

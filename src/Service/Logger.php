@@ -76,4 +76,25 @@ class Logger
             error_log($message);
         }
     }
+
+    /**
+     * @param string $message
+     * @param array $data
+     */
+    public static function logInfo(string $message, array $data = []): void
+    {
+        if (!self::$isEnabled) {
+            return;
+        }
+
+        $dataString = '';
+        if ($data && function_exists('json_encode')) {
+            $encodedData = json_encode($data);
+            if ($encodedData) {
+                $dataString = ', data: '.$encodedData;
+            }
+        }
+
+        error_log(self::$messagePrefix.'info: '.$message.$dataString);
+    }
 }

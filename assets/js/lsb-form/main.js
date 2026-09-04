@@ -6,7 +6,123 @@
   var SELECTOR_CHECKBOX_INPUT = '.lsb-form-check-input';
   var SELECTOR_FIELD_ERROR = '.lsb-form-field-error-feedback';
 
+  // Laposta spam protection: a single-use token (with behavioural signals signed into it) is
+  // requested from the Laposta form service on submit and the proof of work that comes with it
+  // is solved in the browser; both travel with the form to the API. The visitor is never
+  // delayed for long: without a proof the submission is sent anyway.
+  var TOKEN_WAIT_MS = 2500;
+  var POW_WAIT_MS = 8000;
+
   var lsb = {};
+
+  // pointer or touch activity anywhere on the page, shared by all forms
+  lsb.pointerSeen = false;
+  lsb.watchPointer = function() {
+    var events = ['pointerdown', 'mousedown', 'mousemove', 'touchstart'];
+    var seen = function(event) {
+      if (event.isTrusted === false) return;
+      lsb.pointerSeen = true;
+      for (var i = 0; i < events.length; i++) document.removeEventListener(events[i], seen);
+    };
+    for (var i = 0; i < events.length; i++) document.addEventListener(events[i], seen);
+  };
+
+  // field interaction per form: focus/input/keydown on a visible field
+  lsb.watchInteraction = function(form) {
+    var mark = function(event) {
+      if (event.isTrusted === false) return;
+      if (event.target && event.target.type === 'hidden') return;
+      form.lsbInteracted = true;
+      if (!form.lsbFirstInteractionAt) form.lsbFirstInteractionAt = new Date().getTime();
+    };
+    form.addEventListener('focusin', mark);
+    form.addEventListener('input', mark);
+    form.addEventListener('keydown', mark);
+  };
+
+  // the compact "i.p.w.c.t" signal string the Laposta server verifies
+  lsb.behaviourValue = function(form) {
+    var nav = typeof navigator !== 'undefined' ? navigator : null;
+    var headless = !!(nav && nav.userAgent && nav.userAgent.indexOf('Chrome/') !== -1 && !window.chrome);
+    return [
+      form.lsbInteracted ? 1 : 0,
+      lsb.pointerSeen ? 1 : 0,
+      (nav && nav.webdriver) ? 1 : 0,
+      headless ? 1 : 0,
+      Math.min(Math.max(0, form.lsbFirstInteractionAt ? new Date().getTime() - form.lsbFirstInteractionAt : 0), 9999999)
+    ].join('.');
+  };
+
+  lsb.loadSolver = function(powUrl) {
+    if (!powUrl || window.LapostaPow || lsb.solverRequested) return;
+    lsb.solverRequested = true;
+    try {
+      var script = document.createElement('script');
+      script.src = powUrl;
+      script.async = true;
+      document.head.appendChild(script);
+    } catch (error) {}
+  };
+
+  // resolves to {token, challenge} or null, never rejects
+  lsb.requestToken = function(tokenUrl, behaviour) {
+    if (!tokenUrl || !window.fetch) return null;
+    var url = tokenUrl + '&b=' + encodeURIComponent(behaviour);
+    return fetch(url, { credentials: 'omit', headers: { 'Accept': 'application/json' } })
+      .then(function(response) {
+        if (!response.ok) throw new Error('Token request failed');
+        return response.json();
+      })
+      .then(function(response) {
+        if (!response || !response.token) return null;
+        return { token: response.token, challenge: response.challenge || null };
+      })
+      .catch(function() {
+        return null;
+      });
+  };
+
+  // fills the token and proof-of-work inputs of the form, then calls done() exactly once
+  lsb.prepareProof = function($form, done) {
+    var form = $form[0];
+    var $tokenInput = $form.find('.js-token-input');
+    var $powInput = $form.find('.js-pow-input');
+    if ($tokenInput.length) $tokenInput.val('');
+    if ($powInput.length) $powInput.val('');
+
+    var finished = false;
+    var totalTimer = window.setTimeout(finish, TOKEN_WAIT_MS + POW_WAIT_MS);
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(totalTimer);
+      done();
+    }
+
+    var request = lsb.requestToken($form.data('tokenUrl'), lsb.behaviourValue(form));
+    if (!request) { finish(); return; }
+
+    request.then(function(result) {
+      if (finished) return;
+      if (!result || !result.token) { finish(); return; }
+
+      if ($tokenInput.length) $tokenInput.val(result.token);
+      if (result.challenge && window.LapostaPow) {
+        try {
+          window.LapostaPow.solve(result.challenge.salt, result.challenge.difficulty, function(solution) {
+            if (finished) return;
+            if (solution && $powInput.length) $powInput.val(solution);
+            finish();
+          }, { maxMs: POW_WAIT_MS });
+        } catch (error) {
+          finish();
+        }
+      } else {
+        finish();
+      }
+    }, finish);
+  };
 
   lsb.getElementValue = function($element) {
     if (!$element.length) return null;
@@ -177,6 +293,50 @@
 
 
     var url = $form.data('formPostUrl');
+    lsb.prepareProof($form, function() {
+      lsb.postForm($form, url, doOnSuccess, doOnError);
+    });
+
+    function doOnSuccess(html) {
+      $form.find('.lsb-form-body').remove();
+      var $successMessageContainer = $form.find('.lsb-form-success-container');
+      $successMessageContainer
+        .html(html)
+        .removeClass(CLASS_VISUALLY_HIDDEN);
+
+      var containerTop = $successMessageContainer.offset().top;
+      var windowTop = $(window).scrollTop();
+      var windowHeight = $(window).height();
+
+      var $header = $('header');
+      var headerHeight = 0;
+      if ($header.length) {
+        var headerPosition = $header.css('position');
+        if (headerPosition === 'fixed' || headerPosition === 'absolute') {
+          headerHeight = $header.outerHeight();
+        }
+      }
+
+      if (containerTop < windowTop || containerTop > (windowTop + windowHeight)) {
+        $('html, body').animate({
+          scrollTop: containerTop - headerHeight - 20
+        }, 'smooth');
+      }
+    }
+
+    function doOnError(html) {
+      lsb.showGlobalError($form, html);
+      $loader.hide();
+      $loaderAria.text('');
+      $submitButton.removeAttr('disabled');
+      $submitButton.removeAttr('aria-disabled');
+      $submitButton[0].disabled = 0;
+    }
+  }
+
+  lsb.postForm = function($form, url, doOnSuccess, doOnError) {
+    var defaultErrorMessage = lsbConfig.trans['global.unknown_error'];
+    var $nonceInput = $form.find('.js-nonce-input');
     var data = $form.serialize();
     $.ajax({
       data: data,
@@ -217,45 +377,19 @@
         doOnError(defaultErrorMessage)
       }
     });
-
-    function doOnSuccess(html) {
-      $form.find('.lsb-form-body').remove();
-      var $successMessageContainer = $form.find('.lsb-form-success-container');
-      $successMessageContainer
-        .html(html)
-        .removeClass(CLASS_VISUALLY_HIDDEN);
-
-      var containerTop = $successMessageContainer.offset().top;
-      var windowTop = $(window).scrollTop();
-      var windowHeight = $(window).height();
-
-      var $header = $('header');
-      var headerHeight = 0;
-      if ($header.length) {
-        var headerPosition = $header.css('position');
-        if (headerPosition === 'fixed' || headerPosition === 'absolute') {
-          headerHeight = $header.outerHeight();
-        }
-      }
-
-      if (containerTop < windowTop || containerTop > (windowTop + windowHeight)) {
-        $('html, body').animate({
-          scrollTop: containerTop - headerHeight - 20
-        }, 'smooth');
-      }
-    }
-
-    function doOnError(html) {
-      lsb.showGlobalError($form, html);
-      $loader.hide();
-      $loaderAria.text('');
-      $submitButton.removeAttr('disabled');
-      $submitButton.removeAttr('aria-disabled');
-      $submitButton[0].disabled = 0;
-    }
   }
 
   $(function() {
+    // spam protection: behavioural signals and the proof-of-work solver
+    var $forms = $(SELECTOR_FORM);
+    if ($forms.length) {
+      lsb.watchPointer();
+      $forms.each(function() {
+        lsb.watchInteraction(this);
+      });
+      lsb.loadSolver($forms.first().data('powUrl'));
+    }
+
     // submit form
     $('body').on('submit', SELECTOR_FORM, function(e) {
       e.preventDefault();

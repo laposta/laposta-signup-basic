@@ -175,6 +175,29 @@ class DataService
     }
 
     /**
+     * The Laposta account id a list belongs to (part of the cached list objects), needed for
+     * the spam protection token request from the visitor's browser. Null when unknown.
+     *
+     * @param string $listId
+     *
+     * @return string|null
+     */
+    public function getAccountId(string $listId): ?string
+    {
+        $lists = $this->getLists();
+        if (!$lists) {
+            return null;
+        }
+        foreach ($lists as $list) {
+            if (($list['list_id'] ?? null) === $listId && !empty($list['account_id'])) {
+                return (string) $list['account_id'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns either an array of fields with in_form: true or an array with top level key error ['error' => []]
      * Note that the field object is enriched with 'key' which is the tag without the {{}}
      *

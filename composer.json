@@ -27,6 +27,9 @@
             "Laposta\\SignupBasic\\": "src/"
         }
     },
+    "scripts": {
+        "test:unit": "php tests/php/run.php"
+    },
     "extra": {
         "installer-name": "laposta-signup-basic"
     }

@@ -5,8 +5,10 @@ namespace Laposta\SignupBasic\Controller;
 use Laposta\SignupBasic\Container\Container;
 use Laposta\SignupBasic\Exception\LapostaApiException;
 use Laposta\SignupBasic\Plugin;
+use Laposta\SignupBasic\Service\ApiErrorClassifier;
 use Laposta\SignupBasic\Service\DataService;
 use Laposta\SignupBasic\Service\Logger;
+use Laposta\SignupBasic\Service\MemberSubmissionPayload;
 use Laposta\SignupBasic\Service\RequestHelper;
 
 class FormController extends BaseController
@@ -18,6 +20,12 @@ class FormController extends BaseController
 
     const FIELD_NAME_HONEYPOT = 'email987123';
     const FIELD_NAME_NONCE = 'nonce';
+
+    // Laposta spam protection: single-use token and proof of work obtained by the visitor's
+    // browser from the Laposta form service and forwarded with the API call
+    const FIELD_NAME_TOKEN = 'subscribe_token';
+    const FIELD_NAME_POW = 'subscribe_pow';
+    const SPAM_SERVICE_URL = 'https://res.email-provider.eu/subscribe/check/';
 
     public function __construct(Container $container)
     {
@@ -139,6 +147,17 @@ class FormController extends BaseController
         }
 
         $nonceAction = $this->createNonceAction($listId);
+
+        // token and solver URLs for the spam protection; without a known account id the form
+        // still works, the API then checks the submission without the browser proof
+        $accountId = $dataService->getAccountId($listId);
+        $tokenUrl = '';
+        $powUrl = '';
+        if ($accountId) {
+            $tokenUrl = self::SPAM_SERVICE_URL.'token.php?'.http_build_query(['a' => $accountId, 'l' => $listId, 'p' => 1]);
+            $powUrl = self::SPAM_SERVICE_URL.'pow.js';
+        }
+
         $formAriaLabel = __('Newsletter signup form', 'laposta-signup-basic');
         $formAriaLabel = apply_filters(Plugin::FILTER_FORM_ARIA_LABEL, $formAriaLabel, $listId, $atts);
         $submitButtonText = trim(esc_html(get_option(Plugin::OPTION_SUBMIT_BUTTON_TEXT)));
@@ -175,6 +194,10 @@ class FormController extends BaseController
             'fieldNameNonce' => self::FIELD_NAME_NONCE,
             'nonce' => wp_create_nonce($nonceAction),
             'formPostUrl' => LAPOSTA_SIGNUP_BASIC_AJAX_URL.'&route=form_submit',
+            'fieldNameToken' => self::FIELD_NAME_TOKEN,
+            'fieldNamePow' => self::FIELD_NAME_POW,
+            'tokenUrl' => $tokenUrl,
+            'powUrl' => $powUrl,
         ]);
     }
 
@@ -223,6 +246,10 @@ class FormController extends BaseController
             ]);
         }
 
+        // the spam protection proof from the browser (may be absent: slow device, blocked request)
+        $proofToken = $submittedFieldValues[self::FIELD_NAME_TOKEN] ?? null;
+        $proofPow = $submittedFieldValues[self::FIELD_NAME_POW] ?? null;
+
         // keep the actual api form field values
         $fieldValues = [];
         foreach ($listFields as $field) {
@@ -231,45 +258,20 @@ class FormController extends BaseController
         $submittedFieldValues = array_intersect_key($submittedFieldValues, $fieldValues);
         try {
             $dataService->initLaposta();
-            $result = $this->c->getLapostaApiProxy()->createMember($listId, array(
-                'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
-                'email' => $submittedFieldValues['email'],
-                'source_url' => $_SERVER['HTTP_REFERER'] ?? null,
-                'custom_fields' => $submittedFieldValues,
-                'options' => [
-                    'upsert' => true,
-                ],
-            ));
+            $memberData = MemberSubmissionPayload::build(
+                $this->getVisitorIp(),
+                $submittedFieldValues['email'],
+                $_SERVER['HTTP_REFERER'] ?? null,
+                $_SERVER['HTTP_USER_AGENT'] ?? null,
+                $submittedFieldValues,
+                $proofToken,
+                $proofPow
+            );
+            $result = $this->c->getLapostaApiProxy()->createMember($listId, $memberData);
 
-			$successWrapperClass = 'lsb-success';
-			$successTitleClass = 'lsb-success-title';
-			$successTextClass = 'lsb-success-text';
-			$addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
-			if ($addClasses) {
-                $successWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
-                $successTitleClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
-                $successTextClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
-			}
-
-            $successTitle = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TITLE)));
-            $successTitle = $successTitle ?: esc_html__('Successfully subscribed', 'laposta-signup-basic');
-            $successText = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)));
-            $successText = $successText ?: esc_html__('You have been successfully subscribed.', 'laposta-signup-basic');
-            $successText = nl2br($successText);
-
-            $successTitle = apply_filters(Plugin::FILTER_SUCCESS_TITLE, $successTitle, $listId, $submittedFieldValues);
-            $successText = apply_filters(Plugin::FILTER_SUCCESS_TEXT, $successText, $listId, $submittedFieldValues);
-
-            $html = $this->getRenderedTemplate('/form/form-success.php', [
-                'successWrapperClass' => $successWrapperClass,
-                'successTitleClass' => $successTitleClass,
-                'successTextClass' => $successTextClass,
-                'successTitle' => $successTitle,
-                'successText' => $successText,
-            ]);
             RequestHelper::returnJson([
                 'status' => 'success',
-                'html' => $html,
+                'html' => $this->renderSuccessHtml($listId, $submittedFieldValues),
             ]);
         }
         catch (LapostaApiException $e) {
@@ -284,6 +286,19 @@ class FormController extends BaseController
 
             if ($originalException && method_exists($originalException, 'getResponseData') && isset($originalException->getResponseData()['error'])) {
                 $error = $originalException->getResponseData()['error'];
+            }
+
+            if (ApiErrorClassifier::isFormSpamRejection($error)) {
+                // Laposta rejected the submission as spam. Show the normal success message so
+                // the visitor cannot tell it was rejected; no member or mail was created.
+                Logger::logInfo(
+                    'signup rejected by Laposta spam protection (API code 211); success shown to visitor',
+                    ['list_id' => $listId]
+                );
+                RequestHelper::returnJson([
+                    'status' => 'success',
+                    'html' => $this->renderSuccessHtml($listId, $submittedFieldValues),
+                ]);
             }
 
             if ($error && $error['type'] === 'invalid_input') {
@@ -313,6 +328,68 @@ class FormController extends BaseController
                 'html' => $globalErrorMessage
             ]);
         }
+    }
+
+    /**
+     * The visitor's IP address as passed to the Laposta API. Behind Cloudflare or another
+     * reverse proxy REMOTE_ADDR is the proxy, so the forwarded headers are preferred: the
+     * Cloudflare header first, then the first public address in X-Forwarded-For. Laposta uses
+     * the IP for its spam checks only when it is a public address that differs from the
+     * server address, so a wrong value costs nothing more than a skipped IP check.
+     *
+     * @return string|null
+     */
+    protected function getVisitorIp(): ?string
+    {
+        $candidates = [];
+        if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+            $candidates[] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            foreach (explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $forwarded) {
+                $candidates[] = $forwarded;
+            }
+        }
+        foreach ($candidates as $candidate) {
+            $candidate = trim($candidate);
+            if (filter_var($candidate, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                return $candidate;
+            }
+        }
+
+        $remote = trim($_SERVER['REMOTE_ADDR'] ?? '');
+
+        return $remote !== '' ? $remote : null;
+    }
+
+    protected function renderSuccessHtml(string $listId, array $submittedFieldValues): string
+    {
+        $successWrapperClass = 'lsb-success';
+        $successTitleClass = 'lsb-success-title';
+        $successTextClass = 'lsb-success-text';
+        $addClasses = get_option(Plugin::OPTION_ADD_CLASSES, '') !== '0'; // if unset, load extra classes, best BC option
+        if ($addClasses) {
+            $successWrapperClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_WRAPPER, ''));
+            $successTitleClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TITLE, ''));
+            $successTextClass .= ' '.esc_html(get_option(Plugin::OPTION_CLASS_SUCCESS_TEXT, ''));
+        }
+
+        $successTitle = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TITLE)));
+        $successTitle = $successTitle ?: esc_html__('Successfully subscribed', 'laposta-signup-basic');
+        $successText = trim(esc_html(get_option(Plugin::OPTION_SUCCESS_TEXT)));
+        $successText = $successText ?: esc_html__('You have been successfully subscribed.', 'laposta-signup-basic');
+        $successText = nl2br($successText);
+
+        $successTitle = apply_filters(Plugin::FILTER_SUCCESS_TITLE, $successTitle, $listId, $submittedFieldValues);
+        $successText = apply_filters(Plugin::FILTER_SUCCESS_TEXT, $successText, $listId, $submittedFieldValues);
+
+        return $this->getRenderedTemplate('/form/form-success.php', [
+            'successWrapperClass' => $successWrapperClass,
+            'successTitleClass' => $successTitleClass,
+            'successTextClass' => $successTextClass,
+            'successTitle' => $successTitle,
+            'successText' => $successText,
+        ]);
     }
 
     public function addAssets(bool $addDefaultStyling, array $jsClasses = [])
